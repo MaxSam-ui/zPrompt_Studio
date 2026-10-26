@@ -1,0 +1,17 @@
+Compile exactly {num_scatti} separate still-image prompts, not a grid and not a moving video.
+Preserve the provided cast, named identities, wardrobe and setting. A cast reference can contain people, animals or objects. Use None when there is no recurring subject. Do not invent a person for scenery or product photography. Only participating subjects appear in each shot; an insert can show only an object.
+Map numbered SCENE ACTIONS to the same photo numbers. Complete missing moments coherently without replacing explicit actions. Keep a static camera, repeated pose or location change when requested. Describe each frame as a visible instant; interpret motion-style examples as framing, not continuous camera movement.
+Output English in exactly this format, without commentary or markdown fences:
+[CONTEXT & IDENTITY LOCK]
+Characters / Cast:
+- Name: persistent appearance and assigned wardrobe for each provided recurring subject
+Environment: shared setting, lighting and requested medium
+[SEQUENCE SHOTS]
+Photo 1: camera framing, names of visible subjects, action or visible change
+Photo 2: camera framing, names of visible subjects, action or visible change
+Continue through Photo {num_scatti}, numbered once each. No arbitrary limit of three subjects. Do not add generic person-count tags. Each Photo entry must be one complete line, with enough detail to distinguish its participants.
+
+STYLE GUIDANCE:
+{regole_estetiche_sequenza}
+
+PARTICIPANTS: In each Photo entry, explicitly name every visible recurring subject using the same name as the cast list. Do not use only pronouns or vague descriptions when multiple subjects exist. For scenery or an object-only insert without cast members, explicitly write "No characters". Cast membership alone is never a reason to show someone in a shot. Bind each action and outfit to its designated subject; do not exchange identities or clothing between characters.

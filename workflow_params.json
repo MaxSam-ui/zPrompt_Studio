@@ -1,0 +1,87 @@
+{
+  "zimage": {
+    "auraflow_shift": 5,
+    "hires_base_max": 768,
+    "hires_upscale_method": "nearest-exact",
+    "default_cfg": 1.0
+  },
+  "flux2": {
+    "default_cfg": 1.0
+  },
+  "krea2": {
+    "enhancer": {
+      "enabled": true,
+      "strength": 1.5,
+      "debug": false
+    },
+    "pass1_sampler": {
+      "eta": 0.0,
+      "steps_to_run": -1,
+      "sampler_mode": "standard",
+      "bongmath": true,
+      "cfg": 1.0,
+      "denoise": 1.0
+    },
+    "pass2_sampler": {
+      "eta": 0.9,
+      "steps_to_run": 2,
+      "sampler_name": "exponential/res_2s",
+      "scheduler": "bong_tangent",
+      "denoise": 0.2,
+      "cfg": 1.0,
+      "sampler_mode": "standard",
+      "bongmath": true
+    }
+  },
+  "krea2_edit": {
+    "resize": {
+      "resize_type": "scale height",
+      "scale_method": "area"
+    },
+    "tiled_vae": {
+      "upscale": -1,
+      "tile": false,
+      "tile_size": 512,
+      "overlap": 64,
+      "temporal_size": 4096,
+      "temporal_overlap": 64
+    }
+  },
+  "ltx_video": {
+    "stability_prefix": "",
+    "fallback_negative_prompt": "unintended temporal flicker, accidental duplicate subjects, broken object continuity, compression artifacts, unintended watermark",
+    "pass1_sigmas": "1.0, 0.99375, 0.9875, 0.98125, 0.975, 0.909375, 0.725, 0.421875, 0.0",
+    "pass2_sigmas": "0.85, 0.7250, 0.4219, 0.0",
+    "preview_rate": 8,
+    "feedforward": {
+      "chunks": 1,
+      "dim_threshold": 2048
+    },
+    "tiled_vae": {
+      "tile_size": 512,
+      "overlap": 64,
+      "temporal_size": 512,
+      "temporal_overlap": 16
+    },
+    "guide_resize": {
+      "scale_method": "lanczos",
+      "crop": "center"
+    },
+    "video_format": {
+      "bit_depth": 8,
+      "device": "main_device"
+    }
+  },
+  "minimax_h3": {
+    "default_steps": 8,
+    "default_denoise": 1.0,
+    "default_scheduler": "beta",
+    "shift_video": 12,
+    "shift_audio": 3,
+    "sampler_name": "dual_clock_euler",
+    "video_format": {
+      "crf": 19,
+      "pix_fmt": "yuv420p"
+    }
+  }
+}

@@ -1,0 +1,3 @@
+html.studio-drawers-enabled #main-tabs-container .studio-settings-panel { display: none !important; }
+html.studio-drawers-enabled #main-tabs-container .studio-settings-panel.studio-drawer-open { display: flex !important; position: fixed !important; top:0; right:0; bottom:0; width:560px; z-index:10001; background:#161c26; padding:24px; overflow:auto; }
+html:not(.studio-drawers-enabled) #main-tabs-container .studio-drawer-trigger { display:none !important; }

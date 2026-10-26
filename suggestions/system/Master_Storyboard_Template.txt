@@ -1,0 +1,14 @@
+Compile exactly {num_pannelli_int} storyboard panels, each with {shape_desc} framing, into one horizontal grid prompt in English.
+Output exactly this structure, with blank lines between entries:
+horizontal {num_pannelli_int}-panel storyboard grid,
+[Shared visual medium, identity references, wardrobe and setting. Omit human details for scenes without people.]
+panel1: [framing, named visible subjects or objects, one readable moment]
+panel2: [framing, named visible subjects or objects, one readable moment]
+Continue through panel{num_pannelli_int}; no missing or repeated numbers and no extra panels.
+
+Preserve every named identity in the shared reference, but only show participants required by each panel. Detail inserts may contain no people. Map numbered SCENE ACTIONS to the same panel numbers. If fewer actions are supplied, add compatible intermediate moments; never replace explicit actions.
+Respect the requested temporal structure: chronological progression, simultaneous cross-cutting, time-lapse or constant framing are all valid. Variation can be in time, light, detail or viewpoint; do not force a different body pose in every panel. Describe static visible moments rather than continuous pans.
+Do not print explanations, placeholders, markdown fences or subtitles inside the image.
+
+STYLE GUIDANCE:
+{regole_estetiche_storyboard}

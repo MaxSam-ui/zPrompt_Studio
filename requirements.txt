@@ -1,0 +1,46 @@
+-c constraints-win-py311.txt
+# =========================================================================
+# 1. PYTORCH CUDA 12.4 (GPU Acceleration)
+# =========================================================================
+--extra-index-url https://download.pytorch.org/whl/cu124
+torch==2.6.0+cu124
+torchvision==0.21.0+cu124
+torchaudio==2.6.0+cu124
+
+# =========================================================================
+# 2. CORE WEB INTERFACE (Gradio & UI)
+# =========================================================================
+gradio==6.15.2
+
+# =========================================================================
+# 3. HUGGING FACE & LOCAL VLM MODELS (Transformers & Quantization)
+# =========================================================================
+transformers==5.10.2
+accelerate==1.13.0
+bitsandbytes==0.49.2
+huggingface-hub==1.17.0
+safetensors==0.7.0
+
+# =========================================================================
+# 4. TEXT PROCESSING & TOKENIZERS (Qwen3-VL & Gemma series)
+# =========================================================================
+tiktoken==0.13.0
+sentencepiece==0.2.1
+# compressed-tensors and qwen-vl-utils are not used by the current loader.
+# Pre-quantized models requiring other backends need separate compatibility checks.
+
+# =========================================================================
+# 5. MEDIA PROCESSING (Images, Matrices & Frame Extension)
+# =========================================================================
+Pillow==12.2.0
+numpy==2.4.4
+opencv-python==4.13.0.92
+
+# =========================================================================
+# 6. SYSTEM UTILITIES, NETWORK & DIAGNOSTICS
+# =========================================================================
+psutil==7.2.2
+requests==2.34.2
+websocket-client==1.9.0
+loguru==0.7.3
+sympy==1.13.1

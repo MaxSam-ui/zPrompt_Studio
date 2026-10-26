@@ -1,0 +1,10 @@
+TASK AND OUTPUT CONTRACT:
+{sistema_prompt}
+
+CURRENT DESCRIPTION:
+{descrizione_corrente}
+
+REQUESTED CHANGES OR COMPILATION FORMAT:
+{istruzioni_affinamento}
+
+Return only the requested result in English, preserving proper names, literal trigger words and the language of requested signs/dialogue. Apply explicit changes while retaining unaffected identities and scene facts. Follow the requested output format exactly: if a storyboard or sequence is requested, keep its numbered entries and shared context; otherwise return the revised image description. Do not add an introduction or generic quality slogans.

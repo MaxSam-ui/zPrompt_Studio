@@ -1,0 +1,1325 @@
+/* ui/style.css */
+
+/* =========================================================================
+   1. SFONDO E STRUTTURA GLOBALE
+   ========================================================================= */
+.gradio-container {
+    background: linear-gradient(135deg, #090a14 0%, #05060c 100%) !important;
+    font-family: 'Segoe UI', -apple-system, system-ui, sans-serif;
+    color: #f1f5f9 !important;
+    animation: fadeIn 0.6s ease-out;
+    
+    --panel-border: rgba(255, 255, 255, 0.08);
+    --accent-blue: #3b82f6;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(4px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Scrollbar sottile e scura (Webkit) */
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.03);
+}
+::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.15);
+    border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 255, 255, 0.25);
+}
+
+/* Firefox */
+* {
+    scrollbar-width: thin;
+    scrollbar-color: rgba(255, 255, 255, 0.15) rgba(255, 255, 255, 0.03);
+}
+
+.barra-risorse {
+    background: rgba(255, 255, 255, 0.03) !important;
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.08) !important;
+    border-radius: 12px !important;
+    padding: 12px 24px !important;
+    margin-bottom: 28px !important;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3) !important;
+    display: flex !important;
+    align-items: center !important;
+    overflow: hidden !important;
+    white-space: nowrap !important;
+    transition: all 0.3s ease;
+}
+.barra-risorse:hover {
+    box-shadow: 0 8px 32px rgba(59, 130, 246, 0.08) !important;
+}
+
+/* Pulsazione attivita barra superiore */
+.barra-risorse.lavoro-attivo {
+    border-color: rgba(59, 130, 246, 0.6) !important;
+    box-shadow: 0 0 20px rgba(59, 130, 246, 0.25) !important;
+    animation: pulseLavoro 1.8s infinite ease-in-out !important;
+}
+
+@keyframes pulseLavoro {
+    0% {
+        border-color: rgba(59, 130, 246, 0.3);
+        box-shadow: 0 0 15px rgba(59, 130, 246, 0.15);
+    }
+    50% {
+        border-color: rgba(59, 130, 246, 0.8);
+        box-shadow: 0 0 25px rgba(59, 130, 246, 0.4);
+        background: rgba(59, 130, 246, 0.05) !important;
+    }
+    100% {
+        border-color: rgba(59, 130, 246, 0.3);
+        box-shadow: 0 0 15px rgba(59, 130, 246, 0.15);
+    }
+}
+
+/* Cornice neon pulsante intorno alla linguetta attiva */
+.lavoro-attivo-tabs .tab-nav button.selected,
+.lavoro-attivo-tabs .gr-tab-nav button.selected,
+.lavoro-attivo-tabs gr-tab-nav button.selected,
+.gradio-container:has(.lavoro-attivo) .tab-nav button.selected,
+.gradio-container:has(.lavoro-attivo) .gr-tab-nav button.selected,
+.gradio-container:has(.lavoro-attivo) gr-tab-nav button.selected {
+    border: 1px solid rgba(59, 130, 246, 0.8) !important;
+    box-shadow: 0 0 12px rgba(59, 130, 246, 0.3), 0 0 0 1px rgba(59, 130, 246, 0.3) inset !important;
+    animation: pulseLinguetta 1.8s infinite ease-in-out !important;
+    transition: all 0.2s ease-in-out;
+}
+
+@keyframes pulseLinguetta {
+    0% {
+        border-color: rgba(59, 130, 246, 0.3);
+        box-shadow: 0 0 8px rgba(59, 130, 246, 0.15);
+    }
+    50% {
+        border-color: rgba(59, 130, 246, 0.8);
+        box-shadow: 0 0 18px rgba(59, 130, 246, 0.5), 0 0 0 1px rgba(59, 130, 246, 0.2) inset !important;
+        background: rgba(59, 130, 246, 0.18) !important;
+    }
+    100% {
+        border-color: rgba(59, 130, 246, 0.3);
+        box-shadow: 0 0 8px rgba(59, 130, 246, 0.15);
+    }
+}
+
+.barra-risorse .col, .barra-risorse div, .barra-risorse p {
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+}
+
+#titolo-grande-app {
+    overflow: hidden !important;
+}
+
+#titolo-grande-app h1 {
+    font-size: 2.0em !important;
+    font-weight: 700 !important;
+    color: #ffffff !important;
+    margin: 0 !important;
+    white-space: nowrap !important;
+    letter-spacing: -0.01em;
+    text-shadow: 0 0 20px rgba(59, 130, 246, 0.15);
+    animation: titleGlow 3s ease-in-out infinite alternate;
+}
+@keyframes titleGlow {
+    from { text-shadow: 0 0 20px rgba(59, 130, 246, 0.15); }
+    to { text-shadow: 0 0 30px rgba(59, 130, 246, 0.3); }
+}
+
+.barra-risorse .col {
+    display: flex !important;
+    align-items: center !important;
+}
+
+.barra-risorse span, .barra-risorse p, .barra-risorse div {
+    white-space: nowrap !important;
+    margin: 0 !important;
+}
+
+/* =========================================================================
+   2. UNIFORMITÀ COLONNE
+   ========================================================================= */
+.gradio-container .tabitem > .row {
+    display: flex !important;
+    align-items: stretch !important;
+    gap: 16px !important;
+    animation: fadeIn 0.5s ease-out;
+}
+
+.gradio-container .tabitem > .row > .col {
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+    padding: 0 !important;
+    margin: 0 !important;
+}
+
+.analisi-col-box {
+    background: rgba(255, 255, 255, 0.03) !important;
+    border: 1px solid rgba(255, 255, 255, 0.08) !important;
+    border-radius: 12px !important;
+    padding: 20px !important;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3), 0 0 0 1px rgba(255,255,255,0.02) inset !important;
+    margin-bottom: 0 !important;
+    display: flex !important;
+    flex-direction: column !important;
+    transition: box-shadow 0.3s ease, border-color 0.3s ease;
+}
+.analisi-col-box:hover {
+    border-color: rgba(255, 255, 255, 0.12) !important;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(255,255,255,0.04) inset !important;
+}
+
+.analisi-destra-box {
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: flex-start !important; 
+    height: 100% !important;
+}
+
+#colonna-destra-rendering,
+#colonna-destra-batch {
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: flex-start !important; 
+}
+
+#colonna-destra-rendering > .analisi-col-box,
+#colonna-destra-batch > .analisi-col-box {
+    flex-grow: 0 !important;  
+    height: auto !important;  
+}
+
+#output-prompt-img, 
+#output-prompt-img > label, 
+#output-prompt-img div {
+    flex-grow: 1 !important;
+    display: flex !important;
+    flex-direction: column !important;
+    height: 100% !important;
+}
+
+#output-prompt-img textarea {
+    flex-grow: 1 !important;
+    overflow-y: auto !important;
+}
+
+div:has(> .image-preview)[style*="display: none"], 
+.tabitem .col[style*="display: none"] {
+    display: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    height: 0 !important;
+}
+
+.analisi-destra-box .prose {
+    margin-top: 0 !important;
+    padding-top: 0 !important;
+}
+
+.flex-spacer {
+    flex-grow: 1 !important;
+    min-height: 12px !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    background: transparent !important;
+}
+
+.mt-auto {
+    margin-top: auto !important;
+}
+
+div[class*="group"] {
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+    padding: 0px !important;
+}
+
+/* =========================================================================
+   3. SCHEDE (TAB) – Stile Capsula / Pillola Moderna (Gradio 5 & 6)
+   ========================================================================= */
+.tab-nav, .gr-tab-nav, gr-tab-nav {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08) !important;
+    margin-bottom: 16px !important;
+    padding-bottom: 8px !important;
+    display: flex !important;
+    gap: 6px !important;
+    width: 100% !important;
+    
+    --text-md: 18px !important;
+    --text-sm: 16px !important;
+}
+
+.tab-nav button, .gr-tab-nav button, gr-tab-nav button,
+.tab-nav button *, .gr-tab-nav button *, gr-tab-nav button * {
+    background: transparent !important;
+    border: 1px solid transparent !important;
+    box-shadow: none !important;
+    color: #64748b !important;
+    font-weight: 600 !important;
+    font-size: 1.3em !important;  
+    transition: all 0.2s ease-in-out !important;
+}
+
+.tab-nav button, .gr-tab-nav button, gr-tab-nav button {
+    padding: 12px 24px !important;
+    border-radius: 24px !important;
+    margin: 0 !important;
+}
+
+.gradio-container .tabs .tabitem::after,
+.tab-nav button::after, .gr-tab-nav button::after, gr-tab-nav button::after {
+    display: none !important;
+    content: none !important;
+}
+
+.tab-nav button:hover, .gr-tab-nav button:hover, gr-tab-nav button:hover {
+    color: #f1f5f9 !important;
+    background: rgba(255, 255, 255, 0.02) !important;
+    border-color: rgba(255, 255, 255, 0.04) !important;
+}
+
+.gradio-container .tabs .tabitem.selected,
+.tab-nav button.selected, .gr-tab-nav button.selected, gr-tab-nav button.selected,
+.tab-nav button.selected *, .gr-tab-nav button.selected *, gr-tab-nav button.selected * {
+    color: #3b82f6 !important;
+}
+
+.gradio-container .tabs .tabitem.selected,
+.tab-nav button.selected, .gr-tab-nav button.selected, gr-tab-nav button.selected {
+    background: rgba(59, 130, 246, 0.12) !important;
+    border: 1px solid rgba(59, 130, 246, 0.3) !important;
+    box-shadow: 0 4px 12px rgba(59, 130, 246, 0.1) !important;
+    border-radius: 24px !important;
+}
+
+.gradio-container .tab-nav button:nth-of-type(4),
+.gradio-container .tab-nav button:nth-child(4),
+.tab-nav button:nth-of-type(4),
+.tab-nav button:nth-child(4),
+.gradio-container .gr-tab-nav button:nth-of-type(4),
+.gradio-container .gr-tab-nav button:nth-child(4),
+.gr-tab-nav button:nth-of-type(4),
+.gr-tab-nav button:nth-child(4),
+.gradio-container gr-tab-nav button:nth-of-type(4),
+.gradio-container gr-tab-nav button:nth-child(4),
+gr-tab-nav button:nth-of-type(4),
+gr-tab-nav button:nth-child(4),
+#tab-batch-button,
+#tab-batch-btn,
+button[id="tab-batch-button"],
+button[id="tab-batch-btn"] {
+    margin-left: auto !important;
+    position: relative !important;
+}
+
+.gradio-container .tab-nav button:nth-of-type(4)::before,
+.gradio-container .tab-nav button:nth-child(4)::before,
+.tab-nav button:nth-of-type(4)::before,
+.tab-nav button:nth-child(4)::before,
+.gradio-container .gr-tab-nav button:nth-of-type(4)::before,
+.gradio-container .gr-tab-nav button:nth-child(4)::before,
+.gr-tab-nav button:nth-of-type(4)::before,
+.gr-tab-nav button:nth-child(4)::before,
+.gradio-container gr-tab-nav button:nth-of-type(4)::before,
+.gradio-container gr-tab-nav button:nth-child(4)::before,
+gr-tab-nav button:nth-of-type(4)::before,
+gr-tab-nav button:nth-child(4)::before,
+#tab-batch-button::before,
+#tab-batch-btn::before,
+button[id="tab-batch-button"]::before,
+button[id="tab-batch-btn"]::before {
+    content: "" !important;
+    position: absolute !important;
+    left: -14px !important;
+    top: 25% !important;
+    bottom: 25% !important;
+    width: 1px !important;
+    background: rgba(255, 255, 255, 0.15) !important;
+}
+
+/* =========================================================================
+   4. COMPONENTI INTERNI, PULSANTI E ANTEPRIME
+   ========================================================================= */
+.gradio-container button:not(.tab-nav button):not(.gr-tab-nav button):not(gr-tab-nav button),
+.gradio-container .primary, .gradio-container .secondary, .gradio-container .stop {
+    font-size: 0.82em !important;
+    padding: 6px 14px !important;
+    min-height: 32px !important;
+    font-weight: 700 !important;
+    border-radius: 6px !important;
+    transition: all 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94) !important;
+    border: none !important;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3) !important;
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+    position: relative;
+    overflow: hidden;
+}
+
+.gradio-container button:not(.tab-nav button):not(.gr-tab-nav button):not(gr-tab-nav button)::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.2);
+    transform: translate(-50%, -50%);
+    transition: width 0.6s, height 0.6s;
+}
+.gradio-container button:not(.tab-nav button):not(.gr-tab-nav button):not(gr-tab-nav button):active::after {
+    width: 300px;
+    height: 300px;
+}
+
+.gradio-container .primary:hover {
+    transform: translateY(-2px) !important;
+    box-shadow: 0 8px 24px rgba(59, 130, 246, 0.3) !important;
+    filter: brightness(1.15) !important;
+}
+.gradio-container .secondary:hover {
+    transform: translateY(-1px) !important;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.4) !important;
+    filter: brightness(1.1) !important;
+}
+
+.image-preview img, .gradio-container video {
+    max-height: 290px;
+    width: auto !important;
+    display: block;
+    margin: 0 auto;
+    border-radius: 8px;
+    box-shadow: 0 12px 40px rgba(0,0,0,0.6);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.image-preview img:hover {
+    transform: scale(1.02);
+    box-shadow: 0 16px 48px rgba(59,130,246,0.25);
+}
+.gradio-container video {
+    border-radius: 10px;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.7), 0 0 0 1px rgba(255,255,255,0.05);
+}
+
+.allinea-stop label {
+    margin: 0px !important;
+    padding: 0px !important;
+}
+
+.riga-pulsanti-timeline button {
+    text-transform: none !important;
+    white-space: nowrap !important;
+}
+
+.gradio-container details {
+    padding-left: 10px !important;
+    padding-right: 10px !important;
+    width: 100% !important;
+}
+
+.barra-risorse button,
+#studio-help-button {
+    flex: 0 0 36px !important;
+    width: 36px !important;
+    min-width: 36px !important;
+    max-width: 36px !important;
+    height: 32px !important;
+    min-height: 32px !important;
+    padding: 0 !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    font-size: 1.2em !important;
+}
+
+h3 {
+    color: #ffffff !important;
+    font-size: 1.15em !important;
+    font-weight: 700 !important;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    padding-bottom: 8px;
+    margin-bottom: 16px !important;
+}
+
+/* =========================================================================
+   5. UNIFICAZIONE BARRA DI STATO + BOTTONI SKIP (⏭️) E STOP (⏹️)
+   ========================================================================= */
+.barra-stato-unificata {
+    gap: 0px !important;
+    border: 1px solid rgba(255, 255, 255, 0.08) !important;
+    border-radius: 8px !important;
+    overflow: hidden !important;
+    background: rgba(0, 0, 0, 0.15) !important;
+    margin-top: 14px !important;
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: stretch !important;
+    height: 56px !important;
+    min-height: 56px !important;
+    max-height: 56px !important;
+    transition: border-color 0.3s ease;
+}
+.barra-stato-unificata:focus-within {
+    border-color: #3b82f6 !important;
+}
+
+.barra-stato-unificata > div {
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+    border-radius: 0px !important;
+    margin: 0px !important;
+    padding: 0px !important;
+    display: flex !important;
+    align-items: center !important;
+    height: 100% !important;
+    flex-grow: 1 !important;
+}
+
+.barra-stato-unificata textarea, .barra-stato-unificata input {
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+    border-radius: 0px !important;
+    margin: 0px !important;
+    padding: 12px 16px !important;
+    height: 100% !important;
+    overflow: hidden !important;
+    resize: none !important;
+    font-size: 14px !important;
+    color: #f1f5f9 !important;
+    line-height: 24px !important;
+    vertical-align: middle !important;
+}
+
+.tasto-skip-unificato,
+.tasto-stop-unificato {
+    font-size: 22px !important;
+    padding: 0 !important;
+    height: 100% !important;
+    min-height: 100% !important;
+    max-height: 100% !important;
+    width: 48px !important;
+    min-width: 48px !important;
+    max-width: 48px !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    line-height: 1 !important;
+    margin: 0px !important;
+    border: none !important;
+    border-left: 1px solid rgba(255, 255, 255, 0.08) !important;
+    border-radius: 0px !important;
+    box-shadow: none !important;
+    transition: all 0.2s ease !important;
+    text-transform: none !important;
+}
+
+.tasto-skip-unificato {
+    background: rgba(59, 130, 246, 0.12) !important;
+    color: #3b82f6 !important;
+}
+.tasto-skip-unificato:hover {
+    background: rgba(59, 130, 246, 0.3) !important;
+    color: #ffffff !important;
+    box-shadow: 0 0 12px rgba(59, 130, 246, 0.25) !important;
+}
+
+.tasto-stop-unificato {
+    background: rgba(239, 68, 68, 0.1) !important;
+    color: #ef4444 !important;
+}
+.tasto-stop-unificato:hover {
+    background: rgba(239, 68, 68, 0.3) !important;
+    color: #ffffff !important;
+    box-shadow: 0 0 12px rgba(239, 68, 68, 0.25) !important;
+}
+
+/* =========================================================================
+   6. GESTIONE AVANZATA GALLERIA E INGRANDIMENTI (LightBox)
+   ========================================================================= */
+#accordion-galleria-flat {
+    width: 100% !important;
+    display: flex !important;
+    flex-direction: column !important;
+    height: 100% !important;
+}
+
+.gallery-box {
+    border: 1px solid rgba(255, 255, 255, 0.08) !important;
+    border-radius: 12px !important;
+    padding: 12px !important;
+    background: rgba(0, 0, 0, 0.2) !important;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3), 0 0 0 1px rgba(255,255,255,0.02) inset !important;
+    flex-grow: 1 !important;
+    display: flex !important;
+    flex-direction: column !important;
+    margin-top: 14px !important;
+    margin-bottom: 14px !important;
+    min-height: 420px !important;
+    overflow: visible !important;
+    transition: border-color 0.3s;
+}
+.gallery-box:hover {
+    border-color: rgba(255,255,255,0.15) !important;
+}
+
+.gallery-box .thumbnail-item {
+    max-width: none !important;
+    max-height: none !important;
+    aspect-ratio: auto !important;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.gallery-box .thumbnail-item:hover {
+    transform: scale(1.03);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.6);
+}
+
+.gallery-box img {
+    max-width: 100% !important;
+    max-height: 100% !important;
+    width: auto !important;
+    height: auto !important;
+    object-fit: contain !important;
+    border-radius: 8px !important;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.5) !important;
+    transition: transform 0.3s ease;
+}
+
+.custom-gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(175px, 1fr));
+    gap: 12px;
+    padding: 10px;
+    background: rgba(0, 0, 0, 0.15);
+    border: 1px solid var(--panel-border);
+    border-radius: 12px;
+    max-height: 400px;
+    overflow-y: auto;
+}
+
+.gallery-item-wrapper {
+    position: relative !important;
+    aspect-ratio: 1 / 1;
+    border-radius: 8px;
+    overflow: hidden;
+    border: 1px solid var(--panel-border);
+    background: rgba(255, 255, 255, 0.02);
+    transition: transform 0.2s, border-color 0.2s;
+    cursor: pointer;
+}
+.gallery-item-wrapper:hover {
+    transform: scale(1.03);
+    border-color: var(--accent-blue);
+}
+
+.gallery-thumbnail {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: contain !important;
+    background: rgba(0, 0, 0, 0.35) !important;
+}
+
+.gallery-item-btn-delete {
+    position: absolute !important;
+    top: 6px !important;
+    right: 6px !important;
+    background: rgba(239, 68, 68, 0.85) !important;
+    border: 1px solid rgba(239, 68, 68, 0.5) !important;
+    color: #ffffff !important;
+    border-radius: 50% !important;
+    width: 24px !important;
+    height: 24px !important;
+    min-width: 24px !important;
+    max-width: 24px !important;
+    min-height: 24px !important;
+    max-height: 24px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    font-size: 11px !important;
+    padding: 0 !important;
+    line-height: 1 !important;
+    cursor: pointer !important;
+    z-index: 100 !important;
+    pointer-events: auto !important;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5) !important;
+    transition: all 0.15s ease-in-out !important;
+    text-transform: none !important;
+}
+.gallery-item-btn-delete:hover {
+    background: rgba(239, 68, 68, 1) !important;
+    transform: scale(1.15) !important;
+    box-shadow: 0 2px 12px rgba(239, 68, 68, 0.5) !important;
+}
+
+.gallery-item-btn-expand {
+    position: absolute !important;
+    bottom: 6px !important;
+    right: 6px !important;
+    background: rgba(59, 130, 246, 0.85) !important;
+    border: 1px solid rgba(59, 130, 246, 0.4) !important;
+    color: #ffffff !important;
+    border-radius: 50% !important;
+    width: 24px !important;
+    height: 24px !important;
+    min-width: 24px !important;
+    max-width: 24px !important;
+    min-height: 24px !important;
+    max-height: 24px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    font-size: 11px !important;
+    padding: 0 !important;
+    line-height: 1 !important;
+    cursor: pointer !important;
+    z-index: 100 !important;
+    pointer-events: auto !important;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5) !important;
+    transition: all 0.15s ease;
+    text-transform: none !important;
+}
+.gallery-item-btn-expand:hover {
+    background: rgba(59, 130, 246, 1) !important;
+    transform: scale(1.15) !important;
+    box-shadow: 0 2px 12px rgba(59, 130, 246, 0.5) !important;
+}
+
+/* Micro-pulsanti F (First) e L (Last) in basso a sinistra su miniatura Rendering */
+.gallery-item-btn-group-fl {
+    position: absolute !important;
+    bottom: 6px !important;
+    left: 6px !important;
+    display: flex !important;
+    gap: 4px !important;
+    z-index: 100 !important;
+    pointer-events: auto !important;
+}
+
+.gallery-item-btn-frame-f,
+.gallery-item-btn-frame-l {
+    background: rgba(15, 23, 42, 0.85) !important;
+    border: 1px solid rgba(255, 255, 255, 0.25) !important;
+    color: #94a3b8 !important;
+    border-radius: 4px !important;
+    width: 22px !important;
+    height: 22px !important;
+    min-width: 22px !important;
+    max-width: 22px !important;
+    min-height: 22px !important;
+    max-height: 22px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    font-size: 11px !important;
+    font-weight: 800 !important;
+    padding: 0 !important;
+    line-height: 1 !important;
+    cursor: pointer !important;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.5) !important;
+    transition: all 0.15s ease-in-out !important;
+    text-transform: none !important;
+}
+
+.gallery-item-btn-frame-f:hover {
+    background: #3b82f6 !important;
+    border-color: #60a5fa !important;
+    color: #ffffff !important;
+    transform: scale(1.12) !important;
+}
+
+.gallery-item-btn-frame-l:hover {
+    background: #a855f7 !important;
+    border-color: #c084fc !important;
+    color: #ffffff !important;
+    transform: scale(1.12) !important;
+}
+
+.gallery-item-btn-frame-f.active-f {
+    background: #3b82f6 !important;
+    border-color: #93c5fd !important;
+    color: #ffffff !important;
+    box-shadow: 0 0 10px rgba(59, 130, 246, 0.85), 0 0 0 1px #3b82f6 inset !important;
+    transform: scale(1.1) !important;
+}
+
+.gallery-item-btn-frame-l.active-l {
+    background: #a855f7 !important;
+    border-color: #d8b4fe !important;
+    color: #ffffff !important;
+    box-shadow: 0 0 10px rgba(168, 85, 247, 0.85), 0 0 0 1px #a855f7 inset !important;
+    transform: scale(1.1) !important;
+}
+
+/* =========================================================================
+   7. STRISCIA SEQUENZA DEDICATA PER IL TAB VIDEO (SOTTO A FRAME 1)
+   ========================================================================= */
+.video-strip-container {
+    display: flex !important;
+    flex-direction: row !important;
+    gap: 12px !important;
+    padding: 10px !important;
+    background: rgba(0, 0, 0, 0.2) !important;
+    border: 1px solid var(--panel-border) !important;
+    border-radius: 10px !important;
+    overflow-x: auto !important;
+    min-height: 110px !important;
+    align-items: center !important;
+}
+
+.video-strip-card {
+    position: relative !important;
+    width: 90px !important;
+    height: 90px !important;
+    min-width: 90px !important;
+    border-radius: 8px !important;
+    overflow: hidden !important;
+    border: 1px solid rgba(168, 85, 247, 0.5) !important;
+    background: rgba(0, 0, 0, 0.4) !important;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4) !important;
+    transition: transform 0.2s ease, border-color 0.2s ease !important;
+}
+
+.video-strip-card:hover {
+    border-color: #c084fc !important;
+    transform: scale(1.04) !important;
+}
+
+.video-strip-thumbnail {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: contain !important;
+}
+
+.video-strip-badge {
+    position: absolute !important;
+    bottom: 4px !important;
+    left: 4px !important;
+    right: 4px !important;
+    background: rgba(168, 85, 247, 0.85) !important;
+    color: #ffffff !important;
+    font-size: 9px !important;
+    font-weight: 700 !important;
+    text-align: center !important;
+    border-radius: 4px !important;
+    padding: 2px 0 !important;
+    pointer-events: none !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.02em !important;
+}
+
+.video-strip-btn-remove {
+    position: absolute !important;
+    top: 4px !important;
+    right: 4px !important;
+    width: 20px !important;
+    height: 20px !important;
+    min-width: 20px !important;
+    max-width: 20px !important;
+    min-height: 20px !important;
+    max-height: 20px !important;
+    border-radius: 50% !important;
+    background: rgba(239, 68, 68, 0.85) !important;
+    border: 1px solid rgba(239, 68, 68, 0.5) !important;
+    color: #ffffff !important;
+    font-size: 10px !important;
+    font-weight: 900 !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    cursor: pointer !important;
+    z-index: 10 !important;
+    padding: 0 !important;
+    line-height: 1 !important;
+    transition: all 0.15s ease !important;
+}
+
+.video-strip-btn-remove:hover {
+    background: #ef4444 !important;
+    transform: scale(1.2) !important;
+}
+
+/* Lightbox popup modal */
+.gallery-modal-overlay {
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    bottom: 0 !important;
+    background: rgba(5, 6, 12, 0.9) !important;
+    backdrop-filter: blur(8px);
+    z-index: 999910 !important; 
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.2s ease-in-out;
+}
+.gallery-modal-overlay.active {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.gallery-modal-content {
+    position: relative !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    max-width: 90vw !important;
+    max-height: 90vh !important;
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+    padding: 0 !important;
+    overflow: visible !important; 
+    animation: zoomIn 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+@keyframes zoomIn {
+    from { transform: scale(0.9); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+}
+
+#gallery-lightbox-img,
+#gallery-lightbox-modal img,
+.gallery-modal-img {
+    max-width: 85vw !important;
+    max-height: 80vh !important;
+    width: auto !important;
+    height: auto !important;
+    object-fit: contain !important; 
+    display: block !important;
+    margin: auto !important;
+    border-radius: 8px !important;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.8) !important;
+}
+
+.gallery-modal-close {
+    position: absolute !important;
+    top: 15px !important;
+    right: 15px !important;
+    background: rgba(255, 255, 255, 0.1) !important;
+    border: 1px solid rgba(255, 255, 255, 0.2) !important;
+    color: #ffffff !important;
+    width: 36px !important;
+    height: 36px !important;
+    border-radius: 50% !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    cursor: pointer !important;
+    font-size: 16px !important;
+    z-index: 1000000 !important; 
+    transition: all 0.15s ease;
+}
+.gallery-modal-close:hover {
+    background: var(--accent-blue) !important;
+    transform: scale(1.1);
+}
+
+.gallery-modal-nav {
+    background: rgba(255, 255, 255, 0.08) !important;
+    border: 1px solid rgba(255, 255, 255, 0.15) !important;
+    color: #ffffff !important;
+    width: 48px !important;
+    height: 48px !important;
+    border-radius: 50% !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    cursor: pointer !important;
+    font-size: 18px !important;
+    z-index: 1000000 !important;
+    transition: all 0.2s ease;
+    user-select: none;
+}
+.gallery-modal-nav:hover {
+    background: var(--accent-blue) !important;
+    transform: scale(1.1);
+    box-shadow: 0 0 16px rgba(59, 130, 246, 0.4);
+}
+.gallery-modal-prev {
+    margin-right: 20px !important;
+}
+.gallery-modal-next {
+    margin-left: 20px !important;
+}
+
+.gallery-item-wrapper.selected-thumbnail {
+    border-color: #3b82f6 !important;
+    box-shadow: 0 0 14px rgba(59, 130, 246, 0.6), 0 0 0 1px rgba(59, 130, 246, 0.3) inset !important;
+    transform: scale(1.03);
+}
+
+/* =========================================================================
+   8. ACCESSIBILITÀ E FOCUS
+   ========================================================================= */
+button:focus-visible, textarea:focus-visible, input:focus-visible, select:focus-visible {
+    outline: 2px solid #3b82f6;
+    outline-offset: 2px;
+}
+
+/* =========================================================================
+   9. ALTEZZA PROMPT (TAB 2)
+   ========================================================================= */
+.scrollable-textbox textarea {
+    overflow-y: auto !important;
+    min-height: 400px !important;
+    max-height: 600px !important;
+}
+
+/* =========================================================================
+   10. STILE TIMELINE VISUALE (Glow e Glassmorphism Orizzontale)
+   ========================================================================= */
+#timeline-visual-html .loading,
+#timeline-visual-html .pending,
+#timeline-visual-html .progress-parent,
+#timeline-visual-html .wrap.default.translucent,
+#timeline-visual-html div.progress-level,
+#timeline-visual-html .meta-text,
+#timeline-visual-html .meta-text-center {
+    display: none !important;
+    opacity: 0 !important;
+    visibility: hidden !important;
+    pointer-events: none !important;
+}
+
+#timeline-visual-html,
+#timeline-visual-html > div,
+#timeline-visual-html .prose,
+#timeline-visual-html .block {
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+    overflow: visible !important;
+    padding: 0 !important;
+    margin: 0 !important;
+}
+
+.timeline-scroll-container {
+    width: 100% !important;
+    overflow-x: auto !important;
+    overflow-y: visible !important;
+    background: transparent !important; 
+    border: none !important;             
+    padding: 6px 0 !important;               
+    margin: 0 !important;                
+    scrollbar-width: thin !important;
+    position: relative;
+    z-index: 1;
+}
+
+.timeline-visual-container {
+    display: flex;
+    flex-direction: column !important; 
+    gap: 12px;
+    width: max-content !important;
+    overflow: visible !important;
+}
+
+.timeline-cards-track {
+    display: flex;
+    flex-direction: row !important;
+    gap: 0px !important;
+    align-items: stretch;
+    position: relative;
+    z-index: 1;
+}
+
+.timeline-visual-item {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    position: relative;
+    z-index: 1;
+    min-width: 40px !important;
+    animation: slideIn 0.2s ease-out;
+    flex-shrink: 0 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+.timeline-visual-item:hover {
+    z-index: 5;
+}
+
+.timeline-visual-item.editing {
+    z-index: 10;
+}
+
+@keyframes slideIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+.timeline-visual-badge {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.timeline-time-pill {
+    background: rgba(59, 130, 246, 0.15) !important;
+    border: 1px solid rgba(59, 130, 246, 0.4) !important;
+    color: #60a5fa !important;
+    font-size: 0.72em !important;
+    font-weight: 700 !important;
+    padding: 2px 8px !important;
+    border-radius: 12px !important;
+    letter-spacing: 0.02em;
+    user-select: none;
+}
+
+.timeline-index-pill {
+    background: rgba(255, 255, 255, 0.05) !important;
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+    color: #94a3b8 !important;
+    font-size: 0.72em !important;
+    font-weight: 700 !important;
+    padding: 2px 6px !important;
+    border-radius: 8px !important;
+    user-select: none;
+}
+
+.timeline-visual-card {
+    background: rgba(255, 255, 255, 0.02) !important;
+    border: 1px solid rgba(255, 255, 255, 0.06) !important;
+    border-radius: 0px !important;
+    border-left: none !important;
+    padding: 12px 14px !important;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2) !important;
+    transition: border-color 0.2s, box-shadow 0.2s;
+    flex-grow: 1;
+    position: relative;
+    user-select: none;
+}
+.timeline-visual-item:hover .timeline-visual-card {
+    border-color: rgba(59, 130, 246, 0.25) !important;
+    box-shadow: 0 6px 16px rgba(59, 130, 246, 0.05) !important;
+}
+
+.timeline-visual-item:first-child .timeline-visual-card {
+    border-left: 1px solid rgba(255, 255, 255, 0.06) !important;
+    border-top-left-radius: 8px !important;
+    border-bottom-left-radius: 8px !important;
+}
+
+.timeline-visual-item:last-child .timeline-visual-card {
+    border-top-right-radius: 8px !important;
+    border-bottom-right-radius: 8px !important;
+}
+
+.timeline-resize-handle {
+    position: absolute;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    width: 10px;
+    background: transparent;
+    cursor: ew-resize;
+    z-index: 99;
+    transition: background 0.15s ease;
+}
+.timeline-resize-handle:hover, .timeline-resize-handle.active {
+    background: rgba(59, 130, 246, 0.4);
+    box-shadow: 0 0 8px rgba(59, 130, 246, 0.6);
+}
+
+.timeline-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+    padding-bottom: 6px;
+    margin-bottom: 6px;
+}
+
+.timeline-card-title {
+    color: #f1f5f9 !important;
+    font-weight: 700 !important;
+    font-size: 0.85em !important;
+    letter-spacing: -0.01em;
+}
+
+.timeline-card-meta {
+    color: #94a3b8 !important;
+    font-weight: 600 !important;
+    font-size: 0.78em !important;
+}
+
+.timeline-card-desc {
+    color: #cbd5e1 !important;
+    font-size: 0.82em !important;
+    line-height: 1.4 !important;
+    font-style: italic;
+}
+
+.timeline-ruler {
+    position: relative;
+    height: 32px;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    background: rgba(0, 0, 0, 0.2);
+    margin-top: 4px;
+    user-select: none;
+    z-index: 0;
+}
+
+.ruler-tick {
+    position: absolute;
+    width: 1px;
+    height: 8px;
+    background: rgba(255, 255, 255, 0.2);
+    top: 0;
+}
+
+.ruler-tick-label {
+    position: absolute;
+    top: 10px;
+    left: 0;
+    transform: translateX(-50%);
+    font-size: 0.72em;
+    color: #64748b;
+    font-weight: 600;
+}
+
+.nascondi-textbox {
+    display: none !important;
+}
+
+#colonna-pulsanti-risorse {
+    margin-left: auto !important;
+    display: flex !important;
+    justify-content: flex-end !important;
+    min-width: 124px !important;
+    max-width: 124px !important;
+}
+#colonna-pulsanti-risorse > div {
+    display: flex !important;
+    flex-direction: row !important;
+    flex-wrap: nowrap !important;
+    justify-content: flex-end !important;
+    width: 100% !important;
+    gap: 8px !important;
+}
+
+.timeline-card-actions {
+    position: absolute !important;
+    right: 8px !important;
+    bottom: 6px !important;
+    display: flex !important;
+    gap: 6px !important;
+    z-index: 100 !important;
+}
+.timeline-card-actions button {
+    background: rgba(255, 255, 255, 0.05) !important;
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+    border-radius: 4px !important;
+    padding: 0px !important;
+    font-size: 11px !important;
+    cursor: pointer !important;
+    min-width: 22px !important;
+    max-width: 22px !important;
+    min-height: 22px !important;
+    max-height: 22px !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    transition: all 0.2s ease !important;
+    text-transform: none !important;
+}
+.timeline-card-actions button:hover {
+    transform: scale(1.15) !important;
+}
+.timeline-card-btn-edit {
+    color: #3b82f6 !important;
+}
+.timeline-card-btn-edit:hover {
+    background: rgba(59, 130, 246, 0.2) !important;
+    border-color: rgba(59, 130, 246, 0.5) !important;
+}
+.timeline-card-btn-delete {
+    color: #ef4444 !important;
+}
+.timeline-card-btn-delete:hover {
+    background: rgba(239, 68, 68, 0.2) !important;
+    border-color: rgba(239, 68, 68, 0.5) !important;
+}
+
+.timeline-visual-item.editing .timeline-visual-card {
+    border-color: #3b82f6 !important;
+    box-shadow: 0 0 16px rgba(59, 130, 246, 0.4) !important;
+    background: rgba(59, 130, 246, 0.08) !important;
+}
+.timeline-visual-item.editing .timeline-time-pill {
+    background: #3b82f6 !important;
+    color: #ffffff !important;
+}
+
+.box-log-scorrimento {
+    max-height: 480px !important;
+    overflow: hidden !important;
+    border-radius: 8px !important;
+}
+.box-log-scorrimento .code-wrapper,
+.box-log-scorrimento .cm-editor,
+.box-log-scorrimento .cm-scroller {
+    max-height: 420px !important;
+    overflow-y: auto !important;
+}
+
+.contenitore-galleria-relativo {
+    position: relative !important;
+    width: 100% !important;
+    display: block !important;
+}
+
+/* =========================================================================
+   11. PULIZIA TOOLBAR MEDIA (IMMAGINE SORGENTE E ANTEPRIMA VIDEO)
+   ========================================================================= */
+
+/* Nasconde i pulsanti superflui (Download, Fullscreen, Edit) dall'immagine sorgente */
+#immagine-sorgente-i2v button[aria-label*="Download" i],
+#immagine-sorgente-i2v button[aria-label*="download" i],
+#immagine-sorgente-i2v button[aria-label*="Fullscreen" i],
+#immagine-sorgente-i2v button[aria-label*="fullscreen" i],
+#immagine-sorgente-i2v button[aria-label*="Edit" i],
+#immagine-sorgente-i2v button[aria-label*="edit" i],
+#immagine-sorgente-i2v button[aria-label*="Annotate" i],
+#immagine-sorgente-i2v button[title*="Download" i],
+#immagine-sorgente-i2v button[title*="Fullscreen" i],
+#immagine-sorgente-i2v button[title*="Edit" i],
+#immagine-sorgente-i2v .download-button,
+#immagine-sorgente-i2v .fullscreen-button,
+#immagine-sorgente-i2v .edit-button {
+    display: none !important;
+}
+
+/* Nasconde i pulsanti superflui (Download, Fullscreen) dall'anteprima video */
+#video-preview-player button[aria-label*="Download" i],
+#video-preview-player button[aria-label*="download" i],
+#video-preview-player button[aria-label*="Fullscreen" i],
+#video-preview-player button[aria-label*="fullscreen" i],
+#video-preview-player button[title*="Download" i],
+#video-preview-player button[title*="Fullscreen" i],
+#video-preview-player .download-button,
+#video-preview-player .fullscreen-button,
+#accordion-player-flat .video-container button[aria-label*="Download" i],
+#accordion-player-flat .video-container button[aria-label*="Fullscreen" i] {
+    display: none !important;
+}

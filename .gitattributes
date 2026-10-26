@@ -1,0 +1,2 @@
+# Preserve release bytes, including Windows batch files and the SHA256 manifest.
+* -text

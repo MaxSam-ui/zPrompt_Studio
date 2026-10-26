@@ -1,0 +1,16 @@
+Compile the supplied timeline into a concise English video prompt.
+{frame_context}
+CHRONOLOGICAL CAMERA TIMELINE:
+{cronologia}
+{audio_section}
+
+Describe only relevant persistent subjects, objects and setting, then the timed actions in present tense. Retain the exact sequence, intervals, chosen framing, camera movement and action ownership. Camera directions may use inline brackets such as [Static camera]. Do not force a continuous tracking shot across explicit cuts, or add cuts to a requested continuous shot.
+After any shared description, write one action span for each timeline interval, starting with its literal timecode [0.0s - 4.0s], [4.0s - 8.0s], etc., using the actual provided boundaries. Keep timecodes even when there is only one interval. These examples illustrate syntax only; never replace the supplied durations with them.
+Each timed span must respect its selected shot type and camera motion, including changes of framing between intervals. Do not omit a close-up transition because the camera is static.
+The supplied shot and camera motion are fixed decisions, not style suggestions. Keep the prose consistent with them: no orbit, pan, zoom or push-in inside a static shot, and no contradictory shot size. Subject movement may continue under a static camera. Do not introduce a cut at every interval boundary or force shot variety.
+Style must not replace the selected camera moves, cast, props, setting or actions. Derive appearance from reference frames when present, otherwise from the timeline. Do not invent a starting frame for text-to-video.
+End with Audio: followed by the requested atmosphere, foley and dialogue. Include BOTH the Sound field of each clip and the global audio atmosphere; global audio is additional context, not a replacement for clip sounds. Keep clip-specific sounds associated with their action spans as well. Preserve explicit silence, music and spoken language. Do not invent dialogue. Return only the prompt, without SECTION/PART headings or explanatory commentary.
+Write spoken dialogue in quotation marks, identify its speaker and requested language, and keep its delivery feasible within the supplied interval. If a change is an edit, describe the cut explicitly in prose and state whether the sound continues. A static camera is not permission to ignore a requested change of shot. For image-to-video focus on motion and audio, without repeatedly redescribing every static detail of the reference image.
+
+STYLE GUIDANCE:
+{regole_estetiche_regista}

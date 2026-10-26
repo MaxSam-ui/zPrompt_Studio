@@ -1,0 +1,598 @@
+{
+  "1": {
+    "inputs": {
+      "unet_name": "LTX-2.5\\LTX-2.5-Distilled-Q4_K_S.gguf"
+    },
+    "class_type": "UnetLoaderGGUF",
+    "_meta": {
+      "title": "LTX-2.5 GGUF Model"
+    }
+  },
+  "2": {
+    "inputs": {
+      "clip_name": "Gemma\\gemma4-12b-with-proj-ltx-2.5-comfy-int8-convrot.safetensors",
+      "type": "ltxv",
+      "device": "default"
+    },
+    "class_type": "CLIPLoader",
+    "_meta": {
+      "title": "Load CLIP Gemma 4"
+    }
+  },
+  "3": {
+    "inputs": {
+      "vae_name": "ltx-2.5-video-vae-bf16.safetensors"
+    },
+    "class_type": "VAELoader",
+    "_meta": {
+      "title": "Load Video VAE"
+    }
+  },
+  "4": {
+    "inputs": {
+      "vae_name": "ltx-2.5-audio-vae-bf16.safetensors"
+    },
+    "class_type": "VAELoader",
+    "_meta": {
+      "title": "Load Audio VAE"
+    }
+  },
+  "5": {
+    "inputs": {
+      "text": "Prompt from zStudio",
+      "clip": [
+        "2",
+        0
+      ]
+    },
+    "class_type": "CLIPTextEncode",
+    "_meta": {
+      "title": "CLIP Text Encode (Positive Prompt)"
+    }
+  },
+  "6": {
+    "inputs": {
+      "text": "pc game, console game, video game, cartoon, childish, ugly",
+      "clip": [
+        "2",
+        0
+      ]
+    },
+    "class_type": "CLIPTextEncode",
+    "_meta": {
+      "title": "CLIP Text Encode (Negative Prompt)"
+    }
+  },
+  "7": {
+    "inputs": {
+      "noise": [
+        "15",
+        0
+      ],
+      "guider": [
+        "18",
+        0
+      ],
+      "sampler": [
+        "22",
+        0
+      ],
+      "sigmas": [
+        "25",
+        0
+      ],
+      "latent_image": [
+        "13",
+        0
+      ]
+    },
+    "class_type": "SamplerCustomAdvanced",
+    "_meta": {
+      "title": "Pass 1 Base Sampler"
+    }
+  },
+  "8": {
+    "inputs": {
+      "tile_size": 1024,
+      "overlap": 32,
+      "temporal_size": 64,
+      "temporal_overlap": 16,
+      "samples": [
+        "47",
+        0
+      ],
+      "vae": [
+        "3",
+        0
+      ]
+    },
+    "class_type": "VAEDecodeTiled",
+    "_meta": {
+      "title": "VAE Decode (Fast Temporal Tiled)"
+    }
+  },
+  "9": {
+    "inputs": {
+      "filename_prefix": "video/LTX-2.5",
+      "format": "auto",
+      "codec": "auto",
+      "video-preview": "",
+      "video": [
+        "17",
+        0
+      ]
+    },
+    "class_type": "SaveVideo",
+    "_meta": {
+      "title": "Save Video"
+    }
+  },
+  "11": {
+    "inputs": {
+      "frame_rate": [
+        "19",
+        0
+      ],
+      "positive": [
+        "5",
+        0
+      ],
+      "negative": [
+        "6",
+        0
+      ]
+    },
+    "class_type": "LTXVConditioning",
+    "_meta": {
+      "title": "LTXVConditioning"
+    }
+  },
+  "12": {
+    "inputs": {
+      "width": [
+        "50",
+        1
+      ],
+      "height": [
+        "51",
+        1
+      ],
+      "length": [
+        "14",
+        0
+      ],
+      "batch_size": 1
+    },
+    "class_type": "EmptyLTXVLatentVideo",
+    "_meta": {
+      "title": "EmptyLTXVLatentVideo"
+    }
+  },
+  "13": {
+    "inputs": {
+      "video_latent": [
+        "37",
+        0
+      ],
+      "audio_latent": [
+        "26",
+        0
+      ]
+    },
+    "class_type": "LTXVConcatAVLatent",
+    "_meta": {
+      "title": "LTXVConcatAVLatent Pass 1"
+    }
+  },
+  "14": {
+    "inputs": {
+      "value": 121
+    },
+    "class_type": "PrimitiveInt",
+    "_meta": {
+      "title": "Length"
+    }
+  },
+  "15": {
+    "inputs": {
+      "noise_seed": 427990000070308
+    },
+    "class_type": "RandomNoise",
+    "_meta": {
+      "title": "RandomNoise Pass 1"
+    }
+  },
+  "16": {
+    "inputs": {
+      "av_latent": [
+        "7",
+        0
+      ]
+    },
+    "class_type": "LTXVSeparateAVLatent",
+    "_meta": {
+      "title": "LTXVSeparateAVLatent Pass 1"
+    }
+  },
+  "17": {
+    "inputs": {
+      "fps": [
+        "19",
+        0
+      ],
+      "bit_depth": 8,
+      "images": [
+        "8",
+        0
+      ],
+      "audio": [
+        "32",
+        0
+      ]
+    },
+    "class_type": "CreateVideo",
+    "_meta": {
+      "title": "Create Video"
+    }
+  },
+  "18": {
+    "inputs": {
+      "video_cfg": 1.0,
+      "audio_cfg": 1.0,
+      "model": [
+        "1",
+        0
+      ],
+      "positive": [
+        "11",
+        0
+      ],
+      "negative": [
+        "11",
+        1
+      ]
+    },
+    "class_type": "LTXVDualCFGGuider",
+    "_meta": {
+      "title": "LTXV Dual CFG Guider Pass 1"
+    }
+  },
+  "19": {
+    "inputs": {
+      "value": 24.0
+    },
+    "class_type": "PrimitiveFloat",
+    "_meta": {
+      "title": "Frame Rate(float)"
+    }
+  },
+  "22": {
+    "inputs": {
+      "sampler_name": "euler_ancestral"
+    },
+    "class_type": "KSamplerSelect",
+    "_meta": {
+      "title": "KSamplerSelect Pass 1"
+    }
+  },
+  "23": {
+    "inputs": {
+      "image": ""
+    },
+    "class_type": "LoadImage",
+    "_meta": {
+      "title": "Load First Frame"
+    }
+  },
+  "24": {
+    "inputs": {
+      "img_compression": 18,
+      "image": [
+        "33",
+        0
+      ]
+    },
+    "class_type": "LTXVPreprocess",
+    "_meta": {
+      "title": "LTXV Preprocess"
+    }
+  },
+  "25": {
+    "inputs": {
+      "sigmas": "1.0, 0.99375, 0.9875, 0.98125, 0.975, 0.909375, 0.725, 0.421875, 0.0"
+    },
+    "class_type": "ManualSigmas",
+    "_meta": {
+      "title": "ManualSigmas Pass 1"
+    }
+  },
+  "26": {
+    "inputs": {
+      "frames_number": [
+        "14",
+        0
+      ],
+      "frame_rate": [
+        "19",
+        0
+      ],
+      "batch_size": 1,
+      "audio_vae": [
+        "4",
+        0
+      ]
+    },
+    "class_type": "LTXVEmptyLatentAudio",
+    "_meta": {
+      "title": "LTXV Empty Latent Audio"
+    }
+  },
+  "32": {
+    "inputs": {
+      "samples": [
+        "47",
+        1
+      ],
+      "audio_vae": [
+        "4",
+        0
+      ]
+    },
+    "class_type": "LTXVAudioVAEDecode",
+    "_meta": {
+      "title": "LTXV Audio VAE Decode"
+    }
+  },
+  "33": {
+    "inputs": {
+      "resize_type": "scale longer dimension",
+      "resize_type.longer_size": 1536,
+      "scale_method": "lanczos",
+      "input": [
+        "23",
+        0
+      ]
+    },
+    "class_type": "ResizeImageMaskNode",
+    "_meta": {
+      "title": "Resize Image/Mask"
+    }
+  },
+  "36": {
+    "inputs": {
+      "value": false
+    },
+    "class_type": "PrimitiveBoolean",
+    "_meta": {
+      "title": "Switch to Text to Video Bypass"
+    }
+  },
+  "37": {
+    "inputs": {
+      "strength": 0.7,
+      "bypass": [
+        "36",
+        0
+      ],
+      "vae": [
+        "3",
+        0
+      ],
+      "image": [
+        "24",
+        0
+      ],
+      "latent": [
+        "12",
+        0
+      ]
+    },
+    "class_type": "LTXVImgToVideoInplace",
+    "_meta": {
+      "title": "LTXVImgToVideoInplace Pass 1 (0.7 Strength)"
+    }
+  },
+  "38": {
+    "inputs": {
+      "model_name": "LTX-2.5\\ltx-2.5-latent-spatial-upscaler-x2-bf16-1.0.safetensors"
+    },
+    "class_type": "LatentUpscaleModelLoader",
+    "_meta": {
+      "title": "Load Latent Upscale Model x2"
+    }
+  },
+  "39": {
+    "inputs": {
+      "samples": [
+        "16",
+        0
+      ],
+      "upscale_model": [
+        "38",
+        0
+      ],
+      "vae": [
+        "3",
+        0
+      ]
+    },
+    "class_type": "LTXVLatentUpsampler",
+    "_meta": {
+      "title": "LTXV Latent Spatial Upsampler x2"
+    }
+  },
+  "40": {
+    "inputs": {
+      "strength": 1.0,
+      "bypass": [
+        "36",
+        0
+      ],
+      "vae": [
+        "3",
+        0
+      ],
+      "image": [
+        "24",
+        0
+      ],
+      "latent": [
+        "39",
+        0
+      ]
+    },
+    "class_type": "LTXVImgToVideoInplace",
+    "_meta": {
+      "title": "LTXVImgToVideoInplace Pass 2 (1.0 Refiner Anchor)"
+    }
+  },
+  "41": {
+    "inputs": {
+      "video_latent": [
+        "40",
+        0
+      ],
+      "audio_latent": [
+        "16",
+        1
+      ]
+    },
+    "class_type": "LTXVConcatAVLatent",
+    "_meta": {
+      "title": "LTXVConcatAVLatent Pass 2"
+    }
+  },
+  "42": {
+    "inputs": {
+      "noise_seed": 42
+    },
+    "class_type": "RandomNoise",
+    "_meta": {
+      "title": "RandomNoise Pass 2"
+    }
+  },
+  "43": {
+    "inputs": {
+      "sampler_name": "euler_ancestral"
+    },
+    "class_type": "KSamplerSelect",
+    "_meta": {
+      "title": "KSamplerSelect Pass 2"
+    }
+  },
+  "44": {
+    "inputs": {
+      "sigmas": "0.85, 0.7250, 0.4219, 0.0"
+    },
+    "class_type": "ManualSigmas",
+    "_meta": {
+      "title": "ManualSigmas Pass 2"
+    }
+  },
+  "45": {
+    "inputs": {
+      "video_cfg": 1.0,
+      "audio_cfg": 1.0,
+      "model": [
+        "1",
+        0
+      ],
+      "positive": [
+        "11",
+        0
+      ],
+      "negative": [
+        "11",
+        1
+      ]
+    },
+    "class_type": "LTXVDualCFGGuider",
+    "_meta": {
+      "title": "LTXV Dual CFG Guider Pass 2"
+    }
+  },
+  "46": {
+    "inputs": {
+      "noise": [
+        "42",
+        0
+      ],
+      "guider": [
+        "45",
+        0
+      ],
+      "sampler": [
+        "43",
+        0
+      ],
+      "sigmas": [
+        "44",
+        0
+      ],
+      "latent_image": [
+        "41",
+        0
+      ]
+    },
+    "class_type": "SamplerCustomAdvanced",
+    "_meta": {
+      "title": "Pass 2 Refiner Sampler"
+    }
+  },
+  "47": {
+    "inputs": {
+      "av_latent": [
+        "46",
+        0
+      ]
+    },
+    "class_type": "LTXVSeparateAVLatent",
+    "_meta": {
+      "title": "LTXVSeparateAVLatent Pass 2"
+    }
+  },
+  "48": {
+    "inputs": {
+      "value": 720
+    },
+    "class_type": "PrimitiveInt",
+    "_meta": {
+      "title": "Width"
+    }
+  },
+  "49": {
+    "inputs": {
+      "value": 1280
+    },
+    "class_type": "PrimitiveInt",
+    "_meta": {
+      "title": "Height"
+    }
+  },
+  "50": {
+    "inputs": {
+      "expression": "a/2",
+      "values.a": [
+        "48",
+        0
+      ]
+    },
+    "class_type": "ComfyMathExpression",
+    "_meta": {
+      "title": "Math Expression Width/2"
+    }
+  },
+  "51": {
+    "inputs": {
+      "expression": "a/2",
+      "values.a": [
+        "49",
+        0
+      ]
+    },
+    "class_type": "ComfyMathExpression",
+    "_meta": {
+      "title": "Math Expression Height/2"
+    }
+  }
+}

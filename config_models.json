@@ -1,0 +1,26 @@
+{
+    "modelli_disponibili": [
+        "huihui-ai/Huihui-Qwen3.5-9B-abliterated",
+        "huihui_ai/qwen3-vl-abliterated:8b",
+        "huihui_ai/qwen3-vl-abliterated:4b",
+        "huihui_ai/gemma-4-e2b-it-abliterated:latest",
+        "huihui_ai/gemma-4-abliterated:latest",
+        "fredrezones55/Gemma-4-Uncensored-HauhauCS-Aggressive:e4b"
+    ],
+    "mappature_modelli": {
+        "llava:latest": "huihui-ai/Huihui-Qwen3-VL-8B-Instruct-abliterated",
+        "llava": "huihui-ai/Huihui-Qwen3-VL-8B-Instruct-abliterated",
+        "qwen2.5-vl": "huihui-ai/Huihui-Qwen3-VL-8B-Instruct-abliterated",
+        "gemma": "huihui-ai/Huihui-gemma-4-E4B-it-abliterated",
+        "fredrezones55/gemma-4-uncensored-hauhaucs-aggressive:e4b": "HauhauCS/Gemma-4-E4B-Uncensored-HauhauCS-Aggressive",
+        "fredrezones55/gemma-4-uncensored-hauhaucs-aggressive": "HauhauCS/Gemma-4-E4B-Uncensored-HauhauCS-Aggressive",
+        "huihui_ai/qwen3-vl-abliterated:8b": "huihui-ai/Huihui-Qwen3-VL-8B-Instruct-abliterated",
+        "huihui_ai/qwen3-vl-abliterated": "huihui-ai/Huihui-Qwen3-VL-8B-Instruct-abliterated",
+        "huihui_ai/qwen3-vl-abliterated:4b": "huihui-ai/Huihui-Qwen3-VL-4B-Instruct-abliterated",
+        "huihui-ai/Huihui-Qwen3.5-9B-abliterated": "huihui-ai/Huihui-Qwen3.5-9B-abliterated",
+        "huihui_ai/gemma-4-e2b-it-abliterated:latest": "huihui-ai/Huihui-gemma-4-E2B-it-abliterated",
+        "huihui_ai/gemma-4-e2b-it-abliterated": "huihui-ai/Huihui-gemma-4-E2B-it-abliterated",
+        "huihui_ai/gemma-4-abliterated:latest": "huihui-ai/Huihui-gemma-4-E4B-it-abliterated",
+        "huihui_ai/gemma-4-abliterated": "huihui-ai/Huihui-gemma-4-E4B-it-abliterated"
+    }
+}

@@ -1,0 +1,951 @@
+{
+  "flux2_klein_api.json": {
+    "1": {
+      "class_type": "UNETLoader",
+      "inputs": [
+        "unet_name",
+        "weight_dtype"
+      ]
+    },
+    "2": {
+      "class_type": "CLIPLoader",
+      "inputs": [
+        "clip_name",
+        "type",
+        "device"
+      ]
+    },
+    "3": {
+      "class_type": "VAELoader",
+      "inputs": [
+        "vae_name"
+      ]
+    },
+    "4": {
+      "class_type": "EmptySD3LatentImage",
+      "inputs": [
+        "width",
+        "height",
+        "batch_size"
+      ]
+    },
+    "5": {
+      "class_type": "CLIPTextEncode",
+      "inputs": [
+        "text",
+        "clip"
+      ]
+    },
+    "6": {
+      "class_type": "ConditioningZeroOut",
+      "inputs": [
+        "conditioning"
+      ]
+    },
+    "7": {
+      "class_type": "SamplerCustomAdvanced",
+      "inputs": [
+        "noise",
+        "guider",
+        "sampler",
+        "sigmas",
+        "latent_image"
+      ]
+    },
+    "8": {
+      "class_type": "VAEDecode",
+      "inputs": [
+        "samples",
+        "vae"
+      ]
+    },
+    "9": {
+      "class_type": "SaveImage",
+      "inputs": [
+        "filename_prefix",
+        "images"
+      ]
+    },
+    "10": {
+      "class_type": "Flux2Scheduler",
+      "inputs": [
+        "steps",
+        "width",
+        "height"
+      ]
+    },
+    "11": {
+      "class_type": "RandomNoise",
+      "inputs": [
+        "noise_seed"
+      ]
+    },
+    "12": {
+      "class_type": "KSamplerSelect",
+      "inputs": [
+        "sampler_name"
+      ]
+    },
+    "13": {
+      "class_type": "CFGGuider",
+      "inputs": [
+        "cfg",
+        "model",
+        "positive",
+        "negative"
+      ]
+    }
+  },
+  "krea2_turbo_api.json": {
+    "1": {
+      "class_type": "UNETLoader",
+      "inputs": [
+        "unet_name",
+        "weight_dtype"
+      ]
+    },
+    "2": {
+      "class_type": "CLIPLoader",
+      "inputs": [
+        "clip_name",
+        "type",
+        "device"
+      ]
+    },
+    "3": {
+      "class_type": "VAELoader",
+      "inputs": [
+        "vae_name"
+      ]
+    },
+    "4": {
+      "class_type": "EmptyLatentImage",
+      "inputs": [
+        "width",
+        "height",
+        "batch_size"
+      ]
+    },
+    "5": {
+      "class_type": "CLIPTextEncode",
+      "inputs": [
+        "text",
+        "clip"
+      ]
+    },
+    "6": {
+      "class_type": "ConditioningZeroOut",
+      "inputs": [
+        "conditioning"
+      ]
+    },
+    "7": {
+      "class_type": "ClownsharKSampler_Beta",
+      "inputs": [
+        "eta",
+        "sampler_name",
+        "scheduler",
+        "steps",
+        "steps_to_run",
+        "denoise",
+        "cfg",
+        "seed",
+        "sampler_mode",
+        "bongmath",
+        "model",
+        "positive",
+        "negative",
+        "latent_image"
+      ]
+    },
+    "8": {
+      "class_type": "VAEDecode",
+      "inputs": [
+        "samples",
+        "vae"
+      ]
+    },
+    "9": {
+      "class_type": "SaveImage",
+      "inputs": [
+        "filename_prefix",
+        "images"
+      ]
+    },
+    "10": {
+      "class_type": "ClownsharKSampler_Beta",
+      "inputs": [
+        "eta",
+        "sampler_name",
+        "scheduler",
+        "steps",
+        "steps_to_run",
+        "denoise",
+        "cfg",
+        "seed",
+        "sampler_mode",
+        "bongmath",
+        "model",
+        "positive",
+        "negative",
+        "latent_image"
+      ]
+    },
+    "11": {
+      "class_type": "ComfyUI-Krea2T-Enhancer",
+      "inputs": [
+        "enabled",
+        "strength",
+        "debug",
+        "model"
+      ]
+    },
+    "15": {
+      "class_type": "Power Lora Loader (rgthree)",
+      "inputs": [
+        "PowerLoraLoaderHeaderWidget",
+        "lora_1",
+        "➕ Add Lora",
+        "model"
+      ]
+    }
+  },
+  "krea2_turbo_edit_api.json": {
+    "1": {
+      "class_type": "UNETLoader",
+      "inputs": [
+        "unet_name",
+        "weight_dtype"
+      ]
+    },
+    "2": {
+      "class_type": "CLIPLoader",
+      "inputs": [
+        "clip_name",
+        "type",
+        "device"
+      ]
+    },
+    "3": {
+      "class_type": "VAELoader",
+      "inputs": [
+        "vae_name"
+      ]
+    },
+    "4": {
+      "class_type": "EmptySD3LatentImage",
+      "inputs": [
+        "width",
+        "height",
+        "batch_size"
+      ]
+    },
+    "5": {
+      "class_type": "Krea2EditGroundedEncode",
+      "inputs": [
+        "prompt",
+        "grounding_px",
+        "clip",
+        "image"
+      ]
+    },
+    "6": {
+      "class_type": "ConditioningZeroOut",
+      "inputs": [
+        "conditioning"
+      ]
+    },
+    "7": {
+      "class_type": "KSampler",
+      "inputs": [
+        "seed",
+        "steps",
+        "cfg",
+        "sampler_name",
+        "scheduler",
+        "denoise",
+        "model",
+        "positive",
+        "negative",
+        "latent_image"
+      ]
+    },
+    "8": {
+      "class_type": "VAEUtils_VAEDecodeTiled",
+      "inputs": [
+        "upscale",
+        "tile",
+        "tile_size",
+        "overlap",
+        "temporal_size",
+        "temporal_overlap",
+        "samples",
+        "vae"
+      ]
+    },
+    "9": {
+      "class_type": "SaveImage",
+      "inputs": [
+        "filename_prefix",
+        "images"
+      ]
+    },
+    "10": {
+      "class_type": "LoadImage",
+      "inputs": [
+        "image"
+      ]
+    },
+    "11": {
+      "class_type": "ResizeImageMaskNode",
+      "inputs": [
+        "resize_type",
+        "resize_type.height",
+        "scale_method",
+        "input"
+      ]
+    },
+    "12": {
+      "class_type": "GetImageSize",
+      "inputs": [
+        "image"
+      ]
+    },
+    "13": {
+      "class_type": "VAEEncode",
+      "inputs": [
+        "pixels",
+        "vae"
+      ]
+    },
+    "15": {
+      "class_type": "LoraLoaderModelOnly",
+      "inputs": [
+        "lora_name",
+        "strength_model",
+        "model"
+      ]
+    },
+    "16": {
+      "class_type": "Krea2EditModelPatch",
+      "inputs": [
+        "model",
+        "source_latent",
+        "vae",
+        "source_image"
+      ]
+    },
+    "17": {
+      "class_type": "PreviewImage",
+      "inputs": [
+        "images"
+      ]
+    },
+    "18": {
+      "class_type": "Krea2EditGroundedEncode",
+      "inputs": [
+        "prompt",
+        "grounding_px",
+        "clip",
+        "image"
+      ]
+    }
+  },
+  "ltx2.5_api.json": {
+    "1": {
+      "class_type": "UnetLoaderGGUF",
+      "inputs": [
+        "unet_name"
+      ]
+    },
+    "2": {
+      "class_type": "CLIPLoader",
+      "inputs": [
+        "clip_name",
+        "type",
+        "device"
+      ]
+    },
+    "3": {
+      "class_type": "VAELoader",
+      "inputs": [
+        "vae_name"
+      ]
+    },
+    "4": {
+      "class_type": "VAELoader",
+      "inputs": [
+        "vae_name"
+      ]
+    },
+    "5": {
+      "class_type": "CLIPTextEncode",
+      "inputs": [
+        "text",
+        "clip"
+      ]
+    },
+    "6": {
+      "class_type": "CLIPTextEncode",
+      "inputs": [
+        "text",
+        "clip"
+      ]
+    },
+    "7": {
+      "class_type": "SamplerCustomAdvanced",
+      "inputs": [
+        "noise",
+        "guider",
+        "sampler",
+        "sigmas",
+        "latent_image"
+      ]
+    },
+    "8": {
+      "class_type": "VAEDecodeTiled",
+      "inputs": [
+        "tile_size",
+        "overlap",
+        "temporal_size",
+        "temporal_overlap",
+        "samples",
+        "vae"
+      ]
+    },
+    "9": {
+      "class_type": "SaveVideo",
+      "inputs": [
+        "filename_prefix",
+        "format",
+        "codec",
+        "video-preview",
+        "video"
+      ]
+    },
+    "11": {
+      "class_type": "LTXVConditioning",
+      "inputs": [
+        "frame_rate",
+        "positive",
+        "negative"
+      ]
+    },
+    "12": {
+      "class_type": "EmptyLTXVLatentVideo",
+      "inputs": [
+        "width",
+        "height",
+        "length",
+        "batch_size"
+      ]
+    },
+    "13": {
+      "class_type": "LTXVConcatAVLatent",
+      "inputs": [
+        "video_latent",
+        "audio_latent"
+      ]
+    },
+    "14": {
+      "class_type": "PrimitiveInt",
+      "inputs": [
+        "value"
+      ]
+    },
+    "15": {
+      "class_type": "RandomNoise",
+      "inputs": [
+        "noise_seed"
+      ]
+    },
+    "16": {
+      "class_type": "LTXVSeparateAVLatent",
+      "inputs": [
+        "av_latent"
+      ]
+    },
+    "17": {
+      "class_type": "CreateVideo",
+      "inputs": [
+        "fps",
+        "bit_depth",
+        "images",
+        "audio"
+      ]
+    },
+    "18": {
+      "class_type": "LTXVDualCFGGuider",
+      "inputs": [
+        "video_cfg",
+        "audio_cfg",
+        "model",
+        "positive",
+        "negative"
+      ]
+    },
+    "19": {
+      "class_type": "PrimitiveFloat",
+      "inputs": [
+        "value"
+      ]
+    },
+    "22": {
+      "class_type": "KSamplerSelect",
+      "inputs": [
+        "sampler_name"
+      ]
+    },
+    "23": {
+      "class_type": "LoadImage",
+      "inputs": [
+        "image"
+      ]
+    },
+    "24": {
+      "class_type": "LTXVPreprocess",
+      "inputs": [
+        "img_compression",
+        "image"
+      ]
+    },
+    "25": {
+      "class_type": "ManualSigmas",
+      "inputs": [
+        "sigmas"
+      ]
+    },
+    "26": {
+      "class_type": "LTXVEmptyLatentAudio",
+      "inputs": [
+        "frames_number",
+        "frame_rate",
+        "batch_size",
+        "audio_vae"
+      ]
+    },
+    "32": {
+      "class_type": "LTXVAudioVAEDecode",
+      "inputs": [
+        "samples",
+        "audio_vae"
+      ]
+    },
+    "33": {
+      "class_type": "ResizeImageMaskNode",
+      "inputs": [
+        "resize_type",
+        "resize_type.longer_size",
+        "scale_method",
+        "input"
+      ]
+    },
+    "36": {
+      "class_type": "PrimitiveBoolean",
+      "inputs": [
+        "value"
+      ]
+    },
+    "37": {
+      "class_type": "LTXVImgToVideoInplace",
+      "inputs": [
+        "strength",
+        "bypass",
+        "vae",
+        "image",
+        "latent"
+      ]
+    },
+    "38": {
+      "class_type": "LatentUpscaleModelLoader",
+      "inputs": [
+        "model_name"
+      ]
+    },
+    "39": {
+      "class_type": "LTXVLatentUpsampler",
+      "inputs": [
+        "samples",
+        "upscale_model",
+        "vae"
+      ]
+    },
+    "40": {
+      "class_type": "LTXVImgToVideoInplace",
+      "inputs": [
+        "strength",
+        "bypass",
+        "vae",
+        "image",
+        "latent"
+      ]
+    },
+    "41": {
+      "class_type": "LTXVConcatAVLatent",
+      "inputs": [
+        "video_latent",
+        "audio_latent"
+      ]
+    },
+    "42": {
+      "class_type": "RandomNoise",
+      "inputs": [
+        "noise_seed"
+      ]
+    },
+    "43": {
+      "class_type": "KSamplerSelect",
+      "inputs": [
+        "sampler_name"
+      ]
+    },
+    "44": {
+      "class_type": "ManualSigmas",
+      "inputs": [
+        "sigmas"
+      ]
+    },
+    "45": {
+      "class_type": "LTXVDualCFGGuider",
+      "inputs": [
+        "video_cfg",
+        "audio_cfg",
+        "model",
+        "positive",
+        "negative"
+      ]
+    },
+    "46": {
+      "class_type": "SamplerCustomAdvanced",
+      "inputs": [
+        "noise",
+        "guider",
+        "sampler",
+        "sigmas",
+        "latent_image"
+      ]
+    },
+    "47": {
+      "class_type": "LTXVSeparateAVLatent",
+      "inputs": [
+        "av_latent"
+      ]
+    },
+    "48": {
+      "class_type": "PrimitiveInt",
+      "inputs": [
+        "value"
+      ]
+    },
+    "49": {
+      "class_type": "PrimitiveInt",
+      "inputs": [
+        "value"
+      ]
+    },
+    "50": {
+      "class_type": "ComfyMathExpression",
+      "inputs": [
+        "expression",
+        "values.a"
+      ]
+    },
+    "51": {
+      "class_type": "ComfyMathExpression",
+      "inputs": [
+        "expression",
+        "values.a"
+      ]
+    }
+  },
+  "minimax_h3_api.json": {
+    "36": {
+      "class_type": "VAELoader",
+      "inputs": [
+        "vae_name"
+      ]
+    },
+    "37": {
+      "class_type": "VAELoader",
+      "inputs": [
+        "vae_name"
+      ]
+    },
+    "38": {
+      "class_type": "CLIPLoader",
+      "inputs": [
+        "clip_name",
+        "type",
+        "device"
+      ]
+    },
+    "51": {
+      "class_type": "LoadImage",
+      "inputs": [
+        "image"
+      ]
+    },
+    "58": {
+      "class_type": "MiniMaxH3MemoryEfficientSageAttentionPatch",
+      "inputs": [
+        "model"
+      ]
+    },
+    "192": {
+      "class_type": "UNETLoader",
+      "inputs": [
+        "unet_name",
+        "weight_dtype"
+      ]
+    },
+    "223": {
+      "class_type": "BasicGuider",
+      "inputs": [
+        "model",
+        "conditioning"
+      ]
+    },
+    "226": {
+      "class_type": "SamplerCustomAdvanced",
+      "inputs": [
+        "noise",
+        "guider",
+        "sampler",
+        "sigmas",
+        "latent_image"
+      ]
+    },
+    "250": {
+      "class_type": "ComfyMathExpression",
+      "inputs": [
+        "expression",
+        "values.a"
+      ]
+    },
+    "252": {
+      "class_type": "ResolutionSelector",
+      "inputs": [
+        "aspect_ratio",
+        "megapixels",
+        "multiple"
+      ]
+    },
+    "253": {
+      "class_type": "VAEDecode",
+      "inputs": [
+        "samples",
+        "vae"
+      ]
+    },
+    "254": {
+      "class_type": "VAEDecodeAudio",
+      "inputs": [
+        "samples",
+        "vae"
+      ]
+    },
+    "256": {
+      "class_type": "RandomNoise",
+      "inputs": [
+        "noise_seed"
+      ]
+    },
+    "259": {
+      "class_type": "PrimitiveFloat",
+      "inputs": [
+        "value"
+      ]
+    },
+    "263": {
+      "class_type": "Text",
+      "inputs": [
+        "text"
+      ]
+    },
+    "264": {
+      "class_type": "VHS_VideoCombine",
+      "inputs": [
+        "frame_rate",
+        "loop_count",
+        "filename_prefix",
+        "format",
+        "pix_fmt",
+        "crf",
+        "save_metadata",
+        "trim_to_audio",
+        "pingpong",
+        "save_output",
+        "images",
+        "audio"
+      ]
+    },
+    "265": {
+      "class_type": "MiniMaxH3ReferenceToVideo",
+      "inputs": [
+        "prompt",
+        "width",
+        "height",
+        "length",
+        "ref_image_size",
+        "clip",
+        "vae",
+        "audio_vae",
+        "ref_images.ref_image_0"
+      ]
+    },
+    "332": {
+      "class_type": "MiniMaxH3DualClockSamplerT8",
+      "inputs": [
+        "steps",
+        "shift_video",
+        "shift_audio",
+        "sampler_name",
+        "scheduler",
+        "model",
+        "av_latent"
+      ]
+    },
+    "336": {
+      "class_type": "LoraLoaderModelOnly",
+      "inputs": [
+        "lora_name",
+        "strength_model",
+        "model"
+      ]
+    },
+    "337": {
+      "class_type": "LoraLoaderModelOnly",
+      "inputs": [
+        "lora_name",
+        "strength_model",
+        "model"
+      ]
+    }
+  },
+  "z_image_turbo_api.json": {
+    "1": {
+      "class_type": "UNETLoader",
+      "inputs": [
+        "unet_name",
+        "weight_dtype"
+      ]
+    },
+    "2": {
+      "class_type": "CLIPLoaderGGUF",
+      "inputs": [
+        "clip_name",
+        "type"
+      ]
+    },
+    "3": {
+      "class_type": "VAELoader",
+      "inputs": [
+        "vae_name"
+      ]
+    },
+    "4": {
+      "class_type": "EmptySD3LatentImage",
+      "inputs": [
+        "width",
+        "height",
+        "batch_size"
+      ]
+    },
+    "5": {
+      "class_type": "CLIPTextEncode",
+      "inputs": [
+        "text",
+        "clip"
+      ]
+    },
+    "6": {
+      "class_type": "ConditioningZeroOut",
+      "inputs": [
+        "conditioning"
+      ]
+    },
+    "7": {
+      "class_type": "KSampler",
+      "inputs": [
+        "seed",
+        "steps",
+        "cfg",
+        "sampler_name",
+        "scheduler",
+        "denoise",
+        "model",
+        "positive",
+        "negative",
+        "latent_image"
+      ]
+    },
+    "8": {
+      "class_type": "VAEDecode",
+      "inputs": [
+        "samples",
+        "vae"
+      ]
+    },
+    "9": {
+      "class_type": "SaveImage",
+      "inputs": [
+        "filename_prefix",
+        "images"
+      ]
+    },
+    "10": {
+      "class_type": "ModelSamplingAuraFlow",
+      "inputs": [
+        "shift",
+        "model"
+      ]
+    },
+    "11": {
+      "class_type": "LatentUpscaleBy",
+      "inputs": [
+        "upscale_method",
+        "scale_by",
+        "samples"
+      ]
+    },
+    "12": {
+      "class_type": "KSampler",
+      "inputs": [
+        "seed",
+        "steps",
+        "cfg",
+        "sampler_name",
+        "scheduler",
+        "denoise",
+        "model",
+        "positive",
+        "negative",
+        "latent_image"
+      ]
+    },
+    "15": {
+      "class_type": "LoraLoaderModelOnly",
+      "inputs": [
+        "lora_name",
+        "strength_model",
+        "model"
+      ]
+    },
+    "16": {
+      "class_type": "LoraLoaderModelOnly",
+      "inputs": [
+        "lora_name",
+        "strength_model",
+        "model"
+      ]
+    },
+    "17": {
+      "class_type": "LoraLoaderModelOnly",
+      "inputs": [
+        "lora_name",
+        "strength_model",
+        "model"
+      ]
+    }
+  }
+}

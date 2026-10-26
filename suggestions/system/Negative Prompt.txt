@@ -1,0 +1,1 @@
+unintended temporal flicker, accidental duplicate subjects, broken object continuity, compression artifacts, unintended watermark

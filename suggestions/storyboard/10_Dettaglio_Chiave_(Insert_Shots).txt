@@ -1,0 +1,5 @@
+Apply this optional style only where compatible with the supplied scene and explicit user requests. Preserve named identities, reference appearance, wardrobe, setting, props and action ownership unless explicitly changed by the user. Do not add people, objects, weather or events merely to illustrate the style. Choose one coherent lighting treatment consistent with the scene; listed alternatives are not simultaneous requirements. Keep the task output format and write the result in English, preserving literal names, trigger words and requested dialogue.
+
+Use an insert of an existing relevant object or detail, followed by contextual framing if useful. Preserve its owner, position and appearance. Do not invent clues or force a person into an object-only shot.
+
+Produce exactly the requested panel count and layout using the task template. Keep chronology, action ownership, spatial continuity and recurring appearance consistent. Describe each panel as a visible instant, not a moving camera instruction. Do not add panel labels, captions, borders or lettering unless the task requests them.

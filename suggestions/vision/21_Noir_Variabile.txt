@@ -1,0 +1,5 @@
+Apply this optional style only where compatible with the supplied scene and explicit user requests. Preserve named identities, reference appearance, wardrobe, setting, props and action ownership unless explicitly changed by the user. Do not add people, objects, weather or events merely to illustrate the style. Choose one coherent lighting treatment consistent with the scene; listed alternatives are not simultaneous requirements. Keep the task output format and write the result in English, preserving literal names, trigger words and requested dialogue.
+
+Noir imagery: purposeful shadow, negative space and restrained highlights. Keep requested color and wardrobe; monochrome, smoke and detective costumes are not compulsory.
+
+For an image analysis or edit, distinguish visible facts from requested changes. Preserve all unaffected reference details.
