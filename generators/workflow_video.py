@@ -185,6 +185,13 @@ def prepara_workflow_ltx_video(
 ):
     with open(file_path, 'r', encoding='utf-8') as f: 
         wf = json.load(f)
+    from core.workflow_profiles import prepare_profile_graph
+    is_text_request = bool(solo_testo_video or not percorso_immagine_origine)
+    wf, binding = prepare_profile_graph(file_path, wf, 'ltx25',
+        'text_to_video' if is_text_request else 'image_to_video',
+        loras=[(lv1_n,lv1_s),(lv2_n,lv2_s),(lv3_n,lv3_s)],
+        first_last=bool(percorso_immagine_destinazione and not is_text_request),
+        middle=bool(percorso_immagine_intermedia and not is_text_request))
         
     nodi_richiesti = [NODO_UNET, NODO_CLIP, NODO_VAE, NODO_PROMPT, NODO_PROMPT_NEG, NODO_SAMPLER, NODO_VAE_DECODE, NODO_SAVE_VIDEO]
     errori = []
@@ -196,7 +203,7 @@ def prepara_workflow_ltx_video(
             log.registra(f"Workflow validation ERROR: {e}", "ERROR")
         return None
 
-    is_ltx25 = "45" in wf or "38" in wf or "36" in wf
+    is_ltx25 = binding.profile['adapter'] == 'ltx25'
 
     p_adv = ottieni_parametri_avanzati_workflow().get("ltx_video", {})
     p_tile = p_adv.get("tiled_vae", {})
@@ -487,7 +494,7 @@ def prepara_workflow_ltx_video(
 
     _applica_lora_cascata_ltx(wf, [(lv1_n, lv1_s), (lv2_n, lv2_s), (lv3_n, lv3_s)])
 
-    return wf
+    return binding.finish(wf)
 
 
 def valida_denoise_minimax(denoise):

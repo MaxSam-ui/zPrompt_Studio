@@ -1,0 +1,152 @@
+{
+  "schema_version": 1,
+  "adapter": "krea2",
+  "capabilities": {
+    "text_to_image": true,
+    "image_to_image": true,
+    "edit": false,
+    "text_to_video": false,
+    "image_to_video": false,
+    "first_last_frames": false,
+    "middle_image": false,
+    "custom_lora": true
+  },
+  "nodes": {
+    "model": {
+      "id": "1",
+      "slot": "1",
+      "class_type": "UNETLoader",
+      "required_inputs": [
+        "unet_name",
+        "weight_dtype"
+      ]
+    },
+    "text_encoder": {
+      "id": "2",
+      "slot": "2",
+      "class_type": "CLIPLoader",
+      "required_inputs": [
+        "clip_name",
+        "type",
+        "device"
+      ]
+    },
+    "vae": {
+      "id": "3",
+      "slot": "3",
+      "class_type": "VAELoader",
+      "required_inputs": [
+        "vae_name"
+      ]
+    },
+    "latent": {
+      "id": "4",
+      "slot": "4",
+      "class_type": "EmptyLatentImage",
+      "required_inputs": [
+        "width",
+        "height",
+        "batch_size"
+      ]
+    },
+    "prompt": {
+      "id": "5",
+      "slot": "5",
+      "class_type": "CLIPTextEncode",
+      "required_inputs": [
+        "text",
+        "clip"
+      ]
+    },
+    "negative": {
+      "id": "6",
+      "slot": "6",
+      "class_type": "ConditioningZeroOut",
+      "required_inputs": [
+        "conditioning"
+      ]
+    },
+    "sampling": {
+      "id": "7",
+      "slot": "7",
+      "class_type": "ClownsharKSampler_Beta",
+      "required_inputs": [
+        "eta",
+        "sampler_name",
+        "scheduler",
+        "steps",
+        "steps_to_run",
+        "denoise",
+        "cfg",
+        "seed",
+        "sampler_mode",
+        "bongmath",
+        "model",
+        "positive",
+        "negative",
+        "latent_image"
+      ]
+    },
+    "decode": {
+      "id": "8",
+      "slot": "8",
+      "class_type": "VAEDecode",
+      "required_inputs": [
+        "samples",
+        "vae"
+      ]
+    },
+    "output": {
+      "id": "9",
+      "slot": "9",
+      "class_type": "SaveImage",
+      "required_inputs": [
+        "filename_prefix",
+        "images"
+      ]
+    },
+    "clownsharksampler_beta_10": {
+      "id": "10",
+      "slot": "10",
+      "class_type": "ClownsharKSampler_Beta",
+      "required_inputs": [
+        "eta",
+        "sampler_name",
+        "scheduler",
+        "steps",
+        "steps_to_run",
+        "denoise",
+        "cfg",
+        "seed",
+        "sampler_mode",
+        "bongmath",
+        "model",
+        "positive",
+        "negative",
+        "latent_image"
+      ]
+    },
+    "comfyui-krea2t-enhancer_11": {
+      "id": "11",
+      "slot": "11",
+      "class_type": "ComfyUI-Krea2T-Enhancer",
+      "required_inputs": [
+        "enabled",
+        "strength",
+        "debug",
+        "model"
+      ]
+    },
+    "power_lora_loader_(rgthree)_15": {
+      "id": "15",
+      "slot": "15",
+      "class_type": "Power Lora Loader (rgthree)",
+      "required_inputs": [
+        "PowerLoraLoaderHeaderWidget",
+        "lora_1",
+        "\u2795 Add Lora",
+        "model"
+      ]
+    }
+  }
+}

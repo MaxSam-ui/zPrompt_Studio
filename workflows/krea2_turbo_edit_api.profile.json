@@ -1,0 +1,189 @@
+{
+  "schema_version": 1,
+  "adapter": "krea2_edit",
+  "capabilities": {
+    "text_to_image": false,
+    "image_to_image": false,
+    "edit": true,
+    "text_to_video": false,
+    "image_to_video": false,
+    "first_last_frames": false,
+    "middle_image": false,
+    "custom_lora": false
+  },
+  "nodes": {
+    "model": {
+      "id": "1",
+      "slot": "1",
+      "class_type": "UNETLoader",
+      "required_inputs": [
+        "unet_name",
+        "weight_dtype"
+      ]
+    },
+    "text_encoder": {
+      "id": "2",
+      "slot": "2",
+      "class_type": "CLIPLoader",
+      "required_inputs": [
+        "clip_name",
+        "type",
+        "device"
+      ]
+    },
+    "vae": {
+      "id": "3",
+      "slot": "3",
+      "class_type": "VAELoader",
+      "required_inputs": [
+        "vae_name"
+      ]
+    },
+    "latent": {
+      "id": "4",
+      "slot": "4",
+      "class_type": "EmptySD3LatentImage",
+      "required_inputs": [
+        "width",
+        "height",
+        "batch_size"
+      ]
+    },
+    "prompt": {
+      "id": "5",
+      "slot": "5",
+      "class_type": "Krea2EditGroundedEncode",
+      "required_inputs": [
+        "prompt",
+        "grounding_px",
+        "clip",
+        "image"
+      ]
+    },
+    "negative": {
+      "id": "6",
+      "slot": "6",
+      "class_type": "ConditioningZeroOut",
+      "required_inputs": [
+        "conditioning"
+      ]
+    },
+    "sampling": {
+      "id": "7",
+      "slot": "7",
+      "class_type": "KSampler",
+      "required_inputs": [
+        "seed",
+        "steps",
+        "cfg",
+        "sampler_name",
+        "scheduler",
+        "denoise",
+        "model",
+        "positive",
+        "negative",
+        "latent_image"
+      ]
+    },
+    "decode": {
+      "id": "8",
+      "slot": "8",
+      "class_type": "VAEUtils_VAEDecodeTiled",
+      "required_inputs": [
+        "upscale",
+        "tile",
+        "tile_size",
+        "overlap",
+        "temporal_size",
+        "temporal_overlap",
+        "samples",
+        "vae"
+      ]
+    },
+    "output": {
+      "id": "9",
+      "slot": "9",
+      "class_type": "SaveImage",
+      "required_inputs": [
+        "filename_prefix",
+        "images"
+      ]
+    },
+    "loadimage_10": {
+      "id": "10",
+      "slot": "10",
+      "class_type": "LoadImage",
+      "required_inputs": [
+        "image"
+      ]
+    },
+    "resizeimagemasknode_11": {
+      "id": "11",
+      "slot": "11",
+      "class_type": "ResizeImageMaskNode",
+      "required_inputs": [
+        "resize_type",
+        "resize_type.height",
+        "scale_method",
+        "input"
+      ]
+    },
+    "getimagesize_12": {
+      "id": "12",
+      "slot": "12",
+      "class_type": "GetImageSize",
+      "required_inputs": [
+        "image"
+      ]
+    },
+    "vaeencode_13": {
+      "id": "13",
+      "slot": "13",
+      "class_type": "VAEEncode",
+      "required_inputs": [
+        "pixels",
+        "vae"
+      ]
+    },
+    "loraloadermodelonly_15": {
+      "id": "15",
+      "slot": "15",
+      "class_type": "LoraLoaderModelOnly",
+      "required_inputs": [
+        "lora_name",
+        "strength_model",
+        "model"
+      ]
+    },
+    "krea2editmodelpatch_16": {
+      "id": "16",
+      "slot": "16",
+      "class_type": "Krea2EditModelPatch",
+      "required_inputs": [
+        "model",
+        "source_latent",
+        "vae",
+        "source_image"
+      ]
+    },
+    "previewimage_17": {
+      "id": "17",
+      "slot": "17",
+      "class_type": "PreviewImage",
+      "required_inputs": [
+        "images"
+      ]
+    },
+    "krea2editgroundedencode_18": {
+      "id": "18",
+      "slot": "18",
+      "class_type": "Krea2EditGroundedEncode",
+      "required_inputs": [
+        "prompt",
+        "grounding_px",
+        "clip",
+        "image"
+      ]
+    }
+  }
+}

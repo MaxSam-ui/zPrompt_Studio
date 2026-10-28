@@ -4,6 +4,50 @@ import json
 from core import log
 
 
+def _api_metadata(graph):
+    """Follow active sampling/positive branches, independently of node IDs."""
+    if not isinstance(graph, dict) or not graph or not all(isinstance(n, dict) and 'inputs' in n for n in graph.values()):
+        return '', None
+
+    def ancestors(start):
+        pending, seen = list(start), set()
+        while pending:
+            key = pending.pop()
+            if key in seen or key not in graph:
+                continue
+            seen.add(key)
+            for value in graph[key]['inputs'].values():
+                if isinstance(value, list) and len(value) == 2 and isinstance(value[0], str):
+                    pending.append(value[0])
+        return seen
+
+    def linked(value):
+        return [value[0]] if isinstance(value, list) and len(value) == 2 and isinstance(value[0], str) else []
+
+    outputs = [k for k,n in graph.items() if n.get('class_type') in ('SaveImage', 'SaveVideo', 'VHS_VideoCombine')]
+    if not outputs:
+        return '', None
+    prompts, seeds = set(), set()
+    for key in ancestors(outputs):
+        node = graph[key]; inputs = node['inputs']
+        if node.get('class_type') not in ('KSampler','KSamplerAdvanced','SamplerCustomAdvanced','ClownsharKSampler_Beta'):
+            continue
+        positive = inputs.get('positive')
+        guide = linked(inputs.get('guider'))
+        if guide:
+            positive = graph.get(guide[0], {}).get('inputs', {}).get('positive')
+        for pkey in ancestors(linked(positive)):
+            pnode = graph[pkey]
+            if pnode.get('class_type') in ('CLIPTextEncode', 'TextEncodeQwenImage21', 'Krea2EditGroundedEncode'):
+                text = pnode['inputs'].get('prompt', pnode['inputs'].get('text'))
+                if isinstance(text, str) and text.strip(): prompts.add(text)
+        seed = inputs.get('seed', inputs.get('noise_seed'))
+        noise = linked(inputs.get('noise'))
+        if noise: seed = graph.get(noise[0], {}).get('inputs', {}).get('noise_seed')
+        if isinstance(seed, int): seeds.add(seed)
+    return (next(iter(prompts)) if len(prompts)==1 else '', next(iter(seeds)) if len(seeds)==1 else None)
+
+
 def _estrai_valore_sicuro_lista(dizionario, chiave):
     val = dizionario.get(chiave)
     if isinstance(val, list) and len(val) > 0:
@@ -15,6 +59,15 @@ def estrai_info_da_immagine(im_pil):
     """Estrae il prompt e il seed originari incorporati nei metadati PNG/EXIF dell'immagine."""
     try:
         info = getattr(im_pil, "info", {})
+        # ComfyUI stores the executed API graph separately from the editor graph.
+        api = info.get('prompt')
+        if api:
+            try:
+                api_prompt, api_seed = _api_metadata(json.loads(api) if isinstance(api, str) else api)
+                if api_prompt:
+                    return api_prompt, api_seed
+            except (ValueError, TypeError):
+                pass
         raw = info.get('workflow') or info.get('prompt')
         if not raw: 
             return "", None

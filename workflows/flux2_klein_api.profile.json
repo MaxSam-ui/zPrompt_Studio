@@ -1,0 +1,137 @@
+{
+  "schema_version": 1,
+  "adapter": "flux2",
+  "capabilities": {
+    "text_to_image": true,
+    "image_to_image": true,
+    "edit": false,
+    "text_to_video": false,
+    "image_to_video": false,
+    "first_last_frames": false,
+    "middle_image": false,
+    "custom_lora": true
+  },
+  "nodes": {
+    "model": {
+      "id": "1",
+      "slot": "1",
+      "class_type": "UNETLoader",
+      "required_inputs": [
+        "unet_name",
+        "weight_dtype"
+      ]
+    },
+    "text_encoder": {
+      "id": "2",
+      "slot": "2",
+      "class_type": "CLIPLoader",
+      "required_inputs": [
+        "clip_name",
+        "type",
+        "device"
+      ]
+    },
+    "vae": {
+      "id": "3",
+      "slot": "3",
+      "class_type": "VAELoader",
+      "required_inputs": [
+        "vae_name"
+      ]
+    },
+    "latent": {
+      "id": "4",
+      "slot": "4",
+      "class_type": "EmptySD3LatentImage",
+      "required_inputs": [
+        "width",
+        "height",
+        "batch_size"
+      ]
+    },
+    "prompt": {
+      "id": "5",
+      "slot": "5",
+      "class_type": "CLIPTextEncode",
+      "required_inputs": [
+        "text",
+        "clip"
+      ]
+    },
+    "negative": {
+      "id": "6",
+      "slot": "6",
+      "class_type": "ConditioningZeroOut",
+      "required_inputs": [
+        "conditioning"
+      ]
+    },
+    "sampling": {
+      "id": "7",
+      "slot": "7",
+      "class_type": "SamplerCustomAdvanced",
+      "required_inputs": [
+        "noise",
+        "guider",
+        "sampler",
+        "sigmas",
+        "latent_image"
+      ]
+    },
+    "decode": {
+      "id": "8",
+      "slot": "8",
+      "class_type": "VAEDecode",
+      "required_inputs": [
+        "samples",
+        "vae"
+      ]
+    },
+    "output": {
+      "id": "9",
+      "slot": "9",
+      "class_type": "SaveImage",
+      "required_inputs": [
+        "filename_prefix",
+        "images"
+      ]
+    },
+    "flux2scheduler_10": {
+      "id": "10",
+      "slot": "10",
+      "class_type": "Flux2Scheduler",
+      "required_inputs": [
+        "steps",
+        "width",
+        "height"
+      ]
+    },
+    "randomnoise_11": {
+      "id": "11",
+      "slot": "11",
+      "class_type": "RandomNoise",
+      "required_inputs": [
+        "noise_seed"
+      ]
+    },
+    "ksamplerselect_12": {
+      "id": "12",
+      "slot": "12",
+      "class_type": "KSamplerSelect",
+      "required_inputs": [
+        "sampler_name"
+      ]
+    },
+    "cfgguider_13": {
+      "id": "13",
+      "slot": "13",
+      "class_type": "CFGGuider",
+      "required_inputs": [
+        "cfg",
+        "model",
+        "positive",
+        "negative"
+      ]
+    }
+  }
+}

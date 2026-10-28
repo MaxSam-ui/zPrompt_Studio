@@ -1,0 +1,403 @@
+{
+  "schema_version": 1,
+  "adapter": "ltx25",
+  "capabilities": {
+    "text_to_image": false,
+    "image_to_image": false,
+    "edit": false,
+    "text_to_video": true,
+    "image_to_video": true,
+    "first_last_frames": true,
+    "middle_image": true,
+    "custom_lora": true
+  },
+  "nodes": {
+    "model": {
+      "id": "1",
+      "slot": "1",
+      "class_type": "UnetLoaderGGUF",
+      "required_inputs": [
+        "unet_name"
+      ]
+    },
+    "text_encoder": {
+      "id": "2",
+      "slot": "2",
+      "class_type": "CLIPLoader",
+      "required_inputs": [
+        "clip_name",
+        "type",
+        "device"
+      ]
+    },
+    "vae": {
+      "id": "3",
+      "slot": "3",
+      "class_type": "VAELoader",
+      "required_inputs": [
+        "vae_name"
+      ]
+    },
+    "audio_vae": {
+      "id": "4",
+      "slot": "4",
+      "class_type": "VAELoader",
+      "required_inputs": [
+        "vae_name"
+      ]
+    },
+    "prompt": {
+      "id": "5",
+      "slot": "5",
+      "class_type": "CLIPTextEncode",
+      "required_inputs": [
+        "text",
+        "clip"
+      ]
+    },
+    "negative": {
+      "id": "6",
+      "slot": "6",
+      "class_type": "CLIPTextEncode",
+      "required_inputs": [
+        "text",
+        "clip"
+      ]
+    },
+    "sampling": {
+      "id": "7",
+      "slot": "7",
+      "class_type": "SamplerCustomAdvanced",
+      "required_inputs": [
+        "noise",
+        "guider",
+        "sampler",
+        "sigmas",
+        "latent_image"
+      ]
+    },
+    "decode": {
+      "id": "8",
+      "slot": "8",
+      "class_type": "VAEDecodeTiled",
+      "required_inputs": [
+        "tile_size",
+        "overlap",
+        "temporal_size",
+        "temporal_overlap",
+        "samples",
+        "vae"
+      ]
+    },
+    "output": {
+      "id": "9",
+      "slot": "9",
+      "class_type": "SaveVideo",
+      "required_inputs": [
+        "filename_prefix",
+        "format",
+        "codec",
+        "video-preview",
+        "video"
+      ]
+    },
+    "conditioning": {
+      "id": "11",
+      "slot": "11",
+      "class_type": "LTXVConditioning",
+      "required_inputs": [
+        "frame_rate",
+        "positive",
+        "negative"
+      ]
+    },
+    "emptyltxvlatentvideo_12": {
+      "id": "12",
+      "slot": "12",
+      "class_type": "EmptyLTXVLatentVideo",
+      "required_inputs": [
+        "width",
+        "height",
+        "length",
+        "batch_size"
+      ]
+    },
+    "ltxvconcatavlatent_13": {
+      "id": "13",
+      "slot": "13",
+      "class_type": "LTXVConcatAVLatent",
+      "required_inputs": [
+        "video_latent",
+        "audio_latent"
+      ]
+    },
+    "frame_count": {
+      "id": "14",
+      "slot": "14",
+      "class_type": "PrimitiveInt",
+      "required_inputs": [
+        "value"
+      ]
+    },
+    "seed": {
+      "id": "15",
+      "slot": "15",
+      "class_type": "RandomNoise",
+      "required_inputs": [
+        "noise_seed"
+      ]
+    },
+    "ltxvseparateavlatent_16": {
+      "id": "16",
+      "slot": "16",
+      "class_type": "LTXVSeparateAVLatent",
+      "required_inputs": [
+        "av_latent"
+      ]
+    },
+    "video_assembly": {
+      "id": "17",
+      "slot": "17",
+      "class_type": "CreateVideo",
+      "required_inputs": [
+        "fps",
+        "bit_depth",
+        "images",
+        "audio"
+      ]
+    },
+    "guider": {
+      "id": "18",
+      "slot": "18",
+      "class_type": "LTXVDualCFGGuider",
+      "required_inputs": [
+        "video_cfg",
+        "audio_cfg",
+        "model",
+        "positive",
+        "negative"
+      ]
+    },
+    "fps": {
+      "id": "19",
+      "slot": "19",
+      "class_type": "PrimitiveFloat",
+      "required_inputs": [
+        "value"
+      ]
+    },
+    "ksamplerselect_22": {
+      "id": "22",
+      "slot": "22",
+      "class_type": "KSamplerSelect",
+      "required_inputs": [
+        "sampler_name"
+      ]
+    },
+    "first_image": {
+      "id": "23",
+      "slot": "23",
+      "class_type": "LoadImage",
+      "required_inputs": [
+        "image"
+      ]
+    },
+    "ltxvpreprocess_24": {
+      "id": "24",
+      "slot": "24",
+      "class_type": "LTXVPreprocess",
+      "required_inputs": [
+        "img_compression",
+        "image"
+      ]
+    },
+    "manualsigmas_25": {
+      "id": "25",
+      "slot": "25",
+      "class_type": "ManualSigmas",
+      "required_inputs": [
+        "sigmas"
+      ]
+    },
+    "ltxvemptylatentaudio_26": {
+      "id": "26",
+      "slot": "26",
+      "class_type": "LTXVEmptyLatentAudio",
+      "required_inputs": [
+        "frames_number",
+        "frame_rate",
+        "batch_size",
+        "audio_vae"
+      ]
+    },
+    "ltxvaudiovaedecode_32": {
+      "id": "32",
+      "slot": "32",
+      "class_type": "LTXVAudioVAEDecode",
+      "required_inputs": [
+        "samples",
+        "audio_vae"
+      ]
+    },
+    "resizeimagemasknode_33": {
+      "id": "33",
+      "slot": "33",
+      "class_type": "ResizeImageMaskNode",
+      "required_inputs": [
+        "resize_type",
+        "resize_type.longer_size",
+        "scale_method",
+        "input"
+      ]
+    },
+    "text_mode": {
+      "id": "36",
+      "slot": "36",
+      "class_type": "PrimitiveBoolean",
+      "required_inputs": [
+        "value"
+      ]
+    },
+    "ltxvimgtovideoinplace_37": {
+      "id": "37",
+      "slot": "37",
+      "class_type": "LTXVImgToVideoInplace",
+      "required_inputs": [
+        "strength",
+        "bypass",
+        "vae",
+        "image",
+        "latent"
+      ]
+    },
+    "latentupscalemodelloader_38": {
+      "id": "38",
+      "slot": "38",
+      "class_type": "LatentUpscaleModelLoader",
+      "required_inputs": [
+        "model_name"
+      ]
+    },
+    "ltxvlatentupsampler_39": {
+      "id": "39",
+      "slot": "39",
+      "class_type": "LTXVLatentUpsampler",
+      "required_inputs": [
+        "samples",
+        "upscale_model",
+        "vae"
+      ]
+    },
+    "ltxvimgtovideoinplace_40": {
+      "id": "40",
+      "slot": "40",
+      "class_type": "LTXVImgToVideoInplace",
+      "required_inputs": [
+        "strength",
+        "bypass",
+        "vae",
+        "image",
+        "latent"
+      ]
+    },
+    "ltxvconcatavlatent_41": {
+      "id": "41",
+      "slot": "41",
+      "class_type": "LTXVConcatAVLatent",
+      "required_inputs": [
+        "video_latent",
+        "audio_latent"
+      ]
+    },
+    "refinement_seed": {
+      "id": "42",
+      "slot": "42",
+      "class_type": "RandomNoise",
+      "required_inputs": [
+        "noise_seed"
+      ]
+    },
+    "ksamplerselect_43": {
+      "id": "43",
+      "slot": "43",
+      "class_type": "KSamplerSelect",
+      "required_inputs": [
+        "sampler_name"
+      ]
+    },
+    "manualsigmas_44": {
+      "id": "44",
+      "slot": "44",
+      "class_type": "ManualSigmas",
+      "required_inputs": [
+        "sigmas"
+      ]
+    },
+    "refinement_guider": {
+      "id": "45",
+      "slot": "45",
+      "class_type": "LTXVDualCFGGuider",
+      "required_inputs": [
+        "video_cfg",
+        "audio_cfg",
+        "model",
+        "positive",
+        "negative"
+      ]
+    },
+    "samplercustomadvanced_46": {
+      "id": "46",
+      "slot": "46",
+      "class_type": "SamplerCustomAdvanced",
+      "required_inputs": [
+        "noise",
+        "guider",
+        "sampler",
+        "sigmas",
+        "latent_image"
+      ]
+    },
+    "ltxvseparateavlatent_47": {
+      "id": "47",
+      "slot": "47",
+      "class_type": "LTXVSeparateAVLatent",
+      "required_inputs": [
+        "av_latent"
+      ]
+    },
+    "width": {
+      "id": "48",
+      "slot": "48",
+      "class_type": "PrimitiveInt",
+      "required_inputs": [
+        "value"
+      ]
+    },
+    "height": {
+      "id": "49",
+      "slot": "49",
+      "class_type": "PrimitiveInt",
+      "required_inputs": [
+        "value"
+      ]
+    },
+    "comfymathexpression_50": {
+      "id": "50",
+      "slot": "50",
+      "class_type": "ComfyMathExpression",
+      "required_inputs": [
+        "expression",
+        "values.a"
+      ]
+    },
+    "comfymathexpression_51": {
+      "id": "51",
+      "slot": "51",
+      "class_type": "ComfyMathExpression",
+      "required_inputs": [
+        "expression",
+        "values.a"
+      ]
+    }
+  }
+}

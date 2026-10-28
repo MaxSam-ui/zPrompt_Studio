@@ -1,0 +1,134 @@
+{
+  "schema_version": 1,
+  "adapter": "qwen21_edit",
+  "capabilities": {
+    "text_to_image": false,
+    "image_to_image": false,
+    "edit": true,
+    "text_to_video": false,
+    "image_to_video": false,
+    "first_last_frames": false,
+    "middle_image": false,
+    "custom_lora": true
+  },
+  "nodes": {
+    "model": {
+      "id": "52",
+      "slot": "52",
+      "class_type": "UNETLoader",
+      "required_inputs": [
+        "unet_name",
+        "weight_dtype"
+      ]
+    },
+    "text_encoder": {
+      "id": "53",
+      "slot": "53",
+      "class_type": "CLIPLoader",
+      "required_inputs": [
+        "clip_name",
+        "type",
+        "device"
+      ]
+    },
+    "vae": {
+      "id": "54",
+      "slot": "54",
+      "class_type": "VAELoader",
+      "required_inputs": [
+        "vae_name"
+      ]
+    },
+    "image": {
+      "id": "56",
+      "slot": "56",
+      "class_type": "LoadImage",
+      "required_inputs": [
+        "image"
+      ]
+    },
+    "prompt": {
+      "id": "59",
+      "slot": "59",
+      "class_type": "TextEncodeQwenImage21",
+      "required_inputs": [
+        "prompt",
+        "negative_prompt",
+        "resolution",
+        "clip",
+        "images.image_1",
+        "vae"
+      ]
+    },
+    "sampling": {
+      "id": "61",
+      "slot": "61",
+      "class_type": "KSampler",
+      "required_inputs": [
+        "seed",
+        "steps",
+        "cfg",
+        "sampler_name",
+        "scheduler",
+        "denoise",
+        "model",
+        "positive",
+        "negative",
+        "latent_image"
+      ]
+    },
+    "decode": {
+      "id": "62",
+      "slot": "62",
+      "class_type": "VAEDecode",
+      "required_inputs": [
+        "samples",
+        "vae"
+      ]
+    },
+    "output": {
+      "id": "65",
+      "slot": "65",
+      "class_type": "SaveImage",
+      "required_inputs": [
+        "images",
+        "filename_prefix"
+      ]
+    },
+    "imagescaletototalpixels_66": {
+      "id": "66",
+      "slot": "66",
+      "class_type": "ImageScaleToTotalPixels",
+      "required_inputs": [
+        "upscale_method",
+        "megapixels",
+        "resolution_steps",
+        "image"
+      ]
+    },
+    "emptyimage_68": {
+      "id": "68",
+      "slot": "68",
+      "class_type": "EmptyImage",
+      "required_inputs": [
+        "width",
+        "height",
+        "batch_size",
+        "color"
+      ]
+    },
+    "imagecompositemasked_69": {
+      "id": "69",
+      "slot": "69",
+      "class_type": "ImageCompositeMasked",
+      "required_inputs": [
+        "x",
+        "y",
+        "resize_source",
+        "destination",
+        "source",
+        "mask"
+      ]
+    }
+  }
+}

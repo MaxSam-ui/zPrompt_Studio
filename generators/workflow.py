@@ -174,6 +174,8 @@ def prepara_workflow_z_image(file_path, prompt_testo, l1_n, l1_s, l2_n, l2_s, l3
                               seed_mode="randomize", custom_seed=None):
     with open(file_path, 'r', encoding='utf-8') as f:
         wf = json.load(f)
+    from core.workflow_profiles import prepare_profile_graph
+    wf, binding = prepare_profile_graph(file_path, wf, 'zimage', 'text_to_image', loras=[(l1_n,l1_s),(l2_n,l2_s),(l3_n,l3_s)])
     if valida_workflow(wf, "zimage"): 
         return None
     
@@ -223,7 +225,7 @@ def prepara_workflow_z_image(file_path, prompt_testo, l1_n, l1_s, l2_n, l2_s, l3
             node_info["inputs"].update(width=int(larghezza), height=int(altezza), crop="disabled")
     
     _applica_lora_cascata(wf, [(l1_n, l1_s), (l2_n, l2_s), (l3_n, l3_s)], tipo_modello="zimage")
-    return wf
+    return binding.finish(wf)
 
 
 def prepara_workflow_img2img_z_image(file_path, input_image_filename, prompt_testo, steps=25, sampler_name="dpmpp_2m_sde",
@@ -232,6 +234,8 @@ def prepara_workflow_img2img_z_image(file_path, input_image_filename, prompt_tes
                                      larghezza=1024, altezza=1024, scale_factor=1.0):
     with open(file_path, 'r', encoding='utf-8') as f:
         wf = json.load(f)
+    from core.workflow_profiles import prepare_profile_graph
+    wf, binding = prepare_profile_graph(file_path, wf, 'zimage', 'image_to_image', loras=[(l1_n,l1_s),(l2_n,l2_s),(l3_n,l3_s)])
     if valida_workflow(wf, "zimage"): return None
 
     p_adv = ottieni_parametri_avanzati_workflow().get("zimage", {})
@@ -271,12 +275,14 @@ def prepara_workflow_img2img_z_image(file_path, input_image_filename, prompt_tes
         wf["12"]["inputs"]["cfg"] = cfg_val
     
     _applica_lora_cascata(wf, [(l1_n, l1_s), (l2_n, l2_s), (l3_n, l3_s)], tipo_modello="zimage")
-    return wf
+    return binding.finish(wf)
 
 
 def prepara_workflow_flux2(file_path, prompt_testo, l1_n, l1_s, l2_n, l2_s, l3_n, l3_s, larghezza, altezza, copie, steps=4, sampler_name="euler", scheduler="sgm_uniform", hires_steps=13, hires_denoise=0.3, seed_mode="randomize", custom_seed=None):
     with open(file_path, 'r', encoding='utf-8') as f:
         wf = json.load(f)
+    from core.workflow_profiles import prepare_profile_graph
+    wf, binding = prepare_profile_graph(file_path, wf, 'flux2', 'text_to_image', loras=[(l1_n,l1_s),(l2_n,l2_s),(l3_n,l3_s)])
     if valida_workflow(wf, "flux2"): return None
 
     p_adv = ottieni_parametri_avanzati_workflow().get("flux2", {})
@@ -310,7 +316,7 @@ def prepara_workflow_flux2(file_path, prompt_testo, l1_n, l1_s, l2_n, l2_s, l3_n
                 node_data["inputs"]["scheduler"] = scheduler
                 
     _applica_lora_cascata(wf, [(l1_n, l1_s), (l2_n, l2_s), (l3_n, l3_s)], tipo_modello="flux2")
-    return wf
+    return binding.finish(wf)
 
 
 def prepara_workflow_img2img_flux2(file_path, input_image_filename, prompt_testo, steps=4, sampler_name="euler",
@@ -319,6 +325,8 @@ def prepara_workflow_img2img_flux2(file_path, input_image_filename, prompt_testo
                                    larghezza=1024, altezza=1024):
     with open(file_path, 'r', encoding='utf-8') as f:
         wf = json.load(f)
+    from core.workflow_profiles import prepare_profile_graph
+    wf, binding = prepare_profile_graph(file_path, wf, 'flux2', 'image_to_image', loras=[(l1_n,l1_s),(l2_n,l2_s),(l3_n,l3_s)])
     if valida_workflow(wf, "flux2"): return None
 
     p_adv = ottieni_parametri_avanzati_workflow().get("flux2", {})
@@ -364,7 +372,7 @@ def prepara_workflow_img2img_flux2(file_path, input_image_filename, prompt_testo
     if "10" in wf and "13" in wf:
         wf["10"]["inputs"]["model"] = wf["13"]["inputs"]["model"]
 
-    return wf
+    return binding.finish(wf)
 
 
 def prepara_workflow_krea2(file_path, prompt_testo, l1_n, l1_s, l2_n, l2_s, l3_n, l3_s,
@@ -372,6 +380,8 @@ def prepara_workflow_krea2(file_path, prompt_testo, l1_n, l1_s, l2_n, l2_s, l3_n
                            scheduler="normal", seed_mode="randomize", custom_seed=None):
     with open(file_path, 'r', encoding='utf-8') as f:
         wf = json.load(f)
+    from core.workflow_profiles import prepare_profile_graph
+    wf, binding = prepare_profile_graph(file_path, wf, 'krea2', 'text_to_image', loras=[(l1_n,l1_s),(l2_n,l2_s),(l3_n,l3_s)])
     
     if valida_workflow(wf, "krea2"):
         return None
@@ -416,7 +426,7 @@ def prepara_workflow_krea2(file_path, prompt_testo, l1_n, l1_s, l2_n, l2_s, l3_n
         wf["10"]["inputs"]["bongmath"] = p_pass2.get("bongmath", True)
 
     _applica_lora_cascata(wf, [(l1_n, l1_s), (l2_n, l2_s), (l3_n, l3_s)], tipo_modello="krea2")
-    return wf
+    return binding.finish(wf)
 
 
 def prepara_workflow_img2img_krea2(file_path, input_image_filename, prompt_testo, steps=8, sampler_name="euler",
@@ -426,6 +436,8 @@ def prepara_workflow_img2img_krea2(file_path, input_image_filename, prompt_testo
     """Workflow Refine per Krea-2 con disattivazione Enhancer per prevenire fireflies/punti luminosi."""
     with open(file_path, 'r', encoding='utf-8') as f:
         wf = json.load(f)
+    from core.workflow_profiles import prepare_profile_graph
+    wf, binding = prepare_profile_graph(file_path, wf, 'krea2', 'image_to_image', loras=[(l1_n,l1_s),(l2_n,l2_s),(l3_n,l3_s)])
 
     if valida_workflow(wf, "krea2"):
         return None
@@ -470,12 +482,14 @@ def prepara_workflow_img2img_krea2(file_path, input_image_filename, prompt_testo
         wf["10"]["inputs"]["bongmath"] = p_pass2.get("bongmath", True)
         
     _applica_lora_cascata(wf, [(l1_n, l1_s), (l2_n, l2_s), (l3_n, l3_s)], tipo_modello="krea2")
-    return wf
+    return binding.finish(wf)
 
 
 def prepara_workflow_krea2_edit(file_path, input_image_filename, prompt_testo, steps, sampler_name, scheduler, seed, grounding_px, height=1280, krea2_edit_lora_strength=0.75):
     with open(file_path, 'r', encoding='utf-8') as f:
         wf = json.load(f)
+    from core.workflow_profiles import prepare_profile_graph
+    wf, binding = prepare_profile_graph(file_path, wf, 'krea2_edit', 'edit', loras=())
         
     if valida_workflow(wf, "krea2_edit"):
         return None
@@ -519,13 +533,15 @@ def prepara_workflow_krea2_edit(file_path, input_image_filename, prompt_testo, s
         wf[NODO_VAE_DECODE]["inputs"]["temporal_size"] = p_tile.get("temporal_size", 4096)
         wf[NODO_VAE_DECODE]["inputs"]["temporal_overlap"] = p_tile.get("temporal_overlap", 64)
         
-    return wf
+    return binding.finish(wf)
 
 
 def prepara_workflow_qwen21_edit(file_path, input_filename, prompt, steps, sampler_name, scheduler, seed, loras=None):
     """Bind the cleaned Qwen edit graph without inheriting Krea parameters."""
     with open(file_path, encoding="utf-8") as handle:
         wf = json.load(handle)
+    from core.workflow_profiles import prepare_profile_graph
+    wf, binding = prepare_profile_graph(file_path, wf, 'qwen21_edit', 'edit', loras=loras or [])
     for key, expected in {"56": "LoadImage", "59": "TextEncodeQwenImage21", "61": "KSampler", "65": "SaveImage"}.items():
         if wf.get(key, {}).get("class_type") != expected:
             raise ValueError(f"Qwen Edit: incompatible node {key}; expected {expected}")
@@ -549,4 +565,4 @@ def prepara_workflow_qwen21_edit(file_path, input_filename, prompt, steps, sampl
             "model": model, "lora_name": str(name).replace("\\", "/"), "strength_model": strength}}
         model = [node_id, 0]
     wf["61"]["inputs"]["model"] = model
-    return wf
+    return binding.finish(wf)
