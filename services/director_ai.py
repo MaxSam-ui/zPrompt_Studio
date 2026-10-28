@@ -1,3 +1,4 @@
+from utils.prompt_templates import compose_system
 # services/director_ai.py
 
 import os
@@ -77,7 +78,7 @@ def _estrai_descrizione_frame_sicura(filepath, stato_gen=None, sys_prompt_vision
             s_attiva = sessione.carica_ultima_sessione()
             default_vlm = s_attiva.get("modello_vlm", "huihui_ai/qwen3-vl-abliterated:8b")
             m_vlm = model_vision if (model_vision and model_vision.strip()) else default_vlm
-            sys_p = sys_prompt_vision if (sys_prompt_vision and sys_prompt_vision.strip()) else "Describe this image in detail for a video generation baseline."
+            sys_p = sys_prompt_vision if (sys_prompt_vision and sys_prompt_vision.strip()) else compose_system("Frame_Analysis.txt")
             
             for chunk in local_vlm.genera_prompt_immagine(
                 im, sys_p, 
@@ -171,27 +172,21 @@ def scrivi_sceneggiatura_automatica(prompt_img, model_vid, idea_utente, durata_t
 
         if not is_t2v and has_last_frame and desc_last_frame:
             frame_context = (
-                f"STARTING FRAME 1 (SCENE START):\n"
-                f"'{prompt_img}'\n\n"
-                f"DESTINATION FRAME (SCENE END):\n"
-                f"'{desc_last_frame}'\n\n"
-                f"MANDATORY TRANSITION OBJECTIVE: Construct a logical progression starting from STARTING FRAME 1 and ending with the pose/setting of DESTINATION FRAME.\n"
+                compose_system('Timeline_First_Last_Context.txt', prompt_img=prompt_img, desc_last_frame=desc_last_frame)
             )
         elif not is_t2v and prompt_img and prompt_img.strip():
             frame_context = (
-                f"STARTING FRAME 1 (SCENE START):\n"
-                f"'{prompt_img}'\n\n"
+                compose_system('Timeline_First_Context.txt', prompt_img=prompt_img)
             )
         else:
             frame_context = ""
 
-        from utils.prompt_templates import SCENE_CONTRACT, render_template, system_template
-        template_sceneggiatore = render_template(system_template("Screenwriter.txt",
-            "Return exactly {video_num_clips} lines: {intervalli_formattati}. Idea: {idea_utente}. {frame_context} Shot types: {lista_inquadrature}. Camera moves: {lista_zoom}. End with [GLOBAL_AUDIO]."),
+        from utils.prompt_templates import scene_contract, render_template, system_template
+        template_sceneggiatore = render_template(system_template("Screenwriter.txt"),
             durata=dur_f, video_num_clips=video_num_clips, idea_utente=idea_utente,
             frame_context=frame_context, prompt_img=prompt_img,
             intervalli_formattati=intervalli_formattati, primo_intervallo=intervalli[0],
-            lista_inquadrature=lista_inquadrature, lista_zoom=lista_zoom_str) + "\n\n" + SCENE_CONTRACT
+            lista_inquadrature=lista_inquadrature, lista_zoom=lista_zoom_str) + "\n\n" + scene_contract()
 
         accumulato = ""
         for chunk in local_vlm.genera_prompt_video_timeline(template_sceneggiatore, model_vid, timeout=120, preserve_content=True):
@@ -269,48 +264,23 @@ def migliora_soggetto_con_vlm(soggetto_corrente, modello, stato_gen, prompt_img=
                 msg_avvio = dl.get("msg_creating_subject", "🪄 AI Writer: Creating cinematic subject from image...")
                 yield gr.update(), msg_avvio
                 prompt = (
-                    f"You are an elite Hollywood cinematic director and visual storyteller.\n"
-                    f"Analyze the following STARTING FRAME description representing the opening frame of the scene:\n\n"
-                    f"STARTING FRAME DESCRIPTION:\n'{desc_start}'\n"
-                    f"{dest_context}\n"
-                    f"TASK: Create an engaging, active, and descriptive cinematic movie scene subject in ENGLISH (35-45 words) that organically begins from this EXACT visual composition.\n"
-                    f"Describe the relevant subjects or objects, visible changes, environment and mood.\n\n"
-                    f"MANDATORY RULES:\n"
-                    f"1. Preserve the subjects, objects, visual medium and location described in the STARTING FRAME.\n"
-                    f"2. Output ONLY the final refined movie subject paragraph in English, without conversational preamble, notes, or labels.\n\n"
-                    f"CINEMATIC SUBJECT:"
+                    compose_system('Subject_From_Frame.txt', desc_start=desc_start, dest_context=dest_context)
                 )
             else:
                 msg_avvio = dl.get("msg_improving_subject", "🪄 AI Writer: Enhancing subject with visual frame...")
                 yield gr.update(), msg_avvio
                 prompt = (
-                    f"You are an elite Hollywood cinematic director and visual storyteller.\n\n"
-                    f"STARTING FRAME (VISUAL ANCHOR):\n'{desc_start}'\n"
-                    f"{dest_context}\n"
-                    f"USER DIRECTION / ACTION IDEA:\n'{testo_utente}'\n\n"
-                    f"TASK: Fuse the USER DIRECTION into a coherent scene featuring the subjects or objects and setting seen in the STARTING FRAME (maximum 40-50 words in ENGLISH).\n\n"
-                    f"MANDATORY RULES:\n"
-                    f"1. The visual identity, character appearance, and location MUST come from the STARTING FRAME.\n"
-                    f"2. The physical action and narrative flow MUST incorporate the USER DIRECTION.\n"
-                    f"3. Output ONLY the final enhanced cinematic subject in English, without intros, labels, or chat.\n\n"
-                    f"ENHANCED CINEMATIC SUBJECT:"
+                    compose_system('Subject_Refine_Frame.txt', desc_start=desc_start, dest_context=dest_context, testo_utente=testo_utente)
                 )
         else:
             msg_avvio = dl.get("msg_creating_subject", "🪄 AI Writer: Writing cinematic subject...")
             yield gr.update(), msg_avvio
             prompt = (
-                f"Write a concrete, filmable scene description in ENGLISH.\n"
-                f"Refine the supplied idea without changing its meaning. Use only the words needed; no minimum length.\n"
-                f"Preserve each subject's identity, action, speed, camera direction and requested sounds. "
-                f"Do not invent scenery, people, props or events. Avoid metaphors and poetic personification. "
-                f"A fixed camera does not make a moving subject stationary. Keep no-voice and no-music constraints explicit.\n"
-                f"RAW IDEA:\n'{testo_utente if testo_utente else 'A dramatic cinematic movie opening scene'}'\n\n"
-                f"MANDATORY RULE: Output ONLY the final refined movie subject paragraph in English, without preamble or notes.\n\n"
-                f"CINEMATIC SUBJECT:"
+                compose_system('Subject_From_Text.txt', idea=testo_utente)
             )
 
-        from utils.prompt_templates import SCENE_CONTRACT
-        prompt += "\n\n" + SCENE_CONTRACT
+        from utils.prompt_templates import scene_contract
+        prompt += "\n\n" + scene_contract()
         accumulato = ""
         for chunk in local_vlm.genera_prompt_video_timeline(prompt, modello, timeout=60):
             if getattr(comfyui_manager, "vlm_interrotto", False):
@@ -360,18 +330,7 @@ def genera_dialoghi_timeline(testo_timeline, soggetto, modello, stato_gen):
         return
 
     prompt = (
-        f"You are a master screenwriter specializing in short cinematic dialogues.\n"
-        f"Below is a movie subject and its chronological camera blocking timeline.\n\n"
-        f"SUBJECT:\n'{soggetto if soggetto else 'A cinematic scene'}'\n\n"
-        f"TIMELINE:\n{testo_timeline}\n\n"
-        f"Your task is to generate short, intense character dialogues for relevant clips where appropriate.\n"
-        f"Generate dialogues ONLY for clips with speaking characters. Do not invent speakers for landscapes, objects or ordinary animals; respect explicit silence. If no dialogue applies, return no numbered entries.\n"
-        f"Format your output EXACTLY as a list of clip numbers and their respective dialogue, like this:\n"
-        f"1: \"Dialogue text here\"\n"
-        f"3: \"Another dialogue text here\"\n\n"
-        f"Rules:\n"
-        f"1. Keep dialogues extremely short (maximum 4-7 words per clip).\n"
-        f"2. Output ONLY the list of clip numbers and dialogues. Use the explicitly requested spoken language, otherwise English. Do not write intros, explanations, or code blocks."
+        compose_system('Timeline_Dialogue.txt', soggetto=soggetto or '', testo_timeline=testo_timeline)
     )
     
     try:
@@ -631,23 +590,16 @@ def passa_timeline_a_gemma(prompt_img, model_vid, testo, audio_descrizione="", v
             
         if not stile_regole_testo:
             stile_regole_testo = (
-                "- Focus on realistic physical actions, explicit spatial layout (left, right, foreground), and natural motion.\n"
-                "- Describe fine materials, fabric textures, and edge details under dynamic light."
+                compose_system('Default_Director_Style.txt')
             )
 
         if not is_t2v and has_last_frame and desc_last_frame:
             frame_block = (
-                f"STARTING FRAME 1 DESCRIPTION (SCENE START):\n"
-                f"'{prompt_img}'\n\n"
-                f"DESTINATION FRAME DESCRIPTION (SCENE CONCLUSION):\n"
-                f"'{desc_last_frame}'\n\n"
-                f"MANDATORY CONTINUITY & INTERPOLATION BRIDGE DIRECTIVE:\n"
-                f"The screenplay MUST smoothly connect the initial composition and subject posture of STARTING FRAME 1 to the final pose, lighting, and framing of DESTINATION FRAME across the timed sequence.\n\n"
+                compose_system('Video_First_Last_Context.txt', prompt_img=prompt_img, desc_last_frame=desc_last_frame)
             )
         elif not is_t2v and prompt_img and prompt_img.strip():
             frame_block = (
-                f"STARTING FRAME 1 DESCRIPTION:\n"
-                f"'{prompt_img}'\n\n"
+                compose_system('Video_First_Context.txt', prompt_img=prompt_img)
             )
         else:
             frame_block = ""
@@ -657,11 +609,10 @@ def passa_timeline_a_gemma(prompt_img, model_vid, testo, audio_descrizione="", v
             from utils.director_prompt import align_director_prompt, preserve_identity_tokens
             from utils.video_preflight import validate_video_request
             references = 0 if is_t2v else int(bool(filepath_start)) + int(has_last_frame)
-            source = (f"AUTHORITATIVE SUBJECT:\n{soggetto}\n{frame_block}"
+            source = (f"AUTHORITATIVE SUBJECT:\n{soggetto}\n{frame_block}\n"
                       f"AUTHORITATIVE TIMELINE:\n{cronologia}{audio_section}")
             instruction = minimax_compiler_instruction(source, references, direct=True)
-            instruction += ("\nDIRECTOR STYLE (subordinate to supplied identities, actions and constraints):\n"
-                            + stile_regole_testo)
+            instruction += ('\n\n' + compose_system('Video_Director_Style.txt', stile_regole_testo=stile_regole_testo))
             original_instruction = instruction
             # A valid model-specific result needs one call. Only invalid output
             # triggers one bounded repair, using the original scene as authority.
@@ -692,25 +643,16 @@ def passa_timeline_a_gemma(prompt_img, model_vid, testo, audio_descrizione="", v
                         return
                 if attempt == 0:
                     log.registra("MiniMax direct prompt invalid; requesting one source-preserving repair.", "WARNING")
-                    instruction = (original_instruction + "\nRepair the invalid draft below. Preserve the authoritative source, "
-                                   "all literal identity tokens, all six sections, and exactly the supplied time intervals.\n"
-                                   "INVALID DRAFT:\n" + structured)
+                    instruction = (compose_system('MiniMax_Repair.txt', original_instruction=original_instruction, structured=structured))
             raise ValueError("MiniMax prompt: invalid structure, timeline or identity tokens; previous prompt preserved.")
 
-        from utils.prompt_templates import SCENE_CONTRACT, render_template, system_template
-        template_master = render_template(system_template("Master_Director_Template.txt",
-            "Compile an English video prompt preserving this timeline and its camera directions: {cronologia}. {frame_context} {audio_section} Style: {regole_estetiche_regista}"),
+        from utils.prompt_templates import scene_contract, render_template, system_template
+        template_master = render_template(system_template("Master_Director_Template.txt"),
             frame_context=frame_block, prompt_img=prompt_img, cronologia=cronologia,
-            audio_section=audio_section, regole_estetiche_regista=stile_regole_testo) + "\n\n" + SCENE_CONTRACT
+            audio_section=audio_section, regole_estetiche_regista=stile_regole_testo) + "\n\n" + scene_contract()
 
         if soggetto:
-            template_master += ("\n\nAUTHORITATIVE SUBJECT AND CHARACTER DESCRIPTION:\n" + soggetto +
-                "\nRetain the identities, literal names and model trigger tokens, appearance and wardrobe. "
-                "The timeline controls action order and duration; reference frames, when present, control visible composition. "
-                "Do not replace a named person with an anonymous generic person. "
-                "Begin your output with 'Subject and scene: ' followed by a faithful English translation of this subject, "
-                "including its appearance details and constraints. Keep literal names and trigger tokens unchanged. "
-                "Then add a blank line and the timed direction spans. Do not copy non-English visual prose verbatim.")
+            template_master += ('\n\n' + compose_system('Video_Subject_Context.txt', soggetto=soggetto))
         accumulato = ""
         for chunk in local_vlm.genera_prompt_video_timeline(template_master, model_vid, timeout=120, preserve_content=True):
             if getattr(comfyui_manager, "vlm_interrotto", False):
@@ -737,15 +679,7 @@ def passa_timeline_a_gemma(prompt_img, model_vid, testo, audio_descrizione="", v
             # One bounded repair pass: the original timeline remains authoritative.
             log.registra("Director output has invalid timecodes; requesting one timeline-preserving repair.", "WARNING")
             repair_prompt = (
-                "Repair this English video direction prompt. Return only the corrected prompt.\n"
-                "Use exactly one nonempty action span per interval below, in the same order. "
-                "Copy each bracketed timecode literally. Do not merge, split or change durations. "
-                "Preserve the supplied actions, shot types, camera moves and audio. "
-                "The original timeline overrides conflicting details in the draft.\n"
-                "If a subject is supplied, begin with 'Subject and scene: ' and its faithful English translation, "
-                "preserving names, trigger tokens, appearance and constraints.\n"
-                f"AUTHORITATIVE SUBJECT:\n{soggetto}\nAUTHORITATIVE TIMELINE:\n{cronologia}\n{frame_block}{audio_section}\n"
-                f"DRAFT TO REPAIR:\n{accumulato.strip()}"
+                compose_system('Video_Timeline_Repair.txt', soggetto=soggetto, cronologia=cronologia, frame_block=frame_block, audio_section=audio_section, draft=accumulato.strip())
             )
             yield gr.update(), gr.update(), dl["director_repairing_status"]
             repaired = ""

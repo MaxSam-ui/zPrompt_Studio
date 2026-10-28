@@ -1,0 +1,20 @@
+subject_definitions:
+{subject}
+Use only the subjects explicitly described in the scene.
+
+summary:
+Generate the chronological scene described below. {refs}
+
+retention_analysis:
+Preserve recurring identities and appearance unless an explicit change is requested. Respect the supplied image roles and starting, intermediate or ending frame constraints.
+
+detailed_description:
+{text}
+
+overall_soundscape:
+{sound}
+Follow only explicitly described sounds and dialogue.
+
+non_diegetic_music:
+Use music only when explicitly requested in the soundscape or scene; otherwise none.
+

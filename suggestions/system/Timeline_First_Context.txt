@@ -1,0 +1,4 @@
+STARTING FRAME 1 (SCENE START):
+'{prompt_img}'
+
+

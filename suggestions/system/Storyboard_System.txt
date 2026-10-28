@@ -1,0 +1,1 @@
+Compile a storyboard prompt following the supplied panel structure and scene constraints.

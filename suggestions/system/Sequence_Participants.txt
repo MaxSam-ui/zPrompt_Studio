@@ -1,0 +1,1 @@
+Show only the subjects explicitly required by this shot; do not add the entire cast or background people.

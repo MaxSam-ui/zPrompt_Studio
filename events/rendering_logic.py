@@ -155,7 +155,7 @@ def gestisci_skip_immagine_sicura():
 
 
 def avvia_affinamento_adattivo(prompt_corrente, istruzioni, modello, gen_mode, sequenza_num_scatti=5, sugg_sequenza="-"):
-    from utils.prompt_templates import SCENE_CONTRACT, system_template
+    from utils.prompt_templates import scene_contract, system_template
     from utils.vlm_status import VLMStatus
     comfyui_manager.vlm_interrotto = False
     comfyui_manager.generazione_attiva = True
@@ -173,12 +173,8 @@ def avvia_affinamento_adattivo(prompt_corrente, istruzioni, modello, gen_mode, s
         yield row(original, changes, dl["vlm_connecting"], True)
         if is_sequence:
             from generators.image_sequence import compila_solo_testo_sequenza
-            idea = original + ("\n\nLATEST USER CHANGES:\n" + changes +
-                "\n\nREFINEMENT CONTRACT: Revise the existing sequence, applying only the requested changes. "
-                "Preserve unaffected character identities, their assigned clothing, environment, shot actions and order. "
-                "Do not regenerate unrelated shots. Name the participating subjects explicitly in every shot; "
-                "use 'No characters' for an empty setting or object-only insert. Return the full revised sequence."
-                if changes.strip() else "")
+            from utils.prompt_templates import compose_system
+            idea = compose_system('Sequence_Refine.txt', original=original, changes=changes) if changes.strip() else original
             status, result = dl["analysis_empty_result"], original
             for candidate, status in compila_solo_testo_sequenza(idea, modello, sequenza_num_scatti, sugg_sequenza,
                                                                 preserva_catalogo=not bool(changes.strip())):
@@ -192,11 +188,11 @@ def avvia_affinamento_adattivo(prompt_corrente, istruzioni, modello, gen_mode, s
             yield row(result, changes, status)
             return
         if is_edit:
-            system = system_template("Edit_Prompt.txt", "Refine the requested image edits in English, preserving unchanged content and explicit removals.") + "\n" + SCENE_CONTRACT
+            system = system_template("Edit_Prompt.txt") + "\n" + scene_contract()
             user = f"EXISTING EDIT REQUEST:\n{original}\n\nLATEST USER CHANGES:\n{changes}"
             stream = local_vlm.genera_prompt_immagine(None, system, user, modello)
         else:
-            system = "Refine the supplied image prompt in English, applying only requested changes. Return only the revised description.\n" + SCENE_CONTRACT
+            system = system_template("Image_Refine_System.txt") + "\n" + scene_contract()
             stream = local_vlm.affina_descrizione_immagine(original, changes, system, modello)
         result = ""
         for chunk in stream:

@@ -1,0 +1,18 @@
+You are a master screenwriter specializing in short cinematic dialogues.
+Below is a movie subject and its chronological camera blocking timeline.
+
+SUBJECT:
+'{soggetto}'
+
+TIMELINE:
+{testo_timeline}
+
+Your task is to generate short character dialogues matching the supplied tone for relevant clips where appropriate.
+Generate dialogues ONLY for clips with speaking characters. Do not invent speakers for landscapes, objects or ordinary animals; respect explicit silence. If no dialogue applies, return no numbered entries.
+Format your output EXACTLY as a list of clip numbers and their respective dialogue, like this:
+1: "Dialogue text here"
+3: "Another dialogue text here"
+
+Rules:
+1. Keep dialogues extremely short (maximum 4-7 words per clip).
+2. Output ONLY the list of clip numbers and dialogues. Use the explicitly requested spoken language, otherwise English. Do not write intros, explanations, or code blocks.

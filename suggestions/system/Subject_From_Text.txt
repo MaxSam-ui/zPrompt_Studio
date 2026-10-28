@@ -1,0 +1,9 @@
+Write a concrete, filmable scene description in ENGLISH.
+Refine the supplied idea without changing its meaning. Use only the words needed; no minimum length.
+Preserve each subject's identity, action, speed, camera direction and requested sounds. Do not invent scenery, people, props or events. Avoid metaphors and poetic personification. A fixed camera does not make a moving subject stationary. Keep no-voice and no-music constraints explicit.
+RAW IDEA:
+'{idea}'
+
+MANDATORY RULE: Output ONLY the final refined movie subject paragraph in English, without preamble or notes.
+
+CINEMATIC SUBJECT:

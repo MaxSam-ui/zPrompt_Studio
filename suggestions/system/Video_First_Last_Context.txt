@@ -1,0 +1,10 @@
+STARTING FRAME 1 DESCRIPTION (SCENE START):
+'{prompt_img}'
+
+DESTINATION FRAME DESCRIPTION (SCENE CONCLUSION):
+'{desc_last_frame}'
+
+MANDATORY CONTINUITY & INTERPOLATION BRIDGE DIRECTIVE:
+The screenplay MUST smoothly connect the initial composition and subject posture of STARTING FRAME 1 to the final pose, lighting, and framing of DESTINATION FRAME across the timed sequence.
+
+

@@ -1,0 +1,1 @@
+Preserve the requested visual medium, scene and camera choices. Use concrete visible actions and relevant spatial relationships. Add no aesthetic constraint when no style was selected.

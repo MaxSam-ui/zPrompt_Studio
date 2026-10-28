@@ -1,0 +1,5 @@
+
+
+AUTHORITATIVE SUBJECT AND CHARACTER DESCRIPTION:
+{soggetto}
+Retain the identities, literal names and model trigger tokens, appearance and wardrobe. The timeline controls action order and duration; reference frames, when present, control visible composition. Do not replace a named person with an anonymous generic person. Begin your output with 'Subject and scene: ' followed by a faithful English translation of this subject, including its appearance details and constraints. Keep literal names and trigger tokens unchanged. Then add a blank line and the timed direction spans. Do not copy non-English visual prose verbatim.

@@ -21,7 +21,7 @@ from generators.image_utils import (
 
 from utils.sequence_prompts import (split_sequence, sequence_complete, extract_sequence_prompts,
                                     normalize_catalog_sequence)
-from utils.prompt_templates import SCENE_CONTRACT, render_template, system_template
+from utils.prompt_templates import scene_contract, render_template, system_template
 from utils.vlm_status import VLMStatus
 
 
@@ -43,9 +43,9 @@ def compila_solo_testo_sequenza(idea_utente, m_vlm, num_scatti=5, sugg_sequenza=
         if not original.strip():
             yield original, dl["msg_prompt_vuoto"]
             return
-        style = config.leggi_contenuto_suggerimento(config.SUGGESTION_SEQUENCE_DIR, sugg_sequenza) if sugg_sequenza and sugg_sequenza != "-" else "Preserve the requested medium and scene."
-        template = system_template("Photo_Sequence.txt", "Write exactly {num_scatti} entries Photo 1: through Photo {num_scatti}: with shared Characters / Cast: and Environment: first. {regole_estetiche_sequenza}")
-        system = render_template(template, num_scatti=count, regole_estetiche_sequenza=style) + "\n\n" + SCENE_CONTRACT
+        style = config.leggi_contenuto_suggerimento(config.SUGGESTION_SEQUENCE_DIR, sugg_sequenza) if sugg_sequenza and sugg_sequenza != "-" else ""
+        template = system_template("Photo_Sequence.txt")
+        system = render_template(template, num_scatti=count, regole_estetiche_sequenza=style) + "\n\n" + scene_contract()
         result = ""
         for chunk in local_vlm.genera_prompt_immagine(None, system, original, m_vlm, max_new_tokens=1536):
             if comfyui_manager.vlm_interrotto:

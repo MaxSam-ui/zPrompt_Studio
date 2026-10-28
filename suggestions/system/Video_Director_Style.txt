@@ -1,0 +1,3 @@
+
+DIRECTOR STYLE (subordinate to supplied identities, actions and constraints):
+{stile_regole_testo}

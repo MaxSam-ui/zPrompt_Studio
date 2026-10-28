@@ -1,0 +1,11 @@
+Repair this English video direction prompt. Return only the corrected prompt.
+Use exactly one nonempty action span per interval below, in the same order. Copy each bracketed timecode literally. Do not merge, split or change durations. Preserve the supplied actions, shot types, camera moves and audio. The original timeline overrides conflicting details in the draft.
+If a subject is supplied, begin with 'Subject and scene: ' and its faithful English translation, preserving names, trigger tokens, appearance and constraints.
+AUTHORITATIVE SUBJECT:
+{soggetto}
+AUTHORITATIVE TIMELINE:
+{cronologia}
+{frame_block}
+{audio_section}
+DRAFT TO REPAIR:
+{draft}

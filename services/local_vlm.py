@@ -1,3 +1,4 @@
+from utils.prompt_templates import compose_system
 from utils.vlm_status import VLMStatus
 from utils.model_chat import format_model_chat
 # services/local_vlm.py
@@ -143,26 +144,8 @@ def affina_descrizione_immagine(descrizione_corrente, istruzioni_affinamento, si
     else:
         yield VLMStatus(d.get("vlm_ready_affinamento", "..."))
 
-    path_affina = os.path.join(config.SUGGESTION_SYSTEM_DIR, "Refine Prompt.txt")
-    template_affina = ""
-    if os.path.exists(path_affina):
-        try:
-            with open(path_affina, "r", encoding="utf-8") as f:
-                template_affina = f.read()
-            log.registra("VLM refinement: Custom template loaded.")
-        except Exception:
-            pass
-
-    if not template_affina:
-        template_affina = (
-            "{sistema_prompt}\n\n"
-            "DESCRIZIONE ATTUALE:\n"
-            "'{descrizione_corrente}'\n\n"
-            "RICHIESTA DI MODIFICA:\n"
-            "{istruzioni_affinamento}\n\n"
-            "Partendo dalla descrizione attuale, modificala esattamente secondo la richiesta sopra. "
-            "Restituisci SOLO la descrizione raffinata, senza spiegazioni aggiuntive."
-        )
+    from utils.prompt_templates import system_template
+    template_affina = system_template("Refine Prompt.txt")
 
     from utils.prompt_templates import render_template
     prompt_finale = render_template(template_affina,
@@ -354,15 +337,7 @@ def estrai_asset_da_prompt(prompt_testo):
     nome_reale = _normalizza_nome_modello(modello_vlm)
 
     sys_prompt = (
-        "You are an expert AI visual analyst and prompt director. Analyze the provided image description "
-        "and extract three concise parts in ENGLISH, retaining explicit names and identifying traits:\n\n"
-        "1. CHARACTER: Persistent appearance of the main provided person, animal or object. Keep its name. For scenery with no subject, leave this field empty. Never invent a person.\n"
-        "2. OUTFIT_LOCATION: Relevant wardrobe with its wearer, setting and lighting. Omit clothing for subjects that do not wear any. Keep transient poses in ACTION, not here.\n"
-        "3. ACTION: The main visible action or pose and who performs it. Preserve explicit participants.\n\n"
-        "Be concise without dropping identity. Do not invent missing attributes. Return ONLY these exact labels, one line each:\n"
-        "CHARACTER: [short keywords]\n"
-        "OUTFIT_LOCATION: [short keywords]\n"
-        "ACTION: [short keywords]"
+        compose_system('Extract_Catalog.txt')
     )
 
     istruzione_utente = f"Visual description to analyze: '{testo_valido}'"

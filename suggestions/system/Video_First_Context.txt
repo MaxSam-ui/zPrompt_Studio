@@ -1,0 +1,4 @@
+STARTING FRAME 1 DESCRIPTION:
+'{prompt_img}'
+
+

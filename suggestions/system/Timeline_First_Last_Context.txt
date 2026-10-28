@@ -1,0 +1,8 @@
+STARTING FRAME 1 (SCENE START):
+'{prompt_img}'
+
+DESTINATION FRAME (SCENE END):
+'{desc_last_frame}'
+
+MANDATORY TRANSITION OBJECTIVE: Construct a logical progression starting from STARTING FRAME 1 and ending with the pose/setting of DESTINATION FRAME.
+

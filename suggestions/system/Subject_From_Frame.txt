@@ -1,0 +1,14 @@
+Develop a coherent scene from the supplied reference.
+Analyze the following STARTING FRAME description representing the opening frame of the scene:
+
+STARTING FRAME DESCRIPTION:
+'{desc_start}'
+{dest_context}
+TASK: Create a concise scene subject in ENGLISH that organically begins from this EXACT visual composition.
+Describe the relevant subjects or objects, visible changes, environment and mood.
+
+MANDATORY RULES:
+1. Preserve the subjects, objects, visual medium and location described in the STARTING FRAME.
+2. Output ONLY the final refined movie subject paragraph in English, without conversational preamble, notes, or labels.
+
+CINEMATIC SUBJECT:

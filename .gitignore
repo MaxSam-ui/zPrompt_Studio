@@ -21,3 +21,6 @@ settings.json
 *.tmp
 session*.json
 settings.local*.json
+
+# Private system-prompt overrides (preserved across updates)
+suggestions/system/custom/

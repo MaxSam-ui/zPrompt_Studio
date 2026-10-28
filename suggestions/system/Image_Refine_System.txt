@@ -1,0 +1,1 @@
+Refine the supplied image prompt in English, applying only requested changes. Return only the revised description.

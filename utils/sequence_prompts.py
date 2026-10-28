@@ -1,3 +1,4 @@
+from utils.prompt_templates import compose_system
 """Parse numbered photo prompts without inventing people or dropping shots."""
 import re
 
@@ -61,11 +62,11 @@ def extract_sequence_prompts(text):
             parts.append('Shared setting (explicit shot changes take precedence): ' + environment)
             if references:
                 primary = _aliases(cast[0])[0]
-                parts.append(f'Explicit wardrobe overrides reference garments only for its designated wearer; unassigned wardrobe applies to {primary} unless the scene specifies otherwise. Preserve other identities and outfits')
+                parts.append(compose_system('Sequence_Wardrobe.txt', primary=primary))
         # Preserve explicit counts if authored; never guess one from all catalog entries.
         parts.append(action)
         if len(cast) > 1 and not visible and not no_cast:
-            parts.append('Show only the subjects explicitly required by this shot; do not add the entire cast or background people')
+            parts.append(compose_system('Sequence_Participants.txt'))
         prompts.append('. '.join(parts))
     return prompts
 

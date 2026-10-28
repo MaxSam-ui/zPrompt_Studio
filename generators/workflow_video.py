@@ -208,7 +208,6 @@ def prepara_workflow_ltx_video(
     p_fmt = p_adv.get("video_format", {})
 
     prefisso_stabilita = p_adv.get("stability_prefix", "")
-    prompt_negativo_fallback = p_adv.get("fallback_negative_prompt", "unintended temporal flicker, compression artifacts, unintended watermark")
 
     # 1. CFG GUIDER (1.0 per LTX-2.5 Distilled)
     if is_ltx25:
@@ -294,17 +293,9 @@ def prepara_workflow_ltx_video(
     if NODO_PROMPT in wf: 
         wf[NODO_PROMPT]["inputs"]["text"] = prompt_con_ancore
     
-    neg_path = os.path.join(config.SUGGESTION_SYSTEM_DIR, "Negative Prompt.txt")
-    prompt_negativo = prompt_negativo_fallback
-    if os.path.exists(neg_path):
-        try:
-            with open(neg_path, "r", encoding="utf-8") as f_neg:
-                contenuto = f_neg.read().strip()
-                if contenuto:
-                    prompt_negativo = contenuto
-        except Exception:
-            pass
-            
+    from utils.prompt_templates import system_template
+    prompt_negativo = system_template('Negative Prompt.txt', allow_empty=True)
+
     if NODO_PROMPT_NEG in wf:
         wf[NODO_PROMPT_NEG]["inputs"]["text"] = prompt_negativo
     

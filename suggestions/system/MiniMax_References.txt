@@ -1,0 +1,1 @@
+There are {references} reference images, identified as <Picture 1> through <Picture {references}>. Preserve starting, intermediate and ending frame constraints stated in the screenplay.

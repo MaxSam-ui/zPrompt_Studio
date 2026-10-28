@@ -92,3 +92,5 @@ Le copie ZIP non hanno la cronologia Git: scarica la nuova versione in una carte
 Per segnalare un problema indica modello/workflow, passaggi per riprodurlo e log pertinenti, rimuovendo dati personali e credenziali.
 
 Il programma di installazione esegue anche un controllo di Python, dipendenze, GPU/CUDA, cartelle e ComfyUI. Ripetilo con `check_installation.bat` oppure da **Registri e Impostazioni → Diagnostica → Verifica installazione**. Avvia ComfyUI per verificare nodi e modelli dei workflow. `CONFIG` indica requisiti da configurare o verificare per le funzioni desiderate; il controllo non scarica modelli e non certifica una generazione completa.
+
+I suggerimenti di sistema sono personalizzabili senza modificare Python: consulta la [guida ai template e alle personalizzazioni locali](suggestions/system/README.md).

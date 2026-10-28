@@ -1,0 +1,1 @@
+There are no reference images: do not mention Picture tokens.

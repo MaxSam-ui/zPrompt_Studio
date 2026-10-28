@@ -92,3 +92,5 @@ ZIP downloads have no Git history: download a fresh copy into a separate folder 
 When reporting a problem, include the workflow/model, reproduction steps and relevant logs. Remove personal prompts, paths and credentials first.
 
 The installer also checks Python, dependencies, GPU/CUDA, folders and ComfyUI. Repeat with `check_installation.bat` or **Logs & Settings → Diagnostics → Check installation**. Start ComfyUI to check workflow nodes and models. `CONFIG` means setup or further checks are needed for the desired features; checks do not download models or certify a complete generation.
+
+System instructions can be customized without editing Python: see the [template and local override guide](suggestions/system/README.md).

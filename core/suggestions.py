@@ -12,3 +12,4 @@ def inizializza_suggerimenti(studio_root_dir, log_func=None):
     for sub in SUBFOLDERS:
         base_dir = os.path.join(studio_root_dir, "suggestions", sub)
         os.makedirs(base_dir, exist_ok=True)
+    os.makedirs(os.path.join(studio_root_dir, 'suggestions', 'system', 'custom'), exist_ok=True)

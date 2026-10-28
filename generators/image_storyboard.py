@@ -1,3 +1,4 @@
+from utils.prompt_templates import system_template
 from utils.progress_status import phase_progress
 # generators/image_storyboard.py
 
@@ -100,11 +101,10 @@ def calcola_geometria_griglia_automatica(target_w: int, target_h: int, num_panne
 
 
 def _costruisci_template_storyboard(num_pannelli: int, shape_desc: str, stile_preset: str) -> str:
-    from utils.prompt_templates import SCENE_CONTRACT, render_template, system_template
-    template = system_template("Master_Storyboard_Template.txt",
-        "Output a horizontal {num_pannelli_int}-panel storyboard grid, shared context, then panel1: through panel{num_pannelli_int}: with one visible moment each. {regole_estetiche_storyboard}")
+    from utils.prompt_templates import scene_contract, render_template, system_template
+    template = system_template("Master_Storyboard_Template.txt")
     return render_template(template, num_pannelli_int=num_pannelli, shape_desc=shape_desc,
-        regole_estetiche_storyboard=stile_preset if stile_preset and stile_preset != "-" else "Preserve the requested visual medium.") + "\n\n" + SCENE_CONTRACT
+        regole_estetiche_storyboard=stile_preset if stile_preset and stile_preset != "-" else "") + "\n\n" + scene_contract()
 
 
 def _salva_pannello_su_disco(p_sorgente: str, prefisso_tipo: str, target_w: int, target_h: int, prompt_specifico: str, flux_grid_prompt: str) -> str:
@@ -177,7 +177,7 @@ def compila_solo_testo_storyboard(
         stile_preset = config.leggi_contenuto_suggerimento(config.SUGGESTION_STORYBOARD_DIR, sugg_storyboard)
 
     istruzioni_storyboard = _costruisci_template_storyboard(num_pannelli_int, shape_desc, stile_preset)
-    sys_prompt_storyboard = "You are an expert cinematic storyboard prompt engineer."
+    sys_prompt_storyboard = system_template("Storyboard_System.txt")
 
     lang = s_active.get("lingua_selezionata", "IT")
     from core import lingua
@@ -297,7 +297,7 @@ def genera_solo_griglia_storyboard(
                 yield dl["msg_prompt_vuoto"], html_avvio, gr.update(), gr.update()
                 return
             istruzioni_storyboard = _costruisci_template_storyboard(num_pannelli_int, shape_desc, stile_preset)
-            sys_prompt_storyboard = "You are an expert cinematic storyboard prompt engineer."
+            sys_prompt_storyboard = system_template("Storyboard_System.txt")
 
             llm_raw_output = ""
             for chunk in local_vlm.affina_descrizione_immagine(

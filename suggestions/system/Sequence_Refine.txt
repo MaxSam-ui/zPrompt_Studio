@@ -1,0 +1,7 @@
+EXISTING SEQUENCE:
+{original}
+
+LATEST USER CHANGES:
+{changes}
+
+Revise the existing sequence, applying only the requested changes. Preserve unaffected identities, assigned clothing, environment, shot actions and order. Do not regenerate unrelated shots. Name the participating subjects in every shot; use No characters for an empty setting or object-only insert. Return the full revised sequence.

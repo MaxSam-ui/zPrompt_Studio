@@ -1,0 +1,16 @@
+Refine the user scene using the supplied visual reference.
+
+STARTING FRAME (VISUAL ANCHOR):
+'{desc_start}'
+{dest_context}
+USER DIRECTION / ACTION IDEA:
+'{testo_utente}'
+
+TASK: Fuse the USER DIRECTION into a coherent scene featuring the subjects or objects and setting seen in the STARTING FRAME in concise ENGLISH.
+
+MANDATORY RULES:
+1. The visual identity, character appearance, and location MUST come from the STARTING FRAME.
+2. The physical action and narrative flow MUST incorporate the USER DIRECTION.
+3. Output ONLY the final enhanced cinematic subject in English, without intros, labels, or chat.
+
+ENHANCED CINEMATIC SUBJECT:
