@@ -79,10 +79,9 @@ def _applica_lora_cascata_ltx(wf, dati_lora):
         wf["45"]["inputs"]["model"] = ultimo_id
 
 
-def _applica_lora_cascata_minimax(wf, dati_lora):
+def _applica_lora_cascata_minimax(wf, dati_lora, profile):
     """
-    Concatena eventuali LoRA custom selezionati dall'utente nell'interfaccia
-    in cascata dopo il nodo 337 e prima del nodo 58 (SageAttention Patch).
+    Insert custom LoRA between the source and target declared by the profile.
     """
     custom_lora_attivi = []
     for name, strength in dati_lora:
@@ -90,21 +89,17 @@ def _applica_lora_cascata_minimax(wf, dati_lora):
             nome_formattato = name.replace("/", "\\") if os.name == 'nt' else name.replace("\\", "/")
             custom_lora_attivi.append((nome_formattato, float(strength)))
 
-    punto_attacco_base = ["337", 0] if "337" in wf else (["336", 0] if "336" in wf else ["192", 0])
-
-    # Rimuove nodi iniettati in precedenza
-    for extra_id in ["custom_lora_1", "custom_lora_2", "custom_lora_3"]:
-        if extra_id in wf:
-            del wf[extra_id]
+    nodes = profile['resolved_nodes']
+    punto_attacco_base = [nodes['lora_source'], profile.get('lora_source_output', 0)]
 
     if not custom_lora_attivi:
-        if "58" in wf:
-            wf["58"]["inputs"]["model"] = punto_attacco_base
+        if nodes['lora_target'] in wf:
+            wf[nodes['lora_target']]["inputs"]["model"] = punto_attacco_base
         return
 
     ultimo_id = punto_attacco_base
     for i, (name, strength) in enumerate(custom_lora_attivi):
-        nodo_id = f"custom_lora_{i+1}"
+        nodo_id = nodes[f'lora_{i+1}']
         wf[nodo_id] = {
             "class_type": "LoraLoaderModelOnly",
             "inputs": {
@@ -116,8 +111,8 @@ def _applica_lora_cascata_minimax(wf, dati_lora):
         }
         ultimo_id = [nodo_id, 0]
 
-    if "58" in wf:
-        wf["58"]["inputs"]["model"] = ultimo_id
+    if nodes['lora_target'] in wf:
+        wf[nodes['lora_target']]["inputs"]["model"] = ultimo_id
 
 
 def calcola_dimensioni_divisibili_ottimali(lato_corto_target, rapporto_target, ratio_is_w_over_h=True, multiple=32):
@@ -529,39 +524,37 @@ def prepara_workflow_minimax_h3(
 
     p_adv = ottieni_parametri_avanzati_workflow().get("minimax_h3", {})
     p_fmt = p_adv.get("video_format", {})
-    expected = {"263": "Text", "265": "MiniMaxH3ReferenceToVideo",
-                "332": "MiniMaxH3DualClockSamplerT8", "256": "RandomNoise",
-                "259": "PrimitiveFloat", "264": "VHS_VideoCombine"}
-    for node_id, node_type in expected.items():
-        if wf.get(node_id, {}).get("class_type") != node_type:
-            raise ValueError(f"MiniMax workflow: expected {node_type} at node {node_id}; adapter must be updated.")
+    from core.workflow_profiles import load_minimax_profile, validate_minimax_request, validate_profile_output
+    profile = load_minimax_profile(file_path, wf)
+    nodes = profile['resolved_nodes']
+    log.registra(f"MiniMax workflow profile: {profile['loaded_from']} ({profile['image_mode']})")
 
     # 1. Impostazione Prompt di Regia (nodo 263 di tipo Text)
     from utils.video_model_prompt import minimax_prompt
     prompt_video_pulito = minimax_prompt(prompt_video.strip())
-    if "263" in wf:
-        wf["263"]["inputs"]["text"] = prompt_video_pulito
+    if nodes['prompt'] in wf:
+        wf[nodes['prompt']]["inputs"]["text"] = prompt_video_pulito
 
     # 2. Impostazione Durata (nodo 259 - PrimitiveFloat)
     durata_float = float(v_durata)
-    if "259" in wf:
-        wf["259"]["inputs"]["value"] = durata_float
+    if nodes['duration'] in wf:
+        wf[nodes['duration']]["inputs"]["value"] = durata_float
 
     # 3. Dual-Clock Sampler (nodo 332)
-    if "332" in wf:
-        wf["332"]["inputs"]["steps"] = int(steps)
-        wf["332"]["inputs"]["scheduler"] = str(scheduler)
+    if nodes['sampler'] in wf:
+        wf[nodes['sampler']]["inputs"]["steps"] = int(steps)
+        wf[nodes['sampler']]["inputs"]["scheduler"] = str(scheduler)
         if "sampler_name" in p_adv:
-            wf["332"]["inputs"]["sampler_name"] = p_adv["sampler_name"]
+            wf[nodes['sampler']]["inputs"]["sampler_name"] = p_adv["sampler_name"]
         if "shift_video" in p_adv:
-            wf["332"]["inputs"]["shift_video"] = p_adv["shift_video"]
+            wf[nodes['sampler']]["inputs"]["shift_video"] = p_adv["shift_video"]
         if "shift_audio" in p_adv:
-            wf["332"]["inputs"]["shift_audio"] = p_adv["shift_audio"]
+            wf[nodes['sampler']]["inputs"]["shift_audio"] = p_adv["shift_audio"]
 
     # 4. Impostazione Seed (nodo 256)
     seed_val = int(seed_immagine_base) if seed_immagine_base is not None else random.randint(1000000000000, 9999999999999)
-    if "256" in wf:
-        wf["256"]["inputs"]["noise_seed"] = seed_val
+    if nodes['seed'] in wf:
+        wf[nodes['seed']]["inputs"]["noise_seed"] = seed_val
 
     # 5. Dimensioni & Aspect Ratio (divisibili per 24 come da specifica del modello)
     lato_corto = {"256p": 256, "360p": 360, "480p": 480, "720p": 720, "1080p": 1080}.get(v_risoluzione, 720)
@@ -569,9 +562,9 @@ def prepara_workflow_minimax_h3(
     is_landscape = rapporto >= 1.0
     larghezza, altezza = calcola_dimensioni_divisibili_ottimali(lato_corto, rapporto, ratio_is_w_over_h=is_landscape, multiple=24)
 
-    if "265" in wf:
-        wf["265"]["inputs"]["width"] = int(larghezza)
-        wf["265"]["inputs"]["height"] = int(altezza)
+    if nodes['conditioning'] in wf:
+        wf[nodes['conditioning']]["inputs"]["width"] = int(larghezza)
+        wf[nodes['conditioning']]["inputs"]["height"] = int(altezza)
 
     # 6. Gestione Immagini di Riferimento (nodo 51 e nodo 265)
     comfy_input_dir = os.path.join(config.COMFYUI_DIR, "ComfyUI", "input")
@@ -587,39 +580,47 @@ def prepara_workflow_minimax_h3(
     if not solo_testo_video and percorso_immagine_destinazione and not has_last_img:
         raise ValueError("MiniMax: final reference image not found.")
 
+    has_lora = any(name and str(name).lower() not in ('-', 'none', 'nessuno') and float(strength) > 0
+                   for name, strength in ((lv1_n, lv1_s), (lv2_n, lv2_s), (lv3_n, lv3_s)))
+    validate_minimax_request(profile, solo_testo_video, has_ref_img, has_last_img,
+                             bool(percorso_immagine_intermedia), has_lora)
+    if percorso_immagine_intermedia and not solo_testo_video and not has_ref_img:
+        raise ValueError('MiniMax: an intermediate image requires a starting image.')
+
     # Rebuild all reference slots from the current request, including workflows
     # saved with more than two references.
-    for key in list(wf["265"]["inputs"]):
+    for key in list(wf[nodes['conditioning']]["inputs"]):
         if key.startswith("ref_images."):
-            del wf["265"]["inputs"][key]
+            del wf[nodes['conditioning']]["inputs"][key]
 
     # Pulizia preventiva slot aggiuntivi
-    for extra_id in ["51_dest", "51_mid"]:
+    for extra_id in [nodes['last_image'], nodes['middle_image']]:
         if extra_id in wf:
             del wf[extra_id]
 
-    if solo_testo_video or not has_ref_img:
+    if solo_testo_video or not (has_ref_img or has_last_img):
         # Modalità Text-to-Video: rimuove il dizionario di riferimento da 265
-        if "265" in wf:
-            wf["265"]["inputs"].pop("ref_images.ref_image_0", None)
-            wf["265"]["inputs"].pop("ref_images.ref_image_1", None)
-        if "51" in wf:
-            del wf["51"]
+        if nodes['conditioning'] in wf:
+            wf[nodes['conditioning']]["inputs"].pop("ref_images.ref_image_0", None)
+            wf[nodes['conditioning']]["inputs"].pop("ref_images.ref_image_1", None)
+        if nodes['first_image'] in wf:
+            del wf[nodes['first_image']]
         log.registra("MiniMax H3 Singularity: T2V mode active (no reference image connected).")
     else:
         # Modalità Reference-to-Video
-        wf["51"] = {"class_type": "LoadImage", "inputs": {"image": percorso_immagine_origine}}
-        if "265" in wf:
-            wf["265"]["inputs"]["ref_images.ref_image_0"] = ["51", 0]
+        first_reference = percorso_immagine_origine if has_ref_img else percorso_immagine_destinazione
+        wf[nodes['first_image']] = {"class_type": "LoadImage", "inputs": {"image": first_reference}}
+        if nodes['conditioning'] in wf:
+            wf[nodes['conditioning']]["inputs"]["ref_images.ref_image_0"] = [nodes['first_image'], 0]
 
-        if has_last_img and percorso_immagine_destinazione != percorso_immagine_origine:
-            wf["51_dest"] = {
+        if has_ref_img and has_last_img and percorso_immagine_destinazione != percorso_immagine_origine:
+            wf[nodes['last_image']] = {
                 "class_type": "LoadImage",
                 "inputs": {"image": percorso_immagine_destinazione},
                 "_meta": {"title": "Load Second Reference Image"}
             }
-            if "265" in wf:
-                wf["265"]["inputs"]["ref_images.ref_image_1"] = ["51_dest", 0]
+            if nodes['conditioning'] in wf:
+                wf[nodes['conditioning']]["inputs"]["ref_images.ref_image_1"] = [nodes['last_image'], 0]
                 log.registra(f"MiniMax H3 Singularity: Connessa seconda immagine di riferimento ({percorso_immagine_destinazione}).")
 
     if has_ref_img and not solo_testo_video and percorso_immagine_intermedia:
@@ -627,52 +628,49 @@ def prepara_workflow_minimax_h3(
             raise ValueError("MiniMax: intermediate reference image not found.")
         # Keep first/final reference numbering stable; append the storyboard's
         # intermediate reference rather than silently ignoring it.
-        slot = 2 if "51_dest" in wf else 1
-        wf["51_mid"] = {"class_type": "LoadImage", "inputs": {"image": percorso_immagine_intermedia}}
-        wf["265"]["inputs"][f"ref_images.ref_image_{slot}"] = ["51_mid", 0]
+        slot = 2 if nodes['last_image'] in wf else 1
+        wf[nodes['middle_image']] = {"class_type": "LoadImage", "inputs": {"image": percorso_immagine_intermedia}}
+        wf[nodes['conditioning']]["inputs"][f"ref_images.ref_image_{slot}"] = [nodes['middle_image'], 0]
 
-    checkpoint = str(wf.get("192", {}).get("inputs", {}).get("unet_name", "")).replace("\\", "/").split("/")[-1].lower()
-    # This exact Singularity checkpoint was exercised with first/last keyframes.
-    # Keep unknown/custom Ref2VA checkpoints on their original reference path.
-    use_keyframes = (checkpoint == "minimax-h3_singularity_ref2va_v1.3_int8.safetensors"
-                     or "fl2va" in checkpoint)
+    use_keyframes = profile['image_mode'] == 'native_keyframes'
     if use_keyframes and not solo_testo_video and (has_ref_img or has_last_img):
-        source = wf["265"]["inputs"]
+        source = wf[nodes['conditioning']]["inputs"]
         inputs = {key: source[key] for key in ("prompt", "clip", "vae", "width", "height", "length")}
         # The native keyframe node uses a 32-pixel canvas grid.
         for axis in ("width", "height"):
             inputs[axis] = max(32, round(inputs[axis] / 32) * 32)
         if has_ref_img:
-            inputs["first_frame"] = ["51", 0]
+            inputs["first_frame"] = [nodes['first_image'], 0]
         if has_last_img:
-            wf["51_dest"] = {"class_type": "LoadImage", "inputs": {"image": percorso_immagine_destinazione}}
-            inputs["last_frame"] = ["51_dest", 0]
-        wf["265"] = {"class_type": "MiniMaxH3ImageToVideo", "inputs": inputs}
-        if "51_mid" in wf:
+            wf[nodes['last_image']] = {"class_type": "LoadImage", "inputs": {"image": percorso_immagine_destinazione}}
+            inputs["last_frame"] = [nodes['last_image'], 0]
+        wf[nodes['conditioning']] = {"class_type": "MiniMaxH3ImageToVideo", "inputs": inputs}
+        if nodes['middle_image'] in wf:
             frames = max(5, round(durata_float * 24))
             frames += (5 - frames % 17) % 17
-            wf["265_mid_guide"] = {"class_type": "MiniMaxH3AddGuide", "inputs": {
-                "positive": ["265", 0], "latent": ["265", 1], "vae": inputs["vae"],
-                "image": ["51_mid", 0], "frame_idx": (frames - 1) // 2}}
-            wf["223"]["inputs"]["conditioning"] = ["265_mid_guide", 0]
+            wf[nodes['middle_guide']] = {"class_type": "MiniMaxH3AddGuide", "inputs": {
+                "positive": [nodes['conditioning'], 0], "latent": [nodes['conditioning'], 1], "vae": inputs["vae"],
+                "image": [nodes['middle_image'], 0], "frame_idx": (frames - 1) // 2}}
+            wf[nodes['guider']]["inputs"]["conditioning"] = [nodes['middle_guide'], 0]
         log.registra("MiniMax: native first/last keyframe conditioning enabled.")
 
-    if "265" in wf:
-        reference_keys = [key for key in wf["265"]["inputs"] if key.startswith("ref_images.")]
-        if "263" in wf and reference_keys:
+    if nodes['conditioning'] in wf:
+        reference_keys = [key for key in wf[nodes['conditioning']]["inputs"] if key.startswith("ref_images.")]
+        if nodes['prompt'] in wf and reference_keys:
             reference_text = " ".join(f"<Picture {i}> is visual reference {i}." for i in range(1, len(reference_keys) + 1))
-            wf["263"]["inputs"]["text"] = wf["263"]["inputs"]["text"].replace(
+            wf[nodes['prompt']]["inputs"]["text"] = wf[nodes['prompt']]["inputs"]["text"].replace(
                 "summary:\n", "summary:\n" + reference_text + "\n", 1)
 
     # 7. Formato Video Output VHS (nodo 264)
-    if "264" in wf:
-        wf["264"]["inputs"]["frame_rate"] = 24
+    if nodes['output'] in wf:
+        wf[nodes['output']]["inputs"]["frame_rate"] = 24
         if "crf" in p_fmt:
-            wf["264"]["inputs"]["crf"] = p_fmt["crf"]
+            wf[nodes['output']]["inputs"]["crf"] = p_fmt["crf"]
         if "pix_fmt" in p_fmt:
-            wf["264"]["inputs"]["pix_fmt"] = p_fmt["pix_fmt"]
+            wf[nodes['output']]["inputs"]["pix_fmt"] = p_fmt["pix_fmt"]
 
     # 8. Concatenazione LoRA
-    _applica_lora_cascata_minimax(wf, [(lv1_n, lv1_s), (lv2_n, lv2_s), (lv3_n, lv3_s)])
+    _applica_lora_cascata_minimax(wf, [(lv1_n, lv1_s), (lv2_n, lv2_s), (lv3_n, lv3_s)], profile)
+    validate_profile_output(wf, profile)
 
     return wf

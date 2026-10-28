@@ -1,0 +1,56 @@
+{
+  "schema_version": 1,
+  "adapter": "minimax_dual_clock",
+  "description": "Default Singularity workflow. Preserves the existing native keyframe behavior; reference mode is an explicit alternative.",
+  "image_mode": "native_keyframes",
+  "capabilities": {
+    "text_to_video": true,
+    "first_last_frames": true,
+    "reference_images": true,
+    "middle_image": true,
+    "custom_lora": true
+  },
+  "lora_source_output": 0,
+  "nodes": {
+    "prompt": {
+      "id": "263",
+      "class_type": "Text"
+    },
+    "conditioning": {
+      "id": "265",
+      "class_type": "MiniMaxH3ReferenceToVideo"
+    },
+    "sampler": {
+      "id": "332",
+      "class_type": "MiniMaxH3DualClockSamplerT8"
+    },
+    "seed": {
+      "id": "256",
+      "class_type": "RandomNoise"
+    },
+    "duration": {
+      "id": "259",
+      "class_type": "PrimitiveFloat"
+    },
+    "output": {
+      "id": "264",
+      "class_type": "VHS_VideoCombine"
+    },
+    "guider": {
+      "id": "223",
+      "class_type": "BasicGuider"
+    },
+    "lora_source": {
+      "id": "337",
+      "class_type": "LoraLoaderModelOnly"
+    },
+    "lora_target": {
+      "id": "58",
+      "class_type": "MiniMaxH3MemoryEfficientSageAttentionPatch"
+    },
+    "first_image": {
+      "id": "51",
+      "class_type": "LoadImage"
+    }
+  }
+}

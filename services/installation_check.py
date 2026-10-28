@@ -106,6 +106,21 @@ def collect_checks(root=ROOT):
                     not isinstance(n, dict) or not n.get('class_type') or not isinstance(n.get('inputs'), dict)
                     for n in workflow.values()):
                 raise ValueError('Invalid API workflow')
+            if path.name == 'minimax_h3_api.json' or path.with_suffix('.profile.json').exists():
+                from core.workflow_profiles import load_minimax_profile, validate_profile_output
+                profile = load_minimax_profile(path, workflow)
+                validate_profile_output(workflow, profile)
+                mode = profile['image_mode']
+                add('OK', path.stem + ' profile',
+                    f'Collegamenti del profilo validi. Modalità immagini: {mode}.',
+                    f'Profile bindings valid. Image mode: {mode}.')
+                if info is not None and mode == 'native_keyframes':
+                    required = {'MiniMaxH3ImageToVideo'}
+                    if profile['capabilities']['middle_image']:
+                        required.add('MiniMaxH3AddGuide')
+                    absent = required - info.keys()
+                    if absent:
+                        raise ValueError('Missing nodes required by workflow profile: ' + ', '.join(sorted(absent)))
             if info is None:
                 add('CONFIG', path.stem, 'JSON valido; nodi e modelli da verificare con ComfyUI avviato.',
                     'Valid JSON; nodes and models require a running ComfyUI server.')
