@@ -2,9 +2,13 @@
 
 import gradio as gr
 from core import lingua
+from services.help_routes import manual_url
 
-def collega_lingua(t1, t2, t3, t4, t5, titolo_app, js_traduci_tab_header):
+def collega_lingua(t1, t2, t3, t4, t5, titolo_app, btn_help):
     """Collega tutti gli eventi di cambio lingua e traduzione dei tab nell'interfaccia."""
+    t5['selettore_lingua'].change(
+        lambda lang: gr.update(link=manual_url(lang)),
+        [t5['selettore_lingua']], [btn_help], queue=False, show_progress='hidden')
     def translate_cache(lang):
         d = lingua.ottieni_dizionario_lingua(lang)
         return (gr.update(label=d['vlm_cache_path'], info=d['vlm_cache_help']),
@@ -183,12 +187,20 @@ def collega_lingua(t1, t2, t3, t4, t5, titolo_app, js_traduci_tab_header):
             t4["btn_rem_lora_batch"]
         ]
     )
-    language_event.then(
-        fn=None,
-        inputs=[t5["selettore_lingua"]],
-        outputs=None,
-        js=js_traduci_tab_header
-    )
+    from utils.js_helpers import genera_script_traduci_tab_header
+    language_event.then(fn=None, inputs=[t5['selettore_lingua']], outputs=None,
+                        js=genera_script_traduci_tab_header())
+    def translate_galleries():
+        from core import sessione
+        from utils.html_utils import compila_galleria_html
+        saved = sessione.carica_ultima_sessione()
+        return (
+            compila_galleria_html(saved.get('immagini_generate_cumulate', [])),
+            compila_galleria_html(saved.get('lista_frame_storyboard_attivi', [])),
+        )
+    language_event.then(translate_galleries, inputs=None,
+                        outputs=[t2['gallery_img'], t2['gallery_storyboard']],
+                        show_progress='hidden')
 
     t1["tab_el"].select(
         fn=lingua.traduce_tab_analisi,

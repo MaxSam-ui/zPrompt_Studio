@@ -62,7 +62,6 @@ stato_iniziale = {
     "gallery_no_sync": True
 }
 
-js_traduci_tab_header = js_helpers.genera_script_traduci_tab_header()
 
 with gr.Blocks(title="zPrompt Studio") as demo:
     stato_sessione = gr.State(value=s)
@@ -119,7 +118,7 @@ with gr.Blocks(title="zPrompt Studio") as demo:
     )
 
     # REGISTRAZIONE DEGLI EVENTI
-    eventi_lingua.collega_lingua(t1, t2, t3, t4, t5, titolo_app, js_traduci_tab_header)
+    eventi_lingua.collega_lingua(t1, t2, t3, t4, t5, titolo_app, bar_dict['btn_help'])
     eventi_analisi.collega_analisi(t1, t2, t3, t5, stato_generazione)
     eventi_rendering.collega_rendering(t1, t2, t3, t5, num_lora_img, stato_generazione)
     eventi_video.collega_video(t1, t2, t3, t5, num_lora_vid, stato_generazione, stato_sessione)

@@ -12,6 +12,14 @@ FOLDER_LANGUAGES = os.path.join(config.STUDIO_ROOT_DIR, "languages")
 
 LINGUE = {}
 
+def generation_mode_choices(d):
+    """Translate display labels while preserving the values used by workflows."""
+    return [(d.get(key, value), value) for key, value in (
+        ("gen_mode_classic_label", "Classica (1 Immagine)"),
+        ("gen_mode_storyboard_label", "Storyboard"),
+        ("gen_mode_sequence_label", "Sequenza Immagini AI"),
+        ("gen_mode_edit_label", "Modifica Immagine (Edit)"),
+    )]
 
 def _appiattisci_dizionario(d_in: dict) -> dict:
     """Ricorsivamente appiattisce un dizionario nidificato mantenendo le chiavi foglia."""
@@ -163,7 +171,7 @@ def traduce_tab_rendering():
         gr.update(label="Denoise"),
         gr.update(label=d.get("hires_scale_label", "Upscale Factor")),
         gr.update(label=d.get("modello_immagine_label", "🎨 Image Model")),
-        gr.update(label=d.get("modalita_generazione_label", "🎬 Generation Mode")),
+        gr.update(label=d.get("modalita_generazione_label", "🎬 Generation Mode"), choices=generation_mode_choices(d)),
         gr.update(label=d.get("preset_storyboard_label", "📋 Storyboard Direction Preset")),
         gr.update(label=d.get("numero_fotogrammi_label", "Number of Frames")),
         gr.update(label=d.get("box_catalogo_sequenza_label", "🎭 Cast & Scene Catalog")),

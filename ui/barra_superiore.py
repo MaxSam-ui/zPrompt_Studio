@@ -4,6 +4,7 @@ import gradio as gr
 import html
 from core import hardware, sessione, lingua
 from services import comfyui_manager
+from services.help_routes import manual_url
 
 
 def aggiorna_avviso_comfyui():
@@ -36,7 +37,7 @@ def crea_barra_superiore(d: dict) -> dict:
             with gr.Row(variant="compact"):
                 btn_clean_mem = gr.Button("🧹", size="sm", variant="secondary")
                 btn_hard_reset = gr.Button("🛑", size="sm", variant="stop")
-                gr.Button("?", link="/help/help.html", size="sm", variant="secondary",
+                btn_help = gr.Button("?", link=manual_url(sessione.carica_ultima_sessione().get("lingua_selezionata", "IT")), size="sm", variant="secondary",
                           min_width=36, elem_id="studio-help-button")
 
     avviso_comfy = gr.HTML(value="", visible=False)
@@ -49,7 +50,8 @@ def crea_barra_superiore(d: dict) -> dict:
         "testo_hardware": testo_hardware,
         "spia_comfy": spia_comfy,
         "btn_clean_mem": btn_clean_mem,
-        "btn_hard_reset": btn_hard_reset
+        "btn_hard_reset": btn_hard_reset,
+        "btn_help": btn_help
     }
 
 

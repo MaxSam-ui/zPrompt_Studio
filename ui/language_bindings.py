@@ -18,6 +18,10 @@ def connect_remaining_labels(event, language_selector, dashboard):
                 reverse.setdefault(text, key)
     bindings = []
     for component in list(context.blocks.values()):
+        # Updating an inactive Tab's label through Gradio 6.15 can loop in
+        # Svelte's tab registration effect. Header text is localized separately.
+        if isinstance(component, gr.Tab):
+            continue
         props = {}
         for prop in ('label', 'info', 'placeholder'):
             if prop == 'label' and component._id in owned:

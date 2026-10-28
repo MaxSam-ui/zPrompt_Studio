@@ -7,7 +7,7 @@ from typing import Dict, Any, List
 from ui import style, rendering_catalog_ui, rendering_settings_ui
 from services import prompt_manager
 from utils import media_utils
-from core import config, sessione, workflow_registry
+from core import config, sessione, workflow_registry, lingua
 
 
 def crea_tab_rendering(
@@ -78,12 +78,7 @@ def crea_tab_rendering(
                     )
                     
                     generation_mode = gr.Dropdown(
-                        choices=[
-                            "Classica (1 Immagine)",
-                            "Storyboard",
-                            "Sequenza Immagini AI",
-                            "Modifica Immagine (Edit)"
-                        ],
+                        choices=lingua.generation_mode_choices(d),
                         value=s.get("generation_mode", "Classica (1 Immagine)"),
                         label=d.get("modalita_generazione_label", "🎬 Modalità Generazione"),
                         allow_custom_value=False, scale=1

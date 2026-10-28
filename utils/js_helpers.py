@@ -22,10 +22,22 @@ def genera_script_traduci_tab_header():
         const labels = tabLabels[lang] || tabLabels['IT'] || [];
         const container = document.getElementById('main-tabs-container');
         if (container) {{
-            const buttons = Array.from(container.querySelectorAll('.tab-nav button, .gr-tab-nav button, gr-tab-nav button, button[role="tab"]'));
-            buttons.forEach((btn, idx) => {{
+            const buttons = Array.from(container.querySelectorAll(':scope > .tab-wrapper button, .tab-nav button, .gr-tab-nav button, gr-tab-nav button, button[role="tab"]'));
+            buttons.forEach((btn) => {{
+                const current = btn.textContent.trim();
+                const idx = Object.values(tabLabels).reduce((found, names) =>
+                    found >= 0 ? found : names.indexOf(current), -1);
                 if (labels[idx]) {{
-                    btn.innerText = labels[idx];
+                    // Keep the existing text node owned by Svelte.
+                    const walker = document.createTreeWalker(btn, NodeFilter.SHOW_TEXT);
+                    let text;
+                    while ((text = walker.nextNode())) {{
+                        if (text.nodeValue.trim()) {{
+                            text.nodeValue = labels[idx];
+                            break;
+                        }}
+                    }}
+                    btn.setAttribute('aria-label', labels[idx]);
                 }}
             }});
         }}
