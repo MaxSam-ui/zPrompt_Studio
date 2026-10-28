@@ -74,7 +74,7 @@ I preset coprono analisi visiva, regia, idee di sceneggiatura, storyboard e sequ
 
 Sono inclusi sorgenti, workflow JSON e preset generici. ComfyUI, pesi dei modelli, LoRA e sessioni personali sono esclusi. Gli LLM/VLM possono essere scaricati al primo utilizzo; i modelli di generazione devono essere disponibili in ComfyUI. RAM, VRAM, spazio disco e download dipendono dai modelli scelti.
 
-**[Istruzioni complete](LEGGIMI_INSTALLAZIONE.md)** · **[Workflow](workflows)** · **[Configurazione di esempio](settings.example.json)**
+**[Istruzioni complete](docs/LEGGIMI_INSTALLAZIONE.md)** · **[Workflow](workflows)** · **[Configurazione di esempio](config/settings.example.json)**
 
 ## Aggiornamenti
 
@@ -84,7 +84,7 @@ Le copie ZIP non hanno la cronologia Git: scarica la nuova versione in una carte
 
 ## Stato della preview
 
-- Risoluzione delle dipendenze verificata per Windows/Python 3.11; versioni transitive fissate in `constraints-win-py311.txt`.
+- Risoluzione delle dipendenze verificata per Windows/Python 3.11; versioni transitive fissate in `scripts/constraints-win-py311.txt`.
 - Collegamenti dei workflow e callback dell’interfaccia verificati. Restano da collaudare l’installazione da zero e tutte le combinazioni di modelli e workflow.
 - Le guide offline italiana e inglese sono incluse: usa **?** e scegli la lingua oppure apri `help/help.html` / `help/help.en.html`.
 - Presentazione destinata alla revisione privata: non costituisce una pubblicazione o una concessione di licenza.
@@ -94,3 +94,16 @@ Per segnalare un problema indica modello/workflow, passaggi per riprodurlo e log
 Il programma di installazione esegue anche un controllo di Python, dipendenze, GPU/CUDA, cartelle e ComfyUI. Ripetilo con `check_installation.bat` oppure da **Registri e Impostazioni → Diagnostica → Verifica installazione**. Avvia ComfyUI per verificare nodi e modelli dei workflow. `CONFIG` indica requisiti da configurare o verificare per le funzioni desiderate; il controllo non scarica modelli e non certifica una generazione completa.
 
 I suggerimenti di sistema sono personalizzabili senza modificare Python: consulta la [guida ai template e alle personalizzazioni locali](suggestions/system/README.md).
+
+### Cartelle del progetto
+
+Avvia, installa e aggiorna l’app con i file `.bat` nella cartella principale.
+
+- `config/`: catalogo modelli, parametri workflow e impostazioni di esempio.
+- `scripts/`: programma di aggiornamento e vincoli delle dipendenze.
+- `docs/`: istruzioni di installazione, attribuzioni e manifesto dei file.
+- `workflows/`: workflow API e profili modificabili.
+- `suggestions/`: istruzioni per i prompt ed esempi personalizzabili.
+- `help/`: guida illustrata.
+
+I file personali `settings.json` e `session.json` restano nella cartella principale e sono esclusi da Git.

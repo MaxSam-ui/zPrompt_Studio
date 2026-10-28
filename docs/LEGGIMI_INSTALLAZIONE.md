@@ -8,9 +8,9 @@ Il preset text_only è stato reso neutro nella sola copia.
 1. Copia/estrai tutta questa cartella in una posizione nuova e scrivibile.
 2. Installa Python 3.11 a 64 bit con Python Launcher. Per la generazione GPU servono
    una GPU compatibile, driver e ComfyUI configurato separatamente.
-3. Esegui `install.bat`: crea il proprio venv, copia settings.example.json in settings.json se assente e installa le dipendenze via Internet.
+3. Esegui `install.bat`: crea il proprio venv, copia config/settings.example.json in settings.json se assente e installa le dipendenze via Internet.
    Le dipendenze dirette presenti nell'ambiente di sviluppo sono fissate a quelle versioni;
-   le dipendenze transitive sono fissate in constraints-win-py311.txt per Windows/Python 3.11.
+   le dipendenze transitive sono fissate in scripts/constraints-win-py311.txt per Windows/Python 3.11.
 4. PRIMA di avviare, modifica `settings.json`: imposta `COMFYUI_DIR` sulla cartella
    che contiene `ComfyUI` e `python_embeded` del portable. Il percorso C:/... è solo
    un esempio. Controlla `COMFYUI_URL` e i percorsi LoRA. `VLM_CACHE_DIR` è locale
@@ -26,6 +26,6 @@ Chiudi la vecchia app prima della prova: se configuri lo stesso ComfyUI, entramb
 le copie usano lo stesso servizio e gli stessi modelli. Per una prova completamente
 isolata prepara anche un nuovo ComfyUI portable. Questa cartella non lo installa.
 
-La copia è stata controllata staticamente; l'installazione da zero e il download
-delle dipendenze restano proprio la prova da eseguire. Non è stata pubblicata su GitHub.
-La guida offline italiana è in help/help.html ed è apribile con Guida / Help. Traduzione inglese in preparazione. Non sono inclusi test e script di sviluppo.
+Le guide illustrate offline sono disponibili in `help/help.html` (italiano) e
+`help/help.en.html` (inglese), oppure tramite il pulsante Help dell’app.
+I percorsi indicati in questa guida sono relativi alla cartella principale del progetto.

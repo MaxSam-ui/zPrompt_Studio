@@ -4,7 +4,7 @@ import shutil
 import subprocess
 import sys
 
-ROOT = Path(__file__).resolve().parent
+ROOT = Path(__file__).resolve().parents[1]
 
 def git(*args):
     return subprocess.check_output(['git', '-C', str(ROOT), *args], text=True, stderr=subprocess.STDOUT).strip()

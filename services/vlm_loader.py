@@ -23,7 +23,7 @@ class InterruptCriteria(StoppingCriteria):
         return not comfyui_manager.generazione_attiva
 
 
-PATH_CONFIG_MODELLI = os.path.join(os.path.dirname(__file__), "..", "config_models.json")
+PATH_CONFIG_MODELLI = os.path.join(os.path.dirname(__file__), "..", "config", "config_models.json")
 
 DEFAULT_CONFIG = {
     "modelli_disponibili": [

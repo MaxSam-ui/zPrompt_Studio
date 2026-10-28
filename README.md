@@ -74,7 +74,7 @@ Presets cover image analysis, direction, screenplay ideas, storyboards and seque
 
 The repository includes source code, workflow JSON files and generic presets. It does **not** include ComfyUI, model weights, LoRAs or your previous sessions. LLM/VLM downloads may occur on first use; generation model weights must be available in ComfyUI. RAM, VRAM, disk space and download sizes depend on your chosen models.
 
-**[Detailed installation notes in Italian](LEGGIMI_INSTALLAZIONE.md)** · **[Workflow files](workflows)** · **[Configuration example](settings.example.json)**
+**[Detailed installation notes in Italian](docs/LEGGIMI_INSTALLAZIONE.md)** · **[Workflow files](workflows)** · **[Configuration example](config/settings.example.json)**
 
 ## Updates
 
@@ -84,7 +84,7 @@ ZIP downloads have no Git history: download a fresh copy into a separate folder 
 
 ## Preview status
 
-- Dependency resolution was checked for Windows / Python 3.11; transitive versions are recorded in `constraints-win-py311.txt`.
+- Dependency resolution was checked for Windows / Python 3.11; transitive versions are recorded in `scripts/constraints-win-py311.txt`.
 - Workflow wiring and UI callbacks have been tested; a fresh installation and every model/workflow combination still need end-to-end testing.
 - Offline manuals in Italian and English are bundled: use **?** and select the language, or open `help/help.html` / `help/help.en.html`.
 - This is a private-review presentation. No public release or license grant is implied.
@@ -94,3 +94,16 @@ When reporting a problem, include the workflow/model, reproduction steps and rel
 The installer also checks Python, dependencies, GPU/CUDA, folders and ComfyUI. Repeat with `check_installation.bat` or **Logs & Settings → Diagnostics → Check installation**. Start ComfyUI to check workflow nodes and models. `CONFIG` means setup or further checks are needed for the desired features; checks do not download models or certify a complete generation.
 
 System instructions can be customized without editing Python: see the [template and local override guide](suggestions/system/README.md).
+
+### Project folders
+
+Start, install and update the app with the `.bat` files in the main folder.
+
+- `config/`: model catalog, workflow parameters and example settings.
+- `scripts/`: updater and dependency constraints.
+- `docs/`: installation notes, third-party notices and file manifest.
+- `workflows/`: API workflows and editable profiles.
+- `suggestions/`: editable prompt instructions and examples.
+- `help/`: illustrated user guide.
+
+Personal `settings.json` and `session.json` remain in the main folder and are excluded from Git.

@@ -10,7 +10,7 @@ pause >nul
 echo Close zPrompt Studio before continuing.
 echo Press any key to continue . . .
 pause >nul
-"venv\Scripts\python.exe" update.py
+"venv\Scripts\python.exe" scripts\update.py
 set "UPDATE_RESULT=%ERRORLEVEL%"
 echo Press any key to continue . . .
 pause >nul

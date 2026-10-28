@@ -5,7 +5,7 @@ import json
 from typing import Dict, Any, List, Tuple
 from core import config, log
 
-PATH_WORKFLOW_PARAMS = os.path.join(config.STUDIO_ROOT_DIR, "workflow_params.json")
+PATH_WORKFLOW_PARAMS = os.path.join(config.STUDIO_ROOT_DIR, "config", "workflow_params.json")
 
 DEFAULT_WORKFLOW_PARAMS = {
   "zimage": {
