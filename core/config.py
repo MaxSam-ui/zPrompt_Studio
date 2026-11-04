@@ -7,13 +7,14 @@ import glob
 from core import log
 
 STUDIO_ROOT_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-SETTINGS_FILE = os.path.abspath(os.path.join(STUDIO_ROOT_DIR, "settings.json"))
+from core.runtime_paths import prepare_runtime_files
+SETTINGS_FILE = str(prepare_runtime_files(STUDIO_ROOT_DIR))
 
 DEFAULT_SETTINGS = {
     "COMFYUI_DIR": "D:\\ComfyUI_windows_portable",
     "STUDIO_OUTPUT_DIR": "output",
     "VLM_CACHE_DIR": "",
-    "SESSION_FILE": "session.json",
+    "SESSION_FILE": "data/session.json",
     "LORA_ZIMAGE_DIR_1": "{COMFYUI_DIR}\\ComfyUI\\models\\loras\\Z-Image1",
     "LORA_ZIMAGE_DIR_2": "{COMFYUI_DIR}\\ComfyUI\\models\\loras\\Z-Image2",
     "LORA_FLUX2_DIR": "{COMFYUI_DIR}\\ComfyUI\\models\\loras\\Flux-2",

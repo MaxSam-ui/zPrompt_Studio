@@ -4,13 +4,13 @@
 
 <p align="center"><a href="README.md">English</a> · <b>Italiano</b></p>
 
-[Installazione](#provala-su-windows) · [Guida offline IT / EN](help/README.md) · [Esempi](docs/EXAMPLES.md)
+[Installazione](#provala-su-windows) · [Guida offline IT / EN](../help/README.md) · [Esempi](../docs/EXAMPLES.md)
 
 > **Preview per il collaudo dell’installazione.** ComfyUI e i suoi modelli vanno installati separatamente. Le dipendenze Windows incluse sono pensate per GPU NVIDIA.
 
 ## Un’idea. Tre modi di raccontarla.
 
-![Dopo la tempesta: immagine cinematografica generata con Krea-2 Turbo](docs/assets/lighthouse-hero.jpg)
+![Dopo la tempesta: immagine cinematografica generata con Krea-2 Turbo](../docs/assets/lighthouse-hero.jpg)
 
 **Dopo la tempesta** — un impermeabile giallo, un faro e un raggio di luce sull’Atlantico. Generata localmente con Krea-2 Turbo e il workflow incluso nell’app.
 
@@ -18,29 +18,29 @@
 
 | Originale · Krea-2 Turbo | Modifica · Qwen Image 2.1 |
 | --- | --- |
-| ![Scena originale](docs/assets/lighthouse-hero.jpg) | ![Modifica serale con Qwen](docs/assets/lighthouse-edit.jpg) |
+| ![Scena originale](../docs/assets/lighthouse-hero.jpg) | ![Modifica serale con Qwen](../docs/assets/lighthouse-edit.jpg) |
 
 La richiesta di editing: trasformare la tempesta in una sera tranquilla, mantenendo personaggio, impermeabile e composizione. Confronta i risultati: la conservazione dei dettagli non è perfetta.
 
 ### Dalla scena allo storyboard
 
-![Storyboard di tre inquadrature al faro](docs/assets/lighthouse-storyboard.jpg)
+![Storyboard di tre inquadrature al faro](../docs/assets/lighthouse-storyboard.jpg)
 
 Tre pannelli generati insieme con Krea-2 Turbo: arrivo al faro, ingresso, sguardo sul mare. È una nuova generazione guidata dal testo; la continuità del personaggio è approssimativa.
 
-**Risultati reali dei workflow inclusi, eseguiti in ComfyUI.** Nessuna fotografia di repertorio. [Prompt, seed e parametri per riprovare gli esempi →](docs/EXAMPLES.md)
+**Risultati reali dei workflow inclusi, eseguiti in ComfyUI.** Nessuna fotografia di repertorio. [Prompt, seed e parametri per riprovare gli esempi →](../docs/EXAMPLES.md)
 
 ## Dall’immagine al movimento
 
-[![Anteprima animata del faro](docs/assets/lighthouse-preview.gif)](docs/assets/lighthouse-ltx.mp4)
+[![Anteprima animata del faro](../docs/assets/lighthouse-preview.gif)](../docs/assets/lighthouse-ltx.mp4)
 
-LTX2.5, primo frame dalla scena Krea: **896 × 512, 24 fps, 97 fotogrammi** (circa 4 secondi). La GIF è un’anteprima ridotta senza audio. [Apri/scarica il video MP4](docs/assets/lighthouse-ltx.mp4).
+LTX2.5, primo frame dalla scena Krea: **896 × 512, 24 fps, 97 fotogrammi** (circa 4 secondi). La GIF è un’anteprima ridotta senza audio. [Apri/scarica il video MP4](../docs/assets/lighthouse-ltx.mp4).
 
 ## Cosa puoi fare
 
 <details><summary>Uno sguardo all’interfaccia</summary>
 
-![Tab Analisi di zPrompt Studio](docs/assets/studio-interface.png)
+![Tab Analisi di zPrompt Studio](../docs/assets/studio-interface.png)
 
 Vista reale del tab Analisi in italiano, prima di generare il prompt.
 
@@ -62,19 +62,19 @@ Vista reale del tab Analisi in italiano, prima di generare il prompt.
 
 **I suggerimenti inclusi sono esempi preparati dall’autore: puoi modificarli, aggiungerne di tuoi e costruire una libreria adatta al tuo stile.** Non sono obbligatori né una raccolta chiusa.
 
-I preset coprono analisi visiva, regia, idee di sceneggiatura, storyboard e sequenze. Sono semplici file di testo; i cataloghi delle sequenze includono anche personaggi, ambienti/abiti e azioni. [Come creare e personalizzare i suggerimenti →](docs/CUSTOM_PRESETS.md)
+I preset coprono analisi visiva, regia, idee di sceneggiatura, storyboard e sequenze. Sono semplici file di testo; i cataloghi delle sequenze includono anche personaggi, ambienti/abiti e azioni. [Come creare e personalizzare i suggerimenti →](../docs/CUSTOM_PRESETS.md)
 
 ## Provala su Windows
 
 1. Installa **Python 3.11 a 64 bit**, con Python Launcher. Per aggiornare automaticamente serve anche **Git per Windows**.
 2. Clona il repository oppure usa **Code → Download ZIP**, estraendo tutto in una cartella scrivibile.
-3. Esegui **`install.bat`**: crea `venv`, installa le dipendenze e copia la configurazione di esempio senza sovrascrivere impostazioni esistenti.
+3. Esegui **`scripts/install.bat`**: crea `venv`, installa le dipendenze e copia la configurazione di esempio senza sovrascrivere impostazioni esistenti.
 4. In **`settings.json`**, configura `COMFYUI_DIR` e `COMFYUI_URL`. Prepara in ComfyUI i nodi e i modelli richiesti dai workflow che intendi utilizzare.
 5. Avvia **`zPrompt_Studio.bat`** e prova prima una singola immagine.
 
 Sono inclusi sorgenti, workflow JSON e preset generici. ComfyUI, pesi dei modelli, LoRA e sessioni personali sono esclusi. Gli LLM/VLM possono essere scaricati al primo utilizzo; i modelli di generazione devono essere disponibili in ComfyUI. RAM, VRAM, spazio disco e download dipendono dai modelli scelti.
 
-**[Istruzioni complete](docs/LEGGIMI_INSTALLAZIONE.md)** · **[Workflow](workflows)** · **[Configurazione di esempio](config/settings.example.json)**
+**[Istruzioni complete](../docs/LEGGIMI_INSTALLAZIONE.md)** · **[Workflow](../workflows)** · **[Configurazione di esempio](../config/settings.example.json)**
 
 ## Aggiornamenti
 
@@ -91,13 +91,13 @@ Le copie ZIP non hanno la cronologia Git: scarica la nuova versione in una carte
 
 Per segnalare un problema indica modello/workflow, passaggi per riprodurlo e log pertinenti, rimuovendo dati personali e credenziali.
 
-Il programma di installazione esegue anche un controllo di Python, dipendenze, GPU/CUDA, cartelle e ComfyUI. Ripetilo con `check_installation.bat` oppure da **Registri e Impostazioni → Diagnostica → Verifica installazione**. Avvia ComfyUI per verificare nodi e modelli dei workflow. `CONFIG` indica requisiti da configurare o verificare per le funzioni desiderate; il controllo non scarica modelli e non certifica una generazione completa.
+Il programma di installazione esegue anche un controllo di Python, dipendenze, GPU/CUDA, cartelle e ComfyUI. Ripetilo con `scripts/check_installation.bat` oppure da **Registri e Impostazioni → Diagnostica → Verifica installazione**. Avvia ComfyUI per verificare nodi e modelli dei workflow. `CONFIG` indica requisiti da configurare o verificare per le funzioni desiderate; il controllo non scarica modelli e non certifica una generazione completa.
 
-I suggerimenti di sistema sono personalizzabili senza modificare Python: consulta la [guida ai template e alle personalizzazioni locali](suggestions/system/README.md).
+I suggerimenti di sistema sono personalizzabili senza modificare Python: consulta la [guida ai template e alle personalizzazioni locali](../suggestions/system/README.md).
 
 ### Cartelle del progetto
 
-Avvia, installa e aggiorna l’app con i file `.bat` nella cartella principale.
+Avvia e aggiorna con i due `.bat` nella cartella principale. Installa con `scripts/install.bat`; esegui la diagnostica con `scripts/check_installation.bat`. Il piccolo `requirements.txt` nella radice mantiene compatibili gli aggiornamenti dalle vecchie versioni.
 
 - `config/`: catalogo modelli, parametri workflow e impostazioni di esempio.
 - `scripts/`: programma di aggiornamento e vincoli delle dipendenze.
@@ -106,4 +106,4 @@ Avvia, installa e aggiorna l’app con i file `.bat` nella cartella principale.
 - `suggestions/`: istruzioni per i prompt ed esempi personalizzabili.
 - `help/`: guida illustrata.
 
-I file personali `settings.json` e `session.json` restano nella cartella principale e sono esclusi da Git.
+Impostazioni e sessioni personali sono in `data/`, esclusa da Git. I vecchi file vengono trasferiti automaticamente all’avvio. Installazione e diagnostica sono in `scripts/`.

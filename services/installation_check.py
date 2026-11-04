@@ -11,6 +11,8 @@ import tempfile
 import urllib.request
 
 ROOT = Path(__file__).resolve().parents[1]
+if __name__ == "__main__":
+    sys.path.insert(0, str(ROOT))
 MODEL_KEYS = {'ckpt_name', 'unet_name', 'clip_name', 'clip_name1', 'clip_name2',
               'clip_name3', 'vae_name', 'lora_name', 'model_name'}
 
@@ -46,7 +48,8 @@ def collect_checks(root=ROOT):
     add('OK' if shutil.which('git') else 'CONFIG', 'Git',
         'Necessario per update.bat da un clone Git.', 'Required for update.bat from a Git clone.')
     try:
-        settings = json.loads((root / 'settings.json').read_text(encoding='utf-8-sig'))
+        from core.runtime_paths import prepare_runtime_files
+        settings = json.loads(prepare_runtime_files(root).read_text(encoding='utf-8-sig'))
         if not isinstance(settings, dict):
             raise ValueError('settings.json must contain an object')
     except Exception as exc:

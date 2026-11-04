@@ -1,8 +1,9 @@
 @echo off
 setlocal
-cd /d "%~dp0"
+cd /d "%~dp0.."
 echo Installing zPrompt Studio. Please keep this window open.
-if not exist "settings.json" copy /Y "config\settings.example.json" "settings.json" >nul
+if not exist "data" mkdir "data"
+if not exist "data\settings.json" if not exist "settings.json" copy /Y "config\settings.example.json" "data\settings.json" >nul
 py -3.11 --version >nul 2>&1
 if errorlevel 1 (
  echo Install Python 3.11 64-bit with the Python launcher, then retry.

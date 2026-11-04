@@ -1,6 +1,10 @@
 # main.py
 
 import sys
+from pathlib import Path
+
+# Direct execution from scripts must resolve the application packages.
+sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 import asyncio
 import tempfile
 import time

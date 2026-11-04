@@ -25,3 +25,6 @@ settings.local*.json
 # Private system-prompt overrides (preserved across updates)
 suggestions/system/custom/
 workflows/custom/
+
+# Private runtime configuration and sessions
+data/

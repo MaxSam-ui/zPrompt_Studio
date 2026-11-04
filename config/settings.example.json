@@ -2,7 +2,7 @@
   "COMFYUI_DIR": "C:/ComfyUI_windows_portable",
   "STUDIO_OUTPUT_DIR": "output",
   "VLM_CACHE_DIR": "models_cache",
-  "SESSION_FILE": "session.json",
+  "SESSION_FILE": "data/session.json",
   "LORA_ZIMAGE_DIR_1": "{COMFYUI_DIR}\\ComfyUI\\models\\loras\\Z-Image1",
   "LORA_ZIMAGE_DIR_2": "{COMFYUI_DIR}\\ComfyUI\\models\\loras\\Z-Image2",
   "LORA_FLUX2_DIR": "{COMFYUI_DIR}\\ComfyUI\\models\\loras\\Flux-2",

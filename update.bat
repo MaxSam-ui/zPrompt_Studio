@@ -2,7 +2,7 @@
 setlocal
 cd /d "%~dp0"
 if not exist "venv\Scripts\python.exe" (
- echo Run install.bat before updating.
+ echo Run scripts\install.bat before updating.
  echo Press any key to continue . . .
 pause >nul
  exit /b 1
