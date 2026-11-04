@@ -138,19 +138,16 @@ if __name__ == "__main__":
 
         hardware.suggerisci_highvram()
 
-        # Start the server independently of an optional first-time VLM download.
-        log.registra("Starting ComfyUI in background...")
-        comfyui_manager.start_comfyui_background()
-
         if config.KEEP_MODELS_WARM:
-            log.registra(f"Priority startup VLM warmup for {modello_warmup}...")
+            log.registra(f"Loading VLM/LLM before starting ComfyUI: {modello_warmup}...")
             try:
+                # Synchronous: includes any download and model loading.
                 local_vlm.warm_up_vlm(modello_warmup)
-                log.registra("VLM warmup completed successfully.")
             except Exception as e:
                 log.registra(f"Error during priority VLM warmup: {e}", "WARNING")
-            time.sleep(2.0)
-        
+
+        log.registra("Starting ComfyUI in background...")
+        comfyui_manager.start_comfyui_background()
 
     threading.Thread(target=bootstrap_sistema, daemon=True).start()
 
