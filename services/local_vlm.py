@@ -333,7 +333,7 @@ def estrai_asset_da_prompt(prompt_testo):
     comfyui_manager.generazione_attiva = True
 
     s_attiva = sessione.carica_ultima_sessione()
-    modello_vlm = s_attiva.get("modello_vlm") or "huihui_ai/qwen3-vl-abliterated:8b"
+    modello_vlm = s_attiva.get("modello_vlm") or "huihui_ai/qwen3-vl-abliterated:4b"
     nome_reale = _normalizza_nome_modello(modello_vlm)
 
     sys_prompt = (

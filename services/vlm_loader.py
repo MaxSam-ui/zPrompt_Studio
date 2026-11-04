@@ -27,8 +27,8 @@ PATH_CONFIG_MODELLI = os.path.join(os.path.dirname(__file__), "..", "config", "c
 
 DEFAULT_CONFIG = {
     "modelli_disponibili": [
-        "huihui_ai/qwen3-vl-abliterated:8b",
         "huihui_ai/qwen3-vl-abliterated:4b",
+        "huihui_ai/qwen3-vl-abliterated:8b",
         "huihui_ai/gemma-4-e2b-it-abliterated:latest",
         "huihui_ai/gemma-4-abliterated:latest",
         "fredrezones55/Gemma-4-Uncensored-HauhauCS-Aggressive:e4b"
@@ -105,7 +105,7 @@ _loading_lock = Lock()
 
 def _normalizza_nome_modello(nome):
     if not nome:
-        return "huihui-ai/Huihui-Qwen3-VL-8B-Instruct-abliterated"
+        return "huihui-ai/Huihui-Qwen3-VL-4B-Instruct-abliterated"
     
     config_corrente = _carica_configurazione_modelli()
     mappature = config_corrente.get("mappature_modelli", DEFAULT_CONFIG["mappature_modelli"])
@@ -298,7 +298,7 @@ def ottieni_modelli_disponibili():
     return _config_modelli.get("modelli_disponibili", DEFAULT_CONFIG["modelli_disponibili"])
 
 
-def warm_up_vlm(modello="huihui-ai/Huihui-Qwen3-VL-8B-Instruct-abliterated"):
+def warm_up_vlm(modello="huihui-ai/Huihui-Qwen3-VL-4B-Instruct-abliterated"):
     if not modello or modello.strip().lower() in ["none", "nessuno", "-", ""]:
         log.registra("Warm-up skipped: no valid VLM/LLM model selected.")
         return

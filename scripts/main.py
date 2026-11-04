@@ -50,7 +50,7 @@ except Exception:
 s = sessione.carica_ultima_sessione()
 d = lingua.ottieni_dizionario_lingua(s.get("lingua_selezionata", "IT"))
 
-modello_warmup = s.get("modello_vlm", "huihui_ai/qwen3-vl-abliterated:8b")
+modello_warmup = s.get("modello_vlm") or "huihui_ai/qwen3-vl-abliterated:4b"
 
 lista_modelli_vlm = local_vlm.ottieni_modelli_disponibili()
 SUGG_VISION_LIST = config.elenca_suggerimenti(config.SUGGESTION_VISION_DIR)

@@ -76,7 +76,7 @@ def _estrai_descrizione_frame_sicura(filepath, stato_gen=None, sys_prompt_vision
         with Image.open(filepath) as im:
             desc_vlm = ""
             s_attiva = sessione.carica_ultima_sessione()
-            default_vlm = s_attiva.get("modello_vlm", "huihui_ai/qwen3-vl-abliterated:8b")
+            default_vlm = s_attiva.get("modello_vlm", "huihui_ai/qwen3-vl-abliterated:4b")
             m_vlm = model_vision if (model_vision and model_vision.strip()) else default_vlm
             sys_p = sys_prompt_vision if (sys_prompt_vision and sys_prompt_vision.strip()) else compose_system("Frame_Analysis.txt")
             

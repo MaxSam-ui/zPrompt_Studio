@@ -21,7 +21,7 @@ DEFAULTS = {
     "lora2_name_qwen21_edit": "-", "lora2_str_qwen21_edit": 1.0,
     "lora3_name_qwen21_edit": "-", "lora3_str_qwen21_edit": 1.0,
     "lingua_selezionata": "IT", 
-    "modello_vlm": "", 
+    "modello_vlm": "huihui_ai/qwen3-vl-abliterated:4b", 
     "suggerimento_vision_selezionato": "-", 
     "sys_prompt": "",
     "user_hints": "",
