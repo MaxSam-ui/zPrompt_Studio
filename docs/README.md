@@ -1,4 +1,4 @@
-<h1 align="center">zPrompt Studio</h1>
+![zPrompt Studio — From a spark to a scene.](assets/studio-showcase.svg)
 
 <p align="center"><b>Turn ideas and reference images into images, storyboards and video.</b><br>One Gradio workspace, powered by local models and ComfyUI.</p>
 
@@ -13,6 +13,32 @@
 ![After the storm: cinematic image generated with Krea-2 Turbo](../docs/assets/lighthouse-hero.jpg)
 
 **After the storm** — a yellow raincoat, a lighthouse and a shaft of sunlight over the Atlantic. Generated locally with Krea-2 Turbo and the workflow included in the app.
+
+## Inside the studio: one real example
+
+**One reference. A connected workspace for prompts, images and motion.** These screenshots show the app’s actual UI components in an English demo session, with the lighthouse prompts and examples preloaded. The images and video are real outputs from the included workflows; this is not a recording of a fresh generation run.
+
+### Give your reference a voice
+
+Keep the reference, customizable instructions and image prompt side by side. Read and refine the details before generating.
+
+[![Analysis: lighthouse reference and image prompt side by side](assets/studio-analysis.png)](assets/studio-analysis.png)
+
+### Watch the prompt take shape
+
+Choose a workflow, refine the description and compare results in the gallery. F and L controls connect your images to video preparation.
+
+[![Rendering: Krea-2 Turbo prompt and lighthouse image gallery](assets/studio-rendering.png)](assets/studio-rendering.png)
+
+### Bring the scene into motion
+
+Develop the idea, timing, action and sound alongside the first frame. The player shows the example’s LTX2.5 video.
+
+[![Video: timeline, first frame and LTX2.5 result](assets/studio-video.png)](assets/studio-video.png)
+
+*Click any screenshot to view it at full size. The UI is also available in Italian.*
+
+## More from the same project
 
 ### Change the atmosphere. Keep the scene.
 
@@ -36,17 +62,6 @@ Three panels generated together with Krea-2 Turbo: approaching the lighthouse, e
 
 LTX2.5, using the Krea scene as its first frame: **896 × 512, 24 fps, 97 frames** (about 4 seconds). The GIF is a reduced, silent preview. [Open/download the MP4 video](../docs/assets/lighthouse-ltx.mp4).
 
-## A workspace for the whole process
-
-<details><summary>A look inside the workspace</summary>
-
-![zPrompt Studio Analysis tab](../docs/assets/studio-interface.png)
-
-Actual Italian-language Analysis view before generating a prompt.
-
-</details>
-
-
 | Area | What you can do |
 | --- | --- |
 | Analysis | Describe reference images and develop prompts with a local vision-language model. |
@@ -68,8 +83,8 @@ Presets cover image analysis, direction, screenplay ideas, storyboards and seque
 
 1. Install **Python 3.11 (64-bit)** with the Python Launcher. Install **Git for Windows** if you want automatic updates.
 2. Clone this repository, or select **Code → Download ZIP** and extract it into a writable folder.
-3. Run **`scripts/install.bat`**. It creates a local `venv`, installs dependencies and creates `settings.json` from the example without overwriting an existing file.
-4. Edit **`settings.json`**: point `COMFYUI_DIR` at your ComfyUI portable directory and check `COMFYUI_URL`. Install the model files and custom nodes required by the workflows you want to use.
+3. Run **`scripts/install.bat`**. It creates a local `venv`, installs dependencies and creates `data/settings.json` from the example without overwriting an existing file.
+4. Edit **`data/settings.json`**: point `COMFYUI_DIR` at your ComfyUI portable directory and check `COMFYUI_URL`. Install the model files and custom nodes required by the workflows you want to use.
 5. Run **`zPrompt_Studio.bat`**. Start with one image before testing longer workflows.
 
 The repository includes source code, workflow JSON files and generic presets. It does **not** include ComfyUI, model weights, LoRAs or your previous sessions. LLM/VLM downloads may occur on first use; generation model weights must be available in ComfyUI. RAM, VRAM, disk space and download sizes depend on your chosen models.

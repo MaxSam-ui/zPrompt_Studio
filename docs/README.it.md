@@ -1,4 +1,4 @@
-<h1 align="center">zPrompt Studio</h1>
+![zPrompt Studio — From a spark to a scene.](assets/studio-showcase.svg)
 
 <p align="center"><b>Dalle idee e dalle immagini di riferimento a immagini, storyboard e video.</b><br>Un unico spazio Gradio, con modelli locali e workflow ComfyUI.</p>
 
@@ -13,6 +13,32 @@
 ![Dopo la tempesta: immagine cinematografica generata con Krea-2 Turbo](../docs/assets/lighthouse-hero.jpg)
 
 **Dopo la tempesta** — un impermeabile giallo, un faro e un raggio di luce sull’Atlantico. Generata localmente con Krea-2 Turbo e il workflow incluso nell’app.
+
+## Dentro lo studio: un esempio concreto
+
+**Dallo stesso riferimento, un percorso completo tra prompt, immagini e movimento.** Le schermate mostrano i componenti reali dell’app in una sessione dimostrativa in inglese, con prompt ed esempi del faro precaricati. Le immagini e il video sono risultati reali dei workflow inclusi; non è una registrazione di una nuova generazione.
+
+### Il riferimento diventa una descrizione
+
+Immagine, istruzioni personalizzabili e prompt affiancati: puoi leggere e correggere ogni dettaglio prima di generare.
+
+[![Analisi: riferimento del faro e prompt nella stessa schermata](assets/studio-analysis.png)](assets/studio-analysis.png)
+
+### Il prompt prende forma
+
+Scegli il workflow, affina la descrizione e confronta i risultati nella galleria. I controlli F e L collegano le immagini alla preparazione del video.
+
+[![Rendering: prompt Krea-2 Turbo e galleria del faro](assets/studio-rendering.png)](assets/studio-rendering.png)
+
+### La scena entra in movimento
+
+Idea, tempi, azione, suono e primo frame nello stesso spazio di lavoro. Il player mostra il video LTX2.5 dell’esempio.
+
+[![Video: timeline, primo frame e risultato LTX2.5](assets/studio-video.png)](assets/studio-video.png)
+
+*Clicca sulle schermate per vederle a dimensione intera. La UI è disponibile anche in italiano.*
+
+## Altri risultati dello stesso progetto
 
 ### Cambia l’atmosfera, conserva la scena
 
@@ -36,17 +62,6 @@ Tre pannelli generati insieme con Krea-2 Turbo: arrivo al faro, ingresso, sguard
 
 LTX2.5, primo frame dalla scena Krea: **896 × 512, 24 fps, 97 fotogrammi** (circa 4 secondi). La GIF è un’anteprima ridotta senza audio. [Apri/scarica il video MP4](../docs/assets/lighthouse-ltx.mp4).
 
-## Cosa puoi fare
-
-<details><summary>Uno sguardo all’interfaccia</summary>
-
-![Tab Analisi di zPrompt Studio](../docs/assets/studio-interface.png)
-
-Vista reale del tab Analisi in italiano, prima di generare il prompt.
-
-</details>
-
-
 | Area | Funzioni |
 | --- | --- |
 | Analisi | Descrivere immagini di riferimento e sviluppare prompt con un modello visivo locale. |
@@ -69,7 +84,7 @@ I preset coprono analisi visiva, regia, idee di sceneggiatura, storyboard e sequ
 1. Installa **Python 3.11 a 64 bit**, con Python Launcher. Per aggiornare automaticamente serve anche **Git per Windows**.
 2. Clona il repository oppure usa **Code → Download ZIP**, estraendo tutto in una cartella scrivibile.
 3. Esegui **`scripts/install.bat`**: crea `venv`, installa le dipendenze e copia la configurazione di esempio senza sovrascrivere impostazioni esistenti.
-4. In **`settings.json`**, configura `COMFYUI_DIR` e `COMFYUI_URL`. Prepara in ComfyUI i nodi e i modelli richiesti dai workflow che intendi utilizzare.
+4. In **`data/settings.json`**, configura `COMFYUI_DIR` e `COMFYUI_URL`. Prepara in ComfyUI i nodi e i modelli richiesti dai workflow che intendi utilizzare.
 5. Avvia **`zPrompt_Studio.bat`** e prova prima una singola immagine.
 
 Sono inclusi sorgenti, workflow JSON e preset generici. ComfyUI, pesi dei modelli, LoRA e sessioni personali sono esclusi. Gli LLM/VLM possono essere scaricati al primo utilizzo; i modelli di generazione devono essere disponibili in ComfyUI. RAM, VRAM, spazio disco e download dipendono dai modelli scelti.
