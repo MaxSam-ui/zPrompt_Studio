@@ -17,11 +17,14 @@ MODEL_KEYS = {'ckpt_name', 'unet_name', 'clip_name', 'clip_name1', 'clip_name2',
               'clip_name3', 'vae_name', 'lora_name', 'model_name'}
 
 
-def collect_checks(root=ROOT):
+def collect_checks(root=ROOT, on_result=None):
     rows = []
 
     def add(status, name, it, en):
-        rows.append((status, name, it, en))
+        row = (status, name, it, en)
+        rows.append(row)
+        if on_result is not None:
+            on_result(row)
 
     def run(code, timeout=60):
         return subprocess.run([sys.executable, '-c', code], capture_output=True,

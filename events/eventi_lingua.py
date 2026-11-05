@@ -12,7 +12,7 @@ def collega_lingua(t1, t2, t3, t4, t5, titolo_app, btn_help):
     def translate_cache(lang):
         d = lingua.ottieni_dizionario_lingua(lang)
         return (gr.update(label=d['vlm_cache_path'], info=d['vlm_cache_help']),
-                gr.update(value=d['vlm_cache_save']), gr.update(value=''))
+                gr.update(value=d['vlm_cache_save']), gr.update())
     t5['selettore_lingua'].change(translate_cache, [t5['selettore_lingua']],
         [t5['vlm_cache_path'], t5['btn_save_vlm_cache'], t5['vlm_cache_status']], show_progress='hidden')
     def translate_minimax(lang):

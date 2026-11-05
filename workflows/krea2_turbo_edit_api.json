@@ -11,7 +11,7 @@
   },
   "2": {
     "inputs": {
-      "clip_name": "qwen3vl_4b_uncensored_bf16.safetensors",
+      "clip_name": "Qwen\\qwen3vl_4b_uncensored_bf16.safetensors",
       "type": "krea2",
       "device": "default"
     },

@@ -12,12 +12,14 @@ def collega_sistema(t1, t2, t3, t4, t5, barra_superiore, tabs_container, spia_co
         d = lingua.ottieni_dizionario_lingua(lang)
         try:
             if comfyui_manager.generazione_attiva:
-                return gr.update(), d['vlm_cache_busy'], gr.update()
+                log.registra(d['vlm_cache_busy'])
+                return gr.update(), log.ottieni_tutti_i_log(), gr.update()
             resolved = save_cache_dir(path)
-            return resolved, d['vlm_cache_saved'], compila_dashboard_modelli_html()
+            log.registra(d['vlm_cache_saved'])
+            return resolved, log.ottieni_tutti_i_log(), compila_dashboard_modelli_html()
         except (OSError, ValueError) as exc:
             log.registra(f'Unable to save LLM cache: {exc}', 'ERROR')
-            return gr.update(), d['vlm_cache_error'], gr.update()
+            return gr.update(), log.ottieni_tutti_i_log(), gr.update()
 
     t5['btn_save_vlm_cache'].click(save_vlm_cache,
         [t5['vlm_cache_path'], t5['selettore_lingua']],

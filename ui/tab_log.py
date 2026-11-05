@@ -8,7 +8,6 @@ from typing import Dict, Any
 
 from core import log, lingua, config, sessione
 from core.model_cache import get_cache_dir
-from services.installation_check import collect_checks, render_checks
 
 def ottieni_mappa_workflow_attivi() -> dict:
     workflows_dir = os.path.join(config.STUDIO_ROOT_DIR, "workflows")
@@ -30,22 +29,22 @@ def estrai_modelli_da_workflow_json(file_path: str) -> dict:
     try:
         with open(file_path, "r", encoding="utf-8") as f:
             wf = json.load(f)
-        
+
         for node_id, node in wf.items():
             if not isinstance(node, dict):
                 continue
             inputs = node.get("inputs", {})
-            
+
             if "unet_name" in inputs:
                 modelli["UNET (Diffusion)"] = {"path": inputs["unet_name"], "cat": "unet"}
             elif "gguf_name" in inputs:
                 modelli["UNET (GGUF)"] = {"path": inputs["gguf_name"], "cat": "unet"}
-                
+
             if "vae_name" in inputs:
                 title = node.get("_meta", {}).get("title", "VAE")
                 label = f"VAE ({title})" if "audio" in title.lower() or "video" in title.lower() else "VAE"
                 modelli[label] = {"path": inputs["vae_name"], "cat": "vae"}
-                
+
             if "clip_name" in inputs:
                 modelli["CLIP (Text Encoder)"] = {"path": inputs["clip_name"], "cat": "clip"}
             elif "clip_name1" in inputs or "clip_name2" in inputs:
@@ -53,50 +52,50 @@ def estrai_modelli_da_workflow_json(file_path: str) -> dict:
                     modelli["CLIP Primario"] = {"path": inputs["clip_name1"], "cat": "clip"}
                 if "clip_name2" in inputs:
                     modelli["CLIP Secondario"] = {"path": inputs["clip_name2"], "cat": "clip"}
-                    
+
             if "lora_name" in inputs:
                 title = node.get("_meta", {}).get("title", "LoRA")
                 modelli[f"LoRA ({title})"] = {"path": inputs["lora_name"], "cat": "lora"}
-                
+
     except Exception as e:
         log.registra(f"Error during dynamic extraction of workflow '{file_path}': {e}", "WARNING")
-        
+
     return modelli
 
 
 def verifica_presenza_modello_multi_path(rel_path: str, categoria: str) -> tuple[bool, str]:
     models_base = os.path.join(config.COMFYUI_DIR, "ComfyUI", "models")
     path_pulito = rel_path.replace("\\", "/").strip("/")
-    
+
     mappa_cartelle = {
         "unet": ["unet", "diffusion_models"],
         "clip": ["clip", "text_encoders"],
         "vae": ["vae"],
         "lora": ["loras", "lora"]
     }
-    
+
     sotto_cartelle = mappa_cartelle.get(categoria, [categoria])
-    
+
     path_senza_prefisso = path_pulito
     for prefisso in sotto_cartelle + ["unet", "diffusion_models", "clip", "text_encoders", "vae", "loras", "lora"]:
         if path_pulito.lower().startswith(f"{prefisso.lower()}/"):
             path_senza_prefisso = "/".join(path_pulito.split("/")[1:])
             break
-            
+
     candidates = []
     for folder in sotto_cartelle:
         candidates.append(os.path.join(models_base, folder, path_senza_prefisso))
         candidates.append(os.path.join(models_base, folder, path_pulito))
-        
+
     candidates.append(os.path.join(models_base, path_pulito))
     candidates.append(os.path.join(models_base, path_senza_prefisso))
-    
+
     for path in candidates:
         abs_path = os.path.abspath(path)
         if os.path.isfile(abs_path) and os.path.getsize(abs_path) > 0:
             rel_trovato = os.path.relpath(abs_path, models_base).replace("\\", "/")
             return True, rel_trovato
-            
+
     return False, f"{sotto_cartelle[0]}/{path_senza_prefisso}"
 
 
@@ -135,7 +134,7 @@ def compila_dashboard_modelli_html() -> str:
     vlm_cache_dir = get_cache_dir()
     vlm_modelli = rileva_modelli_vlm_locali()
     vlm_presente = bool(vlm_modelli)
-    
+
     vlm_list_html = ""
     if vlm_modelli:
         items = "".join([f'<li style="margin-bottom: 2px;"><code>{m}</code></li>' for m in vlm_modelli])
@@ -176,7 +175,7 @@ def compila_dashboard_modelli_html() -> str:
         {vlm_list_html}
     </div>
     """
-    
+
     guide_url = "/help/model-downloads.html" if lang == "IT" else "/help/model-downloads.en.html"
     guide_text = ("Guida al download dei modelli e alle cartelle di destinazione" if lang == "IT"
                   else "Model download guide and destination folders")
@@ -194,7 +193,7 @@ def compila_dashboard_modelli_html() -> str:
     cards_html = ""
     mappa_wf = ottieni_mappa_workflow_attivi()
     msg_wf_not_found = dl.get("workflow_not_found", "Workflow file not found on disk:")
-    
+
     for group_name, wf_path in mappa_wf.items():
         if not os.path.exists(wf_path):
             cards_html += f"""
@@ -209,22 +208,22 @@ def compila_dashboard_modelli_html() -> str:
             </div>
             """
             continue
-            
+
         modelli_dichiarati = estrai_modelli_da_workflow_json(wf_path)
         files_html = ""
         cartelle_da_scansionare = set()
-        
+
         for role_name, info in modelli_dichiarati.items():
             relative_path = info["path"]
             categoria = info["cat"]
-            
+
             esiste, percorso_reale_trovato = verifica_presenza_modello_multi_path(relative_path, categoria)
-            
+
             status_color = "#10b981" if esiste else "#f87171"
             status_bg = "rgba(16, 185, 129, 0.1)" if esiste else "rgba(239, 68, 68, 0.1)"
             status_border = "rgba(16, 185, 129, 0.25)" if esiste else "rgba(239, 68, 68, 0.25)"
             status_label = dl.get("status_present", "Present ✔") if esiste else dl.get("status_missing", "Missing ❌")
-            
+
             parti = percorso_reale_trovato.split("/")
             if len(parti) > 1:
                 cartelle_da_scansionare.add("/".join(parti[:-1]))
@@ -233,7 +232,7 @@ def compila_dashboard_modelli_html() -> str:
                     cartelle_da_scansionare.add("diffusion_models")
                 elif parti[0] == "clip":
                     cartelle_da_scansionare.add("text_encoders")
-            
+
             files_html += f"""
             <div style="padding: 8px 0; border-bottom: 1px solid rgba(255,255,255,0.03); display: flex; align-items: flex-start; justify-content: space-between; gap: 12px;">
                 <div style="max-width: 70%;">
@@ -245,7 +244,7 @@ def compila_dashboard_modelli_html() -> str:
                 </span>
             </div>
             """
-            
+
         modelli_rilevati = elenca_files_in_cartelle(list(cartelle_da_scansionare))
         esploratore_html = ""
         if modelli_rilevati:
@@ -268,7 +267,7 @@ def compila_dashboard_modelli_html() -> str:
                 {msg_no_files}
             </div>
             """
-            
+
         cards_html += f"""
         <div style="background: rgba(0, 0, 0, 0.15); border: 1px solid rgba(255, 255, 255, 0.05); border-radius: 10px; padding: 14px; display: flex; flex-direction: column;">
             <h4 style="margin: 0 0 10px 0; color: #3b82f6; font-size: 1.05em; font-weight: 700; display: flex; align-items: center; gap: 8px; border-bottom: 1px solid rgba(59, 130, 246, 0.15); padding-bottom: 6px;">
@@ -280,7 +279,7 @@ def compila_dashboard_modelli_html() -> str:
             {esploratore_html}
         </div>
         """
-        
+
     dashboard_html = f"""
     <div style="font-family: inherit;">
         {vlm_status_html}
@@ -311,10 +310,6 @@ def crea_tab_log(d: Dict[str, str], s: Dict[str, Any]) -> Dict[str, Any]:
                     elem_id="studio-log-console",
                     elem_classes=["box-log-scorrimento"]
                 )
-                with gr.Row(elem_id="studio-log-actions"):
-                    btn_refresh_logs = gr.Button(d.get("btn_refresh_logs", "Refresh Logs"), variant="secondary")
-                    btn_clear_logs = gr.Button(d.get("btn_clear_logs", "Clear Logs"), variant="stop")
-
             with gr.Column(scale=4, min_width=260, elem_id="studio-preferences", elem_classes=["analisi-col-box"]):
                 elenco_lingue_rilevate = list(lingua.LINGUE.keys()) if lingua.LINGUE else ["IT", "EN"]
                 selettore_lingua = gr.Dropdown(
@@ -324,55 +319,58 @@ def crea_tab_log(d: Dict[str, str], s: Dict[str, Any]) -> Dict[str, Any]:
                     allow_custom_value=False,
                 )
 
-        def setup_labels(lang):
-            if lang == "IT":
-                return ("### ComfyUI locale (Windows Portable)\nScegli la cartella principale che contiene **python_embeded** e **ComfyUI**, per esempio `D:/ComfyUI_windows_portable`. Non scegliere la cartella dei modelli. Puoi incollare anche il percorso della sottocartella ComfyUI: verrà riconosciuta automaticamente. Questa impostazione non installa ComfyUI e non modifica l'indirizzo di un server remoto.",
-                        "Cartella ComfyUI Portable", "Verifica e salva cartella")
-            return ("### Local ComfyUI (Windows Portable)\nChoose the main folder containing **python_embeded** and **ComfyUI**, for example `D:/ComfyUI_windows_portable`. Do not choose the models folder. You may also paste the ComfyUI subfolder: its parent will be detected automatically. This setting does not install ComfyUI or change a remote server address.",
-                    "ComfyUI Portable folder", "Check and save folder")
+                with gr.Row(elem_id="studio-settings-actions"):
+                    btn_refresh_logs = gr.Button(d.get("btn_refresh_logs", "Refresh Logs"), size="sm", variant="secondary")
+                    btn_clear_logs = gr.Button(d.get("btn_clear_logs", "Clear Logs"), size="sm", variant="secondary")
+                btn_check_install = gr.Button('Verifica installazione' if lingua_avvio == 'IT' else 'Check installation', size='sm')
+                with gr.Accordion("Cartelle" if lingua_avvio == 'IT' else "Folders", open=False) as folder_settings:
+                    def setup_labels(lang):
+                        if lang == "IT":
+                            return ("### ComfyUI locale (Windows Portable)\nScegli la cartella principale che contiene **python_embeded** e **ComfyUI**, per esempio `D:/ComfyUI_windows_portable`. Non scegliere la cartella dei modelli. Puoi incollare anche il percorso della sottocartella ComfyUI: verrà riconosciuta automaticamente. Questa impostazione non installa ComfyUI e non modifica l'indirizzo di un server remoto.",
+                                    "Cartella ComfyUI Portable", "Verifica e salva cartella")
+                        return ("### Local ComfyUI (Windows Portable)\nChoose the main folder containing **python_embeded** and **ComfyUI**, for example `D:/ComfyUI_windows_portable`. Do not choose the models folder. You may also paste the ComfyUI subfolder: its parent will be detected automatically. This setting does not install ComfyUI or change a remote server address.",
+                                "ComfyUI Portable folder", "Check and save folder")
 
-        setup_text, setup_label, setup_button = setup_labels(lingua_avvio)
-        comfy_help = gr.Markdown(setup_text)
-        comfy_path = gr.Textbox(value=config.COMFYUI_DIR, label=setup_label)
-        comfy_save = gr.Button(setup_button, size="sm")
-        comfy_status = gr.Markdown("")
+                    setup_text, setup_label, setup_button = setup_labels(lingua_avvio)
+                    comfy_help = gr.Markdown(setup_text)
+                    comfy_path = gr.Textbox(value=config.COMFYUI_DIR, label=setup_label)
+                    comfy_save = gr.Button(setup_button, size="sm")
 
-        def save_comfy(value, lang):
-            from core.comfyui_setup import save_portable
-            try:
-                folder = save_portable(value, config.STUDIO_ROOT_DIR, config.SETTINGS_FILE)
-                message = ("Cartella verificata e salvata. Riavvia Studio per applicarla." if lang == "IT"
-                           else "Folder checked and saved. Restart Studio to apply it.")
-                return folder, message
-            except ValueError:
-                message = ("Cartella non valida. Devono essere presenti: " if lang == "IT"
-                           else "Invalid folder. Required files: ")
-                return gr.skip(), message + "`python_embeded/python.exe`, `ComfyUI/main.py`."
-            except OSError:
-                return gr.skip(), ("Impossibile salvare: controlla i permessi della cartella." if lang == "IT"
-                                   else "Cannot save: check folder permissions.")
+                    def save_comfy(value, lang):
+                        from core.comfyui_setup import save_portable
+                        try:
+                            folder = save_portable(value, config.STUDIO_ROOT_DIR, config.SETTINGS_FILE)
+                            message = ("Cartella verificata e salvata. Riavvia Studio per applicarla." if lang == "IT"
+                                       else "Folder checked and saved. Restart Studio to apply it.")
+                            log.registra(message)
+                            return folder, log.ottieni_tutti_i_log()
+                        except ValueError:
+                            message = ("Cartella non valida. Devono essere presenti: " if lang == "IT"
+                                       else "Invalid folder. Required files: ")
+                            log.registra(message + "python_embeded/python.exe, ComfyUI/main.py", "WARNING")
+                            return gr.skip(), log.ottieni_tutti_i_log()
+                        except OSError:
+                            log.registra("Impossibile salvare: controlla i permessi della cartella." if lang == "IT" else "Cannot save: check folder permissions.", "ERROR")
+                            return gr.skip(), log.ottieni_tutti_i_log()
 
-        comfy_save.click(save_comfy, [comfy_path, selettore_lingua], [comfy_path, comfy_status])
-        def translate_setup(lang):
-            help_text, label, button = setup_labels(lang)
-            return help_text, gr.update(label=label), gr.update(value=button), ""
-        selettore_lingua.change(translate_setup, [selettore_lingua],
-                               [comfy_help, comfy_path, comfy_save, comfy_status], show_progress="hidden")
+                    comfy_save.click(save_comfy, [comfy_path, selettore_lingua], [comfy_path, box_log_terminale])
+                    def translate_setup(lang):
+                        help_text, label, button = setup_labels(lang)
+                        return help_text, gr.update(label=label), gr.update(value=button)
+                    selettore_lingua.change(translate_setup, [selettore_lingua],
+                                           [comfy_help, comfy_path, comfy_save], show_progress="hidden")
+                    vlm_cache_path = gr.Textbox(value=get_cache_dir(), label=d['vlm_cache_path'], info=d['vlm_cache_help'])
+                    btn_save_vlm_cache = gr.Button(d['vlm_cache_save'], size='sm')
+
+        from services.installation_ui import installation_log_updates
+        btn_check_install.click(installation_log_updates, [selettore_lingua], [box_log_terminale, btn_check_install],
+                                concurrency_limit=1, trigger_mode='once', show_progress='hidden')
+        selettore_lingua.change(
+            lambda lang: (gr.update(value='Verifica installazione' if lang == 'IT' else 'Check installation'),
+                          gr.update(label='Cartelle' if lang == 'IT' else 'Folders')),
+            [selettore_lingua], [btn_check_install, folder_settings], show_progress='hidden')
 
         with gr.Accordion(d.get("diagnostica_titolo", "🔍 Model Diagnostics & Status (ComfyUI & VLM)"), open=False, elem_id="studio-diagnostics") as accordion_diagnostica:
-            check_rows = gr.State([])
-            btn_check_install = gr.Button('Verifica installazione' if lingua_avvio == 'IT' else 'Check installation', size='sm')
-            install_report = gr.HTML('')
-            def check_install(lang):
-                rows = collect_checks()
-                return rows, render_checks(rows, lang)
-            btn_check_install.click(check_install, [selettore_lingua], [check_rows, install_report], concurrency_limit=1)
-            selettore_lingua.change(
-                lambda lang, rows: (gr.update(value='Verifica installazione' if lang == 'IT' else 'Check installation'), render_checks(rows, lang)),
-                [selettore_lingua, check_rows], [btn_check_install, install_report], show_progress='hidden')
-            vlm_cache_path = gr.Textbox(value=get_cache_dir(), label=d['vlm_cache_path'], info=d['vlm_cache_help'])
-            btn_save_vlm_cache = gr.Button(d['vlm_cache_save'], size='sm')
-            vlm_cache_status = gr.Markdown('')
             dashboard_modelli = gr.HTML(
                 value=compila_dashboard_modelli_html(),
                 elem_id="diagnostica-modelli-html"
@@ -382,12 +380,12 @@ def crea_tab_log(d: Dict[str, str], s: Dict[str, Any]) -> Dict[str, Any]:
         "tab_el": tab_el,
         "vlm_cache_path": vlm_cache_path,
         "btn_save_vlm_cache": btn_save_vlm_cache,
-        "vlm_cache_status": vlm_cache_status,
+        "vlm_cache_status": box_log_terminale,
         "selettore_lingua": selettore_lingua,
-        "registri_sistema_header": registri_sistema_header, 
+        "registri_sistema_header": registri_sistema_header,
         "box_log_terminale": box_log_terminale,
         "btn_refresh_logs": btn_refresh_logs,
         "btn_clear_logs": btn_clear_logs,
-        "dashboard_modelli": dashboard_modelli,  
+        "dashboard_modelli": dashboard_modelli,
         "accordion_diagnostica": accordion_diagnostica
     }
