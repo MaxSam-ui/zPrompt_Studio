@@ -44,9 +44,6 @@ Ogni famiglia usa una cartella sotto `ComfyUI/models/loras`: `Z-Image`, `Flux-2`
 
 **Dallo stesso riferimento, un percorso completo tra prompt, immagini e movimento.** Le schermate mostrano i componenti reali dell’app in una sessione dimostrativa in inglese, con prompt ed esempi del faro precaricati. Le immagini e il video sono risultati reali dei workflow inclusi; non è una registrazione di una nuova generazione.
 
-<details>
-<summary>Altre schermate: analisi e rendering</summary>
-
 ### Il riferimento diventa una descrizione
 
 Immagine, istruzioni personalizzabili e prompt affiancati: puoi leggere e correggere ogni dettaglio prima di generare.
@@ -58,9 +55,6 @@ Immagine, istruzioni personalizzabili e prompt affiancati: puoi leggere e correg
 Scegli il workflow, affina la descrizione e confronta i risultati nella galleria. I controlli F e L collegano le immagini alla preparazione del video.
 
 [![Rendering: prompt Krea-2 Turbo e galleria del faro](assets/studio-rendering.png)](assets/studio-rendering.png)
-
-
-</details>
 
 ### La scena entra in movimento
 

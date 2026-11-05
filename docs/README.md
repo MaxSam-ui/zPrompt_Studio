@@ -44,9 +44,6 @@ Each family uses one folder under `ComfyUI/models/loras`: `Z-Image`, `Flux-2`, `
 
 **One reference. A connected workspace for prompts, images and motion.** These screenshots show the app’s actual UI components in an English demo session, with the lighthouse prompts and examples preloaded. The images and video are real outputs from the included workflows; this is not a recording of a fresh generation run.
 
-<details>
-<summary>More screenshots: analysis and rendering</summary>
-
 ### Give your reference a voice
 
 Keep the reference, customizable instructions and image prompt side by side. Read and refine the details before generating.
@@ -58,9 +55,6 @@ Keep the reference, customizable instructions and image prompt side by side. Rea
 Choose a workflow, refine the description and compare results in the gallery. F and L controls connect your images to video preparation.
 
 [![Rendering: Krea-2 Turbo prompt and lighthouse image gallery](assets/studio-rendering.png)](assets/studio-rendering.png)
-
-
-</details>
 
 ### Bring the scene into motion
 
