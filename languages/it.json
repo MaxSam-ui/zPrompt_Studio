@@ -1,4 +1,8 @@
 {
+  "analysis_description_label": "Descrivi l’immagine da creare",
+  "analysis_description_placeholder": "Esempio: una fotografa con una giacca gialla su una scogliera al tramonto, fotografia realistica.",
+  "analysis_extra_label": "Istruzioni aggiuntive (facoltative)",
+  "analysis_description_required": "⚠ Inserisci una breve descrizione dell’immagine da creare.",
   "vlm_cache_path": "Cartella modelli LLM / VLM",
   "vlm_cache_help": "Cartella della cache Hugging Face (contiene models--…). Vuoto: cache predefinita. I file esistenti non vengono spostati: scegli la cache attuale per riutilizzarli. Una cartella nuova può richiedere un nuovo download.",
   "vlm_cache_save": "Salva cartella LLM / VLM",

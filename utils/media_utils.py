@@ -128,6 +128,11 @@ def calcola_frames_tab_video(stato_gen=None, s_sessione=None):
 
 
 def gestore_analisi_adattivo(immagine, sys_prompt, user_hints, modello, solo_testo_flag, vlm_max_tokens=512):
+    if solo_testo_flag and not str(user_hints or "").strip():
+        lang = sessione.carica_ultima_sessione().get("lingua_selezionata", "IT")
+        yield lingua.LINGUE.get(lang, {}).get("analysis_description_required", "⚠ Enter a short description of the image to create.")
+        return
+
     from services import comfyui_manager
     comfyui_manager.vlm_interrotto = False
     

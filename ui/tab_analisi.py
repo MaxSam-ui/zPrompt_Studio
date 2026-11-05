@@ -97,8 +97,7 @@ def crea_tab_analisi(
                 
                 user_hints = gr.Textbox(
                     value=s.get("user_hints", ""),
-                    placeholder=d.get("placeholder_hints", ""),
-                    label=d.get("istruzioni_extra", "Extra Instructions"),
+                    **lingua.analysis_hints_options(d, solo_attivo),
                     lines=5,
                     visible=True
                 )
@@ -152,7 +151,7 @@ def crea_tab_analisi(
                         gr.update(visible=False), 
                         gr.update(),              
                         gr.update(lines=3, value=prompt_preset if prompt_preset else ""), 
-                        gr.update(visible=True),  
+                        gr.update(visible=True, **lingua.analysis_hints_options(dl, solo_attivo)),  
                         gr.update(value=dl.get("btn_genera_prompt_testo", "Generate Prompt")),
                         gr.update(value=preset_val)
                     )
@@ -161,7 +160,7 @@ def crea_tab_analisi(
                         gr.update(visible=True),  
                         gr.update(),              
                         gr.update(lines=3, value=prompt_preset if prompt_preset else ""), 
-                        gr.update(visible=True),  
+                        gr.update(visible=True, **lingua.analysis_hints_options(dl, solo_attivo)),  
                         gr.update(value=dl.get("btn_analizza", "Analyze")),
                         gr.update(value=preset_val)
                     )

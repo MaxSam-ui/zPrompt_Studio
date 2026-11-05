@@ -89,6 +89,13 @@ def traduce_tab_log(lang=None):
     ]
 
 
+def analysis_hints_options(d, text_only):
+    return {
+        "label": d.get("analysis_description_label", "Describe the image to create") if text_only else d.get("analysis_extra_label", "Additional instructions (optional)"),
+        "placeholder": d.get("analysis_description_placeholder", "Describe your subject, action and setting.") if text_only else d.get("placeholder_hints", "")
+    }
+
+
 def traduce_tab_analisi(is_solo_testo=None):
     s_reale = sessione.carica_ultima_sessione()
     lang = s_reale.get("lingua_selezionata", "IT")
@@ -102,7 +109,7 @@ def traduce_tab_analisi(is_solo_testo=None):
         gr.update(label=d.get("modello_vision", "Vision Model"), info=d.get("modello_vision_info", "")),
         gr.update(label=d.get("preset_vision", "Vision Preset"), info=d.get("preset_vision_info", "")),
         gr.update(label=d.get("prompt_sistema", "System Prompt")),
-        gr.update(label=d.get("istruzioni_extra", "Extra Instructions"), placeholder=d.get("placeholder_hints", "")),
+        gr.update(**analysis_hints_options(d, solo_attivo)),
         gr.update(value=d.get("llama_vision_titolo", "Vision")),
         gr.update(label=d.get("prompt_generato_label", "Prompt")),
         gr.update(label=d.get("solo_testo_checkbox_label", "Text only")),

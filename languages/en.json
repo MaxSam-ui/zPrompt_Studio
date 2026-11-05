@@ -1,4 +1,8 @@
 {
+  "analysis_description_label": "Describe the image to create",
+  "analysis_description_placeholder": "Example: a photographer in a yellow jacket on a cliff at sunset, realistic photography.",
+  "analysis_extra_label": "Additional instructions (optional)",
+  "analysis_description_required": "⚠ Enter a short description of the image to create.",
   "vlm_cache_path": "LLM / VLM model folder",
   "vlm_cache_help": "Hugging Face cache folder (contains models--…). Empty: default cache. Existing files are not moved: select the current cache to reuse them. A new folder may require another download.",
   "vlm_cache_save": "Save LLM / VLM folder",

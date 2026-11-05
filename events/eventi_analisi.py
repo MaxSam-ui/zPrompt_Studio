@@ -79,14 +79,14 @@ def sincronizza_analisi_valida(prompt, image, status):
 
 def collega_analisi(t1, t2, t3, t5, stato_generazione):
     t1["btn_analyze"].click(
-        fn=lambda solo_testo: (
+        fn=lambda solo_testo, hints: (
             gr.update(interactive=False, value="⏳..."), 
-            "",
-            "",
+            gr.update() if solo_testo and not str(hints or "").strip() else "",
+            gr.update() if solo_testo and not str(hints or "").strip() else "",
             "⏳ " + _ottieni_traduzione_istantanea("vlm_elaborazione"),
             gr.update(elem_classes=["analisi-col-box", "analisi-destra-box", "elaborazione-attiva"])
         ),
-        inputs=[t1["solo_testo_checkbox"]], 
+        inputs=[t1["solo_testo_checkbox"], t1["user_hints"]], 
         outputs=[t1["btn_analyze"], t1["output_prompt_img"], t2["prompt_to_send_img"], t1["status_vlm"], t1["colonna_destra_analisi"]]
     ).then(
         fn=analisi_con_stato,
