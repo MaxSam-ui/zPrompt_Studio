@@ -112,7 +112,7 @@ I suggerimenti di sistema sono personalizzabili senza modificare Python: consult
 
 ### Cartelle del progetto
 
-Avvia e aggiorna con i due `.bat` nella cartella principale. Installa con `scripts/install.bat`; esegui la diagnostica con `scripts/check_installation.bat`. Il piccolo `requirements.txt` nella radice mantiene compatibili gli aggiornamenti dalle vecchie versioni.
+Avvia e aggiorna con i due `.bat` nella cartella principale. Il file di avvio richiama automaticamente l’installazione quando mancano l’ambiente o le dipendenze principali. Puoi anche installare con `scripts/install.bat`; esegui la diagnostica con `scripts/check_installation.bat`. Il piccolo `requirements.txt` nella radice mantiene compatibili gli aggiornamenti dalle vecchie versioni.
 
 - `config/`: catalogo modelli, parametri workflow e impostazioni di esempio.
 - `scripts/`: programma di aggiornamento e vincoli delle dipendenze.
@@ -122,3 +122,17 @@ Avvia e aggiorna con i due `.bat` nella cartella principale. Installa con `scrip
 - `help/`: guida illustrata.
 
 Impostazioni e sessioni personali sono in `data/`, esclusa da Git. I vecchi file vengono trasferiti automaticamente all’avvio. Installazione e diagnostica sono in `scripts/`.
+
+### Pianifica una sequenza di tre clip
+
+![Three-clip timeline](assets/studio-timeline.png)
+
+Esempio di pianificazione di 12 secondi, ottenuto con il componente timeline reale. Non corrisponde al video dimostrativo di 4 secondi.
+
+### Impostare la cartella ComfyUI
+
+In **Registri e impostazioni → ComfyUI locale**, incolla il percorso della cartella Windows Portable che contiene `python_embeded` e `ComfyUI` (non la cartella `models`). Premi **Verifica e salva cartella**, poi riavvia Studio. Se selezioni la sottocartella `ComfyUI`, Studio riconosce automaticamente la cartella principale. Un percorso non valido non sostituisce quello salvato. Questa funzione non installa ComfyUI.
+
+### Cartelle LoRA
+
+Ogni famiglia usa una cartella sotto `ComfyUI/models/loras`: `Z-Image`, `Flux-2`, `Krea-2`, `Qwen2.1`, `LTX-2.5`, `MiniMax`. I percorsi in `data/settings.json` derivano da `{COMFYUI_DIR}`: basta impostare la cartella ComfyUI principale. Le vecchie cartelle `Z-Image1` e `Z-Image2`, se presenti, restano leggibili per compatibilità; i nuovi LoRA Z-Image vanno in `Z-Image`. Nessun modello viene spostato automaticamente.

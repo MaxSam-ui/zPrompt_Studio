@@ -282,7 +282,7 @@ def migliora_soggetto_con_vlm(soggetto_corrente, modello, stato_gen, prompt_img=
         from utils.prompt_templates import scene_contract
         prompt += "\n\n" + scene_contract()
         accumulato = ""
-        for chunk in local_vlm.genera_prompt_video_timeline(prompt, modello, timeout=60):
+        for chunk in local_vlm.genera_prompt_video_timeline(prompt, modello, timeout=60, preserve_content=True):
             if getattr(comfyui_manager, "vlm_interrotto", False):
                 break
             if _errore_vlm(chunk):

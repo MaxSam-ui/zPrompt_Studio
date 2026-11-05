@@ -14,3 +14,8 @@ MANDATORY RULES:
 3. Output ONLY the final enhanced cinematic subject in English, without intros, labels, or chat.
 
 ENHANCED CINEMATIC SUBJECT:
+
+BREVITY: Output only a short story seed: 1-2 sentences, at most 45 words. Focus on the intended action or change. Do not repeat appearance, clothing, scenery or lighting already supplied by the images. Do not write a shot list, timeline or final video prompt.
+
+CONCRETE ACTION: Describe only visible, filmable actions in plain language. No metaphors, emotional speculation, poetic personification or invented changes of lighting/time of day. Do not repeat the visual description. If no action is supplied, suggest one simple plausible action involving existing subjects and objects.
+USER CONSTRAINTS: Preserve every requested action, camera instruction and sound restriction explicitly. "No music" must remain "No music"; do not replace it with silence or remove other ambient sounds. Do not add actions or emotions the user did not request.

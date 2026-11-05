@@ -59,9 +59,9 @@ def gestisci_cambio_modello_video(modello_selezionato):
         l2_str = s_attiva.get("lora_video2_str", 1.0)
         l3_str = s_attiva.get("lora_video3_str", 1.0)
 
-    l1_val = l1_val if l1_val in scelte_lora else "-"
-    l2_val = l2_val if l2_val in scelte_lora else "-"
-    l3_val = l3_val if l3_val in scelte_lora else "-"
+    l1_val = workflow_registry.normalizza_lora_per_scelte(l1_val, scelte_lora)
+    l2_val = workflow_registry.normalizza_lora_per_scelte(l2_val, scelte_lora)
+    l3_val = workflow_registry.normalizza_lora_per_scelte(l3_val, scelte_lora)
 
     return (
         gr.update(visible=not is_minimax),  

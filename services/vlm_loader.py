@@ -1,3 +1,4 @@
+from time import perf_counter
 # services/vlm_loader.py
 
 import os
@@ -208,12 +209,15 @@ def _carica_modello_se_necessario(nome_modello, progress=None):
     nome_reale = _normalizza_nome_modello(nome_modello)
     
     from core import hardware
+    started = perf_counter()
     hardware.prepara_vram("VLM")
+    log.registra(f"VLM memory preparation: {perf_counter() - started:.2f}s")
     
     with _loading_lock:
         if _modello_corrente is not None and _nome_modello_caricato == nome_reale:
             return _modello_corrente, _processor_corrente
         
+        log.registra(f"VLM loader lock acquired after {perf_counter() - started:.2f}s")
         cache_dir = get_cache_dir()
         log.registra(f"PyTorch initialization for {nome_reale}; cache: {cache_dir}")
         _libera_memoria_globale()
@@ -234,6 +238,8 @@ def _carica_modello_se_necessario(nome_modello, progress=None):
                 log.registra(f"AutoProcessor loading failed ({ex_proc}). Falling back to AutoTokenizer...", "WARNING")
                 _processor_corrente = AutoTokenizer.from_pretrained(nome_reale, trust_remote_code=True, cache_dir=cache_dir)
             
+            log.registra(f"VLM processor ready after {perf_counter() - started:.2f}s")
+            weights_started = perf_counter()
             nome_reale_lower = nome_reale.lower()
             usa_4bit = any(dim in nome_reale_lower for dim in ["2b", "4b", "7b", "8b", "9b", "12b", "27b", "30b", "32b"])
             
@@ -279,6 +285,7 @@ def _carica_modello_se_necessario(nome_modello, progress=None):
                     **model_kwargs
                 )
             
+            log.registra(f"VLM weights loaded in {perf_counter() - weights_started:.2f}s; total {perf_counter() - started:.2f}s")
             _modello_corrente.eval()
             _nome_modello_caricato = nome_reale
             log.registra(f"Model {nome_reale} ready for inference.")

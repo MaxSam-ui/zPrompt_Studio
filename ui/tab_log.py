@@ -93,7 +93,7 @@ def verifica_presenza_modello_multi_path(rel_path: str, categoria: str) -> tuple
     
     for path in candidates:
         abs_path = os.path.abspath(path)
-        if os.path.exists(abs_path):
+        if os.path.isfile(abs_path) and os.path.getsize(abs_path) > 0:
             rel_trovato = os.path.relpath(abs_path, models_base).replace("\\", "/")
             return True, rel_trovato
             
@@ -101,26 +101,8 @@ def verifica_presenza_modello_multi_path(rel_path: str, categoria: str) -> tuple
 
 
 def rileva_modelli_vlm_locali() -> list:
-    hub_dir = get_cache_dir()
-    if not os.path.exists(hub_dir):
-        return []
-    
-    modelli_trovati = []
-    try:
-        for d in os.listdir(hub_dir):
-            if d.startswith("models--"):
-                parts = d.split("--")
-                if len(parts) >= 3:
-                    owner = parts[1]
-                    name = "--".join(parts[2:])
-                    name_parsed = f"{owner}/{name}"
-                    
-                    snapshots_dir = os.path.join(hub_dir, d, "snapshots")
-                    if os.path.exists(snapshots_dir) and os.listdir(snapshots_dir):
-                        modelli_trovati.append(name_parsed)
-    except Exception:
-        pass
-    return sorted(list(set(modelli_trovati)))
+    from core.model_inventory import completed_cached_models
+    return completed_cached_models(get_cache_dir())
 
 
 def elenca_files_in_cartelle(nomi_cartelle: list, estensioni=(".safetensors", ".gguf", ".ckpt", ".pt")) -> list:
@@ -195,6 +177,20 @@ def compila_dashboard_modelli_html() -> str:
     </div>
     """
     
+    guide_url = "/help/model-downloads.html" if lang == "IT" else "/help/model-downloads.en.html"
+    guide_text = ("Guida al download dei modelli e alle cartelle di destinazione" if lang == "IT"
+                  else "Model download guide and destination folders")
+    steps = ("1. Scegli il workflow che vuoi usare. 2. Controlla i file elencati sotto. "
+             "3. Scarica quelli mancanti seguendo la guida. 4. Riavvia ComfyUI e ricontrolla. "
+             "I modelli LLM/VLM vengono scaricati al primo utilizzo; i modelli dei workflow ComfyUI vanno installati separatamente. "
+             "Questo controllo riguarda i file nella cartella locale standard: cartelle esterne o server remoti richiedono una verifica in ComfyUI."
+             if lang == "IT" else
+             "1. Choose the workflow you want to use. 2. Check its files below. "
+             "3. Download missing files using the guide. 4. Restart ComfyUI and check again. "
+             "LLM/VLM models download on first use; ComfyUI workflow models must be installed separately. "
+             "This check covers the standard local folder: external model folders or remote servers require checking in ComfyUI.")
+    vlm_status_html += f'<p>{escape(steps)}</p><p><a href="{guide_url}" target="_blank" rel="noopener noreferrer">{guide_text}</a></p>'
+
     cards_html = ""
     mappa_wf = ottieni_mappa_workflow_attivi()
     msg_wf_not_found = dl.get("workflow_not_found", "Workflow file not found on disk:")
@@ -327,6 +323,41 @@ def crea_tab_log(d: Dict[str, str], s: Dict[str, Any]) -> Dict[str, Any]:
                     label=d.get("lingua_label", "Interface Language"),
                     allow_custom_value=False,
                 )
+
+        def setup_labels(lang):
+            if lang == "IT":
+                return ("### ComfyUI locale (Windows Portable)\nScegli la cartella principale che contiene **python_embeded** e **ComfyUI**, per esempio `D:/ComfyUI_windows_portable`. Non scegliere la cartella dei modelli. Puoi incollare anche il percorso della sottocartella ComfyUI: verrà riconosciuta automaticamente. Questa impostazione non installa ComfyUI e non modifica l'indirizzo di un server remoto.",
+                        "Cartella ComfyUI Portable", "Verifica e salva cartella")
+            return ("### Local ComfyUI (Windows Portable)\nChoose the main folder containing **python_embeded** and **ComfyUI**, for example `D:/ComfyUI_windows_portable`. Do not choose the models folder. You may also paste the ComfyUI subfolder: its parent will be detected automatically. This setting does not install ComfyUI or change a remote server address.",
+                    "ComfyUI Portable folder", "Check and save folder")
+
+        setup_text, setup_label, setup_button = setup_labels(lingua_avvio)
+        comfy_help = gr.Markdown(setup_text)
+        comfy_path = gr.Textbox(value=config.COMFYUI_DIR, label=setup_label)
+        comfy_save = gr.Button(setup_button, size="sm")
+        comfy_status = gr.Markdown("")
+
+        def save_comfy(value, lang):
+            from core.comfyui_setup import save_portable
+            try:
+                folder = save_portable(value, config.STUDIO_ROOT_DIR, config.SETTINGS_FILE)
+                message = ("Cartella verificata e salvata. Riavvia Studio per applicarla." if lang == "IT"
+                           else "Folder checked and saved. Restart Studio to apply it.")
+                return folder, message
+            except ValueError:
+                message = ("Cartella non valida. Devono essere presenti: " if lang == "IT"
+                           else "Invalid folder. Required files: ")
+                return gr.skip(), message + "`python_embeded/python.exe`, `ComfyUI/main.py`."
+            except OSError:
+                return gr.skip(), ("Impossibile salvare: controlla i permessi della cartella." if lang == "IT"
+                                   else "Cannot save: check folder permissions.")
+
+        comfy_save.click(save_comfy, [comfy_path, selettore_lingua], [comfy_path, comfy_status])
+        def translate_setup(lang):
+            help_text, label, button = setup_labels(lang)
+            return help_text, gr.update(label=label), gr.update(value=button), ""
+        selettore_lingua.change(translate_setup, [selettore_lingua],
+                               [comfy_help, comfy_path, comfy_save, comfy_status], show_progress="hidden")
 
         with gr.Accordion(d.get("diagnostica_titolo", "🔍 Model Diagnostics & Status (ComfyUI & VLM)"), open=False, elem_id="studio-diagnostics") as accordion_diagnostica:
             check_rows = gr.State([])

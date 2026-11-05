@@ -112,7 +112,7 @@ System instructions can be customized without editing Python: see the [template 
 
 ### Project folders
 
-Start and update with the two `.bat` files in the main folder. Install with `scripts/install.bat`; run diagnostics with `scripts/check_installation.bat`. The small root `requirements.txt` preserves compatibility with older updaters.
+Start and update with the two `.bat` files in the main folder. The start launcher runs installation automatically when the environment or its main dependencies are missing. You can also install with `scripts/install.bat`; run diagnostics with `scripts/check_installation.bat`. The small root `requirements.txt` preserves compatibility with older updaters.
 
 - `config/`: model catalog, workflow parameters and example settings.
 - `scripts/`: updater and dependency constraints.
@@ -122,3 +122,17 @@ Start and update with the two `.bat` files in the main folder. Install with `scr
 - `help/`: illustrated user guide.
 
 Personal settings and sessions are stored in `data/` and excluded from Git. Existing files are transferred automatically on startup. Installation and diagnostic tools are in `scripts/`.
+
+### Plan a three-clip sequence
+
+![Three-clip timeline](assets/studio-timeline.png)
+
+A 12-second planning example rendered with the actual timeline component. It does not correspond to the existing 4-second demo video.
+
+### Set the ComfyUI folder
+
+In **Logs & Settings → Local ComfyUI**, paste the Windows Portable folder containing `python_embeded` and `ComfyUI` (not the `models` folder). Click **Check and save folder**, then restart Studio. Selecting the `ComfyUI` subfolder also works: Studio detects its parent automatically. Invalid paths do not replace the saved setting. This feature does not install ComfyUI.
+
+### LoRA folders
+
+Each family uses one folder under `ComfyUI/models/loras`: `Z-Image`, `Flux-2`, `Krea-2`, `Qwen2.1`, `LTX-2.5`, `MiniMax`. Paths in `data/settings.json` derive from `{COMFYUI_DIR}`: configure the main ComfyUI folder once. Existing `Z-Image1` and `Z-Image2` folders remain readable for compatibility; put new Z-Image LoRAs in `Z-Image`. Model files are never moved automatically.

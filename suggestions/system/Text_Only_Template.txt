@@ -4,3 +4,5 @@ Return only one concise English paragraph, without commentary, headings or gener
 
 STYLE GUIDANCE:
 {regole_estetiche_vision}
+
+No image is expected or required. Never request an upload. Treat the user text as the complete starting brief and produce the image prompt directly.

@@ -15,12 +15,12 @@ DEFAULT_SETTINGS = {
     "STUDIO_OUTPUT_DIR": "output",
     "VLM_CACHE_DIR": "",
     "SESSION_FILE": "data/session.json",
-    "LORA_ZIMAGE_DIR_1": "{COMFYUI_DIR}\\ComfyUI\\models\\loras\\Z-Image1",
-    "LORA_ZIMAGE_DIR_2": "{COMFYUI_DIR}\\ComfyUI\\models\\loras\\Z-Image2",
+    "LORA_ZIMAGE_DIR": "{COMFYUI_DIR}/ComfyUI/models/loras/Z-Image",
     "LORA_FLUX2_DIR": "{COMFYUI_DIR}\\ComfyUI\\models\\loras\\Flux-2",
     "LORA_KREA2_DIR": "{COMFYUI_DIR}\\ComfyUI\\models\\loras\\Krea-2",
     "LORA_LTX_DIR": "{COMFYUI_DIR}\\ComfyUI\\models\\loras\\LTX-2.5",
     "LORA_MINIMAX_DIR": "{COMFYUI_DIR}\\ComfyUI\\models\\loras\\MiniMax",
+    "LORA_QWEN21_DIR": "{COMFYUI_DIR}/ComfyUI/models/loras/Qwen2.1",
     "SUGGESTION_VISION_DIR": "suggestions/vision",
     "SUGGESTION_DIRECTION_DIR": "suggestions/direction",
     "SUGGESTION_SCREENPLAY_DIR": "suggestions/screenplay",
@@ -147,25 +147,44 @@ _config = carica_impostazioni()
 COMFYUI_URL = _config["COMFYUI_URL"]
 COMFYUI_DIR = _config["COMFYUI_DIR"]
 
+def _lora_dir(key, family):
+    value = _config.get(key, "{COMFYUI_DIR}/ComfyUI/models/loras/" + family)
+    return _rendi_percorso_assoluto(value.replace("{COMFYUI_DIR}", COMFYUI_DIR).replace("\\", os.sep))
+
+
 def ottieni_lora_zimage_dirs():
-    dir1 = os.path.abspath(_config.get("LORA_ZIMAGE_DIR_1", "{COMFYUI_DIR}\\ComfyUI\\models\\loras\\Z-Image1").format(COMFYUI_DIR=COMFYUI_DIR).replace("\\", os.sep))
-    dir2 = os.path.abspath(_config.get("LORA_ZIMAGE_DIR_2", "{COMFYUI_DIR}\\ComfyUI\\models\\loras\\Z-Image2").format(COMFYUI_DIR=COMFYUI_DIR).replace("\\", os.sep))
-    return [dir1, dir2]
+    # New installations have one folder. Preserve explicit legacy sources so
+    # existing selections and ComfyUI-relative filenames remain valid.
+    paths = [_lora_dir("LORA_ZIMAGE_DIR", "Z-Image")]
+    for key in ("LORA_ZIMAGE_DIR_1", "LORA_ZIMAGE_DIR_2"):
+        if _config.get(key):
+            paths.append(_lora_dir(key, "Z-Image"))
+        else:
+            legacy = _lora_dir(key, "Z-Image" + key[-1])
+            if os.path.isdir(legacy):
+                paths.append(legacy)
+    return list(dict.fromkeys(paths))
+
 
 def ottieni_lora_flux2_dir():
-    return os.path.abspath(_config.get("LORA_FLUX2_DIR", "{COMFYUI_DIR}\\ComfyUI\\models\\loras\\Flux-2").format(COMFYUI_DIR=COMFYUI_DIR).replace("\\", os.sep))
+    return _lora_dir("LORA_FLUX2_DIR", "Flux-2")
+
 
 def ottieni_lora_krea2_dir():
-    return os.path.abspath(_config.get("LORA_KREA2_DIR", "{COMFYUI_DIR}\\ComfyUI\\models\\loras\\Krea-2").format(COMFYUI_DIR=COMFYUI_DIR).replace("\\", os.sep))
+    return _lora_dir("LORA_KREA2_DIR", "Krea-2")
+
 
 def ottieni_lora_qwen21_dir():
-    return os.path.abspath(_config.get("LORA_QWEN21_DIR", "{COMFYUI_DIR}\\ComfyUI\\models\\loras\\Qwen2.1").format(COMFYUI_DIR=COMFYUI_DIR).replace("\\", os.sep))
+    return _lora_dir("LORA_QWEN21_DIR", "Qwen2.1")
+
 
 def ottieni_lora_ltx_dir():
-    return os.path.abspath(_config.get("LORA_LTX_DIR", "{COMFYUI_DIR}\\ComfyUI\\models\\loras\\LTX-2.5").format(COMFYUI_DIR=COMFYUI_DIR).replace("\\", os.sep))
+    return _lora_dir("LORA_LTX_DIR", "LTX-2.5")
+
 
 def ottieni_lora_minimax_dir():
-    return os.path.abspath(_config.get("LORA_MINIMAX_DIR", "{COMFYUI_DIR}\\ComfyUI\\models\\loras\\MiniMax").format(COMFYUI_DIR=COMFYUI_DIR).replace("\\", os.sep))
+    return _lora_dir("LORA_MINIMAX_DIR", "MiniMax")
+
 
 SUGGESTION_VISION_DIR = _rendi_percorso_assoluto(_config.get("SUGGESTION_VISION_DIR", "suggestions/vision"))
 SUGGESTION_DIRECTION_DIR = _rendi_percorso_assoluto(_config.get("SUGGESTION_DIRECTION_DIR", "suggestions/direction"))

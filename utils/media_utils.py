@@ -133,6 +133,13 @@ def gestore_analisi_adattivo(immagine, sys_prompt, user_hints, modello, solo_tes
     
     from services import local_vlm
     if solo_testo_flag:
+        from utils.prompt_templates import build_vision_prompt
+        active = sessione.carica_ultima_sessione()
+        preset = active.get("suggerimento_vision_selezionato", "-")
+        visual = build_vision_prompt(preset, False, int(vlm_max_tokens))
+        textual = build_vision_prompt(preset, True, int(vlm_max_tokens))
+        if not sys_prompt or sys_prompt.strip() == visual.strip():
+            sys_prompt = textual
         log.registra("Text-only mode active: no image sent to VLM.")
         yield from local_vlm.genera_prompt_immagine(None, sys_prompt, user_hints, modello, max_new_tokens=int(vlm_max_tokens))
     else:

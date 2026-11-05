@@ -7,3 +7,5 @@ RAW IDEA:
 MANDATORY RULE: Output ONLY the final refined movie subject paragraph in English, without preamble or notes.
 
 CINEMATIC SUBJECT:
+
+BREVITY: Return a short story seed in 1-2 sentences, preferably at most 45 words. Retain all explicit user constraints and identity details even if this requires more words. Do not expand into a shot list, timeline or final video prompt.
