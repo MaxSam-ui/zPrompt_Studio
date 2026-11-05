@@ -4,9 +4,35 @@
 
 <p align="center"><a href="README.md">English</a> · <b>Italiano</b></p>
 
-[Installazione](#provala-su-windows) · [Guida offline IT / EN](../help/README.md) · [Esempi](../docs/EXAMPLES.md)
+[Avvio rapido](#provala-su-windows) · [Interfaccia](#dentro-lo-studio-un-esempio-concreto) · [Guida IT / EN](../help/README.md) · [Download modelli](../help/model-downloads.html) · [Esempi](EXAMPLES.md)
 
 > **Preview per il collaudo dell’installazione.** ComfyUI e i suoi modelli vanno installati separatamente. Le dipendenze Windows incluse sono pensate per GPU NVIDIA.
+
+## Provala su Windows
+
+1. Installa **Python 3.11 a 64 bit**, con Python Launcher. Per aggiornare automaticamente serve anche **Git per Windows**.
+2. Clona il repository oppure usa **Code → Download ZIP**, estraendo tutto in una cartella scrivibile.
+3. Esegui **`zPrompt_Studio.bat`**: se mancano l’ambiente o le dipendenze principali, avvia automaticamente l’installazione. Lascia aperto il terminale e segui i messaggi.
+4. In **Registri e impostazioni → ComfyUI locale**, incolla la cartella Windows Portable, premi **Verifica e salva cartella** e riavvia Studio. ComfyUI va installato separatamente, insieme ai modelli e ai nodi necessari per il workflow scelto. Per un server remoto puoi configurare `COMFYUI_URL` in `data/settings.json`.
+5. Prova prima un prompt da testo: attiva **Solo testo** e compila **Descrivi l’immagine da creare**. Al primo utilizzo può essere scaricato il modello LLM/VLM. Poi prova una singola generazione immagine.
+
+Sono inclusi sorgenti, workflow JSON e preset generici. ComfyUI, pesi dei modelli, LoRA e sessioni personali sono esclusi. Gli LLM/VLM possono essere scaricati al primo utilizzo; i modelli di generazione devono essere disponibili in ComfyUI. RAM, VRAM, spazio disco e download dipendono dai modelli scelti.
+
+**[Istruzioni complete](../docs/LEGGIMI_INSTALLAZIONE.md)** · **[Workflow](../workflows)** · **[Configurazione di esempio](../config/settings.example.json)**
+
+
+<details>
+<summary>Dettagli delle cartelle: ComfyUI e LoRA</summary>
+
+### Impostare la cartella ComfyUI
+
+In **Registri e impostazioni → ComfyUI locale**, incolla il percorso della cartella Windows Portable che contiene `python_embeded` e `ComfyUI` (non la cartella `models`). Premi **Verifica e salva cartella**, poi riavvia Studio. Se selezioni la sottocartella `ComfyUI`, Studio riconosce automaticamente la cartella principale. Un percorso non valido non sostituisce quello salvato. Questa funzione non installa ComfyUI.
+
+### Cartelle LoRA
+
+Ogni famiglia usa una cartella sotto `ComfyUI/models/loras`: `Z-Image`, `Flux-2`, `Krea-2`, `Qwen2.1`, `LTX-2.5`, `MiniMax`. I percorsi in `data/settings.json` derivano da `{COMFYUI_DIR}`: basta impostare la cartella ComfyUI principale. Le vecchie cartelle `Z-Image1` e `Z-Image2`, se presenti, restano leggibili per compatibilità; i nuovi LoRA Z-Image vanno in `Z-Image`. Nessun modello viene spostato automaticamente.
+
+</details>
 
 ## Un’idea. Tre modi di raccontarla.
 
@@ -17,6 +43,9 @@
 ## Dentro lo studio: un esempio concreto
 
 **Dallo stesso riferimento, un percorso completo tra prompt, immagini e movimento.** Le schermate mostrano i componenti reali dell’app in una sessione dimostrativa in inglese, con prompt ed esempi del faro precaricati. Le immagini e il video sono risultati reali dei workflow inclusi; non è una registrazione di una nuova generazione.
+
+<details>
+<summary>Altre schermate: analisi e rendering</summary>
 
 ### Il riferimento diventa una descrizione
 
@@ -30,6 +59,9 @@ Scegli il workflow, affina la descrizione e confronta i risultati nella galleria
 
 [![Rendering: prompt Krea-2 Turbo e galleria del faro](assets/studio-rendering.png)](assets/studio-rendering.png)
 
+
+</details>
+
 ### La scena entra in movimento
 
 Idea, tempi, azione, suono e primo frame nello stesso spazio di lavoro. Il player mostra il video LTX2.5 dell’esempio.
@@ -37,6 +69,22 @@ Idea, tempi, azione, suono e primo frame nello stesso spazio di lavoro. Il playe
 [![Video: timeline, primo frame e risultato LTX2.5](assets/studio-video.png)](assets/studio-video.png)
 
 *Clicca sulle schermate per vederle a dimensione intera. La UI è disponibile anche in italiano.*
+
+### Pianifica una sequenza di tre clip
+
+![Three-clip timeline](assets/studio-timeline.png)
+
+Esempio di pianificazione di 12 secondi, ottenuto con il componente timeline reale. Non corrisponde al video dimostrativo di 4 secondi.
+
+
+## Dall’immagine al movimento
+
+[![Anteprima animata del faro](../docs/assets/lighthouse-preview.gif)](../docs/assets/lighthouse-ltx.mp4)
+
+LTX2.5, primo frame dalla scena Krea: **896 × 512, 24 fps, 97 fotogrammi** (circa 4 secondi). La GIF è un’anteprima ridotta senza audio. [Apri/scarica il video MP4](../docs/assets/lighthouse-ltx.mp4).
+
+<details>
+<summary>Altri esempi: modifica immagine e storyboard</summary>
 
 ## Altri risultati dello stesso progetto
 
@@ -56,11 +104,10 @@ Tre pannelli generati insieme con Krea-2 Turbo: arrivo al faro, ingresso, sguard
 
 **Risultati reali dei workflow inclusi, eseguiti in ComfyUI.** Nessuna fotografia di repertorio. [Prompt, seed e parametri per riprovare gli esempi →](../docs/EXAMPLES.md)
 
-## Dall’immagine al movimento
 
-[![Anteprima animata del faro](../docs/assets/lighthouse-preview.gif)](../docs/assets/lighthouse-ltx.mp4)
+</details>
 
-LTX2.5, primo frame dalla scena Krea: **896 × 512, 24 fps, 97 fotogrammi** (circa 4 secondi). La GIF è un’anteprima ridotta senza audio. [Apri/scarica il video MP4](../docs/assets/lighthouse-ltx.mp4).
+## Cosa puoi fare
 
 | Area | Funzioni |
 | --- | --- |
@@ -72,30 +119,20 @@ LTX2.5, primo frame dalla scena Krea: **896 × 512, 24 fps, 97 fotogrammi** (cir
 | Registri e impostazioni | Configurare i percorsi e consultare la diagnostica dei workflow. |
 
 
-
 ## Suggerimenti personalizzabili
 
 **I suggerimenti inclusi sono esempi preparati dall’autore: puoi modificarli, aggiungerne di tuoi e costruire una libreria adatta al tuo stile.** Non sono obbligatori né una raccolta chiusa.
 
 I preset coprono analisi visiva, regia, idee di sceneggiatura, storyboard e sequenze. Sono semplici file di testo; i cataloghi delle sequenze includono anche personaggi, ambienti/abiti e azioni. [Come creare e personalizzare i suggerimenti →](../docs/CUSTOM_PRESETS.md)
 
-## Provala su Windows
-
-1. Installa **Python 3.11 a 64 bit**, con Python Launcher. Per aggiornare automaticamente serve anche **Git per Windows**.
-2. Clona il repository oppure usa **Code → Download ZIP**, estraendo tutto in una cartella scrivibile.
-3. Esegui **`scripts/install.bat`**: crea `venv`, installa le dipendenze e copia la configurazione di esempio senza sovrascrivere impostazioni esistenti.
-4. In **`data/settings.json`**, configura `COMFYUI_DIR` e `COMFYUI_URL`. Prepara in ComfyUI i nodi e i modelli richiesti dai workflow che intendi utilizzare.
-5. Avvia **`zPrompt_Studio.bat`** e prova prima una singola immagine.
-
-Sono inclusi sorgenti, workflow JSON e preset generici. ComfyUI, pesi dei modelli, LoRA e sessioni personali sono esclusi. Gli LLM/VLM possono essere scaricati al primo utilizzo; i modelli di generazione devono essere disponibili in ComfyUI. RAM, VRAM, spazio disco e download dipendono dai modelli scelti.
-
-**[Istruzioni complete](../docs/LEGGIMI_INSTALLAZIONE.md)** · **[Workflow](../workflows)** · **[Configurazione di esempio](../config/settings.example.json)**
-
 ## Aggiornamenti
 
 Chiudi l’app ed esegui **`update.bat`** da un clone Git. Aggiorna dal ramo remoto configurato e installa le dipendenze; si ferma se trova modifiche locali o commit divergenti. Non aggiorna ComfyUI e non scarica i modelli di generazione.
 
 Le copie ZIP non hanno la cronologia Git: scarica la nuova versione in una cartella separata. Impostazioni, sessioni, output e cache sono esclusi da Git. Chiudi l’altra istanza dell’app se entrambe utilizzano lo stesso ComfyUI.
+
+<details>
+<summary>Diagnostica, stato della preview e cartelle del progetto</summary>
 
 ## Stato della preview
 
@@ -123,16 +160,5 @@ Avvia e aggiorna con i due `.bat` nella cartella principale. Il file di avvio ri
 
 Impostazioni e sessioni personali sono in `data/`, esclusa da Git. I vecchi file vengono trasferiti automaticamente all’avvio. Installazione e diagnostica sono in `scripts/`.
 
-### Pianifica una sequenza di tre clip
 
-![Three-clip timeline](assets/studio-timeline.png)
-
-Esempio di pianificazione di 12 secondi, ottenuto con il componente timeline reale. Non corrisponde al video dimostrativo di 4 secondi.
-
-### Impostare la cartella ComfyUI
-
-In **Registri e impostazioni → ComfyUI locale**, incolla il percorso della cartella Windows Portable che contiene `python_embeded` e `ComfyUI` (non la cartella `models`). Premi **Verifica e salva cartella**, poi riavvia Studio. Se selezioni la sottocartella `ComfyUI`, Studio riconosce automaticamente la cartella principale. Un percorso non valido non sostituisce quello salvato. Questa funzione non installa ComfyUI.
-
-### Cartelle LoRA
-
-Ogni famiglia usa una cartella sotto `ComfyUI/models/loras`: `Z-Image`, `Flux-2`, `Krea-2`, `Qwen2.1`, `LTX-2.5`, `MiniMax`. I percorsi in `data/settings.json` derivano da `{COMFYUI_DIR}`: basta impostare la cartella ComfyUI principale. Le vecchie cartelle `Z-Image1` e `Z-Image2`, se presenti, restano leggibili per compatibilità; i nuovi LoRA Z-Image vanno in `Z-Image`. Nessun modello viene spostato automaticamente.
+</details>
