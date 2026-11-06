@@ -431,10 +431,10 @@
         "img_copy_done": "📸 Copia {copia_idx}/{totale_copie} generata!",
         "img_processing": "⏳ Elaborazione copia {copia_idx}/{totale_copie}: {data}...",
         "img_rendering": "🎨 Rendering copia {copia_idx}/{totale_copie}: {data}%",
-        "ext_manual_loaded": "📥 Collegamento manuale caricato. Pronto per l'estensione!",
+        "ext_manual_loaded": "📥 Frame di raccordo impostato. Testi precedenti conservati: indica nell’idea cosa succede dopo, poi aggiorna timeline e prompt prima di generare. I tempi del nuovo segmento ripartono da 0.",
         "ext_err_no_video": "⚠️ Nessun video generato da estendere.",
         "ext_err_extraction": "❌ Errore durante l'estrazione del fotogramma con OpenCV/FFmpeg.",
-        "ext_success_auto_loaded": "📥 Ultimo fotogramma ({nome_frame}) impostato. Catena di estensione attiva!",
+        "ext_success_auto_loaded": "📥 Ultimo fotogramma impostato come First Frame. Testi precedenti conservati: indica nell’idea cosa succede dopo, poi aggiorna timeline e prompt prima di generare. I tempi del nuovo segmento ripartono da 0.",
         "story_invalid_panels": "⚠️ Lo storyboard deve contenere esattamente {count} pannelli numerati e non vuoti. Ricompila il prompt o correggilo."
     },
     "story_layout_mismatch": "⚠️ I divisori della griglia non corrispondono ai pannelli richiesti o non sono riconoscibili. Rigenera la griglia prima del ritaglio.",

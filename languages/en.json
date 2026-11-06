@@ -431,10 +431,10 @@
         "img_copy_done": "📸 Copy {copia_idx}/{totale_copie} generated!",
         "img_processing": "⏳ Processing Copy {copia_idx}/{totale_copie}: {data}...",
         "img_rendering": "🎨 Rendering Copy {copia_idx}/{totale_copie}: {data}%",
-        "ext_manual_loaded": "📥 Manual connection loaded. Ready for extension!",
+        "ext_manual_loaded": "📥 Junction frame set. Previous text kept: describe what happens next in the idea, then update the timeline and prompt before generating. The new segment starts at 0 seconds.",
         "ext_err_no_video": "⚠️ No generated video to extend.",
         "ext_err_extraction": "❌ Error during frame extraction from OpenCV/FFmpeg.",
-        "ext_success_auto_loaded": "📥 Last frame ({nome_frame}) set. Extension chain active!",
+        "ext_success_auto_loaded": "📥 Last frame set as First Frame. Previous text kept: describe what happens next in the idea, then update the timeline and prompt before generating. The new segment starts at 0 seconds.",
         "story_invalid_panels": "⚠️ The storyboard must contain exactly {count} numbered, non-empty panels. Recompile or correct the prompt."
     },
     "story_layout_mismatch": "⚠️ The grid dividers do not match the requested panels or cannot be identified reliably. Regenerate the grid before splitting it.",

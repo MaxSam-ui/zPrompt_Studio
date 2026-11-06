@@ -17,6 +17,19 @@ MODEL_KEYS = {'ckpt_name', 'unet_name', 'clip_name', 'clip_name1', 'clip_name2',
               'clip_name3', 'vae_name', 'lora_name', 'model_name'}
 
 
+def model_location_hint(value, choices):
+    """Explain mismatches without selecting or moving model weights."""
+    name = value.replace('\\', '/').rsplit('/', 1)[-1]
+    matches = sorted({str(x).replace('\\', '/') for x in choices
+                      if str(x).replace('\\', '/').rsplit('/', 1)[-1] == name})
+    if matches:
+        locations = ', '.join(matches)
+        return (f'{value}: ComfyUI elenca file omonimi in: {locations}. Non riscaricare subito: verifica la cartella prevista nell’help. Il nome uguale non garantisce che sia lo stesso modello; nessun percorso è stato modificato.',
+                f'{value}: ComfyUI lists same-named files at: {locations}. Before downloading again, check the expected folder in Help. Matching names do not guarantee the same model; no path was changed.')
+    return (f'{value}: non elencato da ComfyUI. Consulta Help → Scarica i modelli dei workflow per link e cartella; dopo la copia riavvia ComfyUI e ripeti la verifica.',
+            f'{value}: not listed by ComfyUI. See Help → Download workflow models for links and destination folders; after copying, restart ComfyUI and run the check again.')
+
+
 def collect_checks(root=ROOT, on_result=None):
     rows = []
 
@@ -130,10 +143,13 @@ def collect_checks(root=ROOT, on_result=None):
                     'Valid JSON; nodes and models require a running ComfyUI server.')
                 continue
             missing, unchecked = set(), set()
+            hints_it, hints_en = [], []
             for node in workflow.values():
                 kind = node['class_type']
                 if kind not in info:
                     missing.add('Node: ' + kind)
+                    hints_it.append(f'{kind}: installa il nodo tramite ComfyUI Manager, se disponibile, e riavvia ComfyUI.')
+                    hints_en.append(f'{kind}: install the node through ComfyUI Manager, if available, and restart ComfyUI.')
                     continue
                 schema = info[kind].get('input', {})
                 fields = {**schema.get('required', {}), **schema.get('optional', {})}
@@ -152,12 +168,15 @@ def collect_checks(root=ROOT, on_result=None):
                         choices = [str(x).replace('\\', '/') for x in options]
                         if value.replace('\\', '/') not in choices:
                             missing.add(key + ': ' + value)
+                            it, en = model_location_hint(value, choices)
+                            hints_it.append(it)
+                            hints_en.append(en)
                     else:
                         unchecked.add(key + ': ' + value)
             detail = '; '.join(sorted(missing | unchecked))
             add('CONFIG' if missing or unchecked else 'OK', path.stem,
-                ('Mancante o da verificare: ' + detail) if detail else 'Nodi e modelli dichiarati disponibili; generazione non eseguita.',
-                ('Missing or unverified: ' + detail) if detail else 'Declared nodes and models available; generation not executed.')
+                ('Mancante o da verificare: ' + detail + '\n' + '\n'.join(dict.fromkeys(hints_it))) if detail else 'Nodi e modelli dichiarati disponibili; generazione non eseguita.',
+                ('Missing or unverified: ' + detail + '\n' + '\n'.join(dict.fromkeys(hints_en))) if detail else 'Declared nodes and models available; generation not executed.')
         except Exception as exc:
             add('ERROR', path.stem, str(exc), str(exc))
     add('INFO', 'LLM / Video / VRAM',

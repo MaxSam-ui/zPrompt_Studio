@@ -1,5 +1,6 @@
 """Keep timeline intervals and selected framing authoritative in AI direction."""
 import re
+import math
 
 TIMECODE = re.compile(r'\[\s*(\d+(?:\.\d+)?)\s*s?\s*-\s*(\d+(?:\.\d+)?)\s*s?\s*\]')
 
@@ -17,10 +18,18 @@ def align_director_prompt(text, scenes):
     if len(matches) != len(scenes):
         return None
     previous = 0.0
+    generated_end = 0.0
     spans = []
     for index, (match, scene) in enumerate(zip(matches, scenes)):
-        end = previous + float(scene[0])
-        if abs(float(match[1]) - previous) > .15 or abs(float(match[2]) - end) > .15:
+        duration = float(scene[0])
+        end = previous + duration
+        start, stop = float(match[1]), float(match[2])
+        # One continuous, ordered span per scene can be retimed locally. The
+        # timeline owns timing; an LLM's rounded durations must not trigger a
+        # second generation. Ambiguous/missing/reordered spans still need repair.
+        if (not math.isfinite(duration) or duration <= 0
+                or not math.isfinite(stop) or stop <= start
+                or abs(start - generated_end) > .15):
             return None
         limit = matches[index+1].start() if index+1 < len(matches) else len(text)
         body = text[match.end():limit].strip()
@@ -28,8 +37,9 @@ def align_director_prompt(text, scenes):
             return None
         # Framing often disappears in otherwise correct generated prose. The
         # timeline's explicit choices must reach the video model in every span.
-        spans.append(f'{match[0]} [{scene[1]}; {scene[2]}] {body}')
+        spans.append(f'[{previous:.1f}s - {end:.1f}s] [{scene[1]}; {scene[2]}] {body}')
         previous = end
+        generated_end = stop
     prefix = text[:matches[0].start()].strip()
     body = '\n'.join(spans)
     # Downstream sanitizing/preflight split the subject at a blank line. Keep

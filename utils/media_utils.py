@@ -289,7 +289,7 @@ def gestore_estensione_video(video_input, immagine_i2v, stato_gen):
         log.registra("Video extension: Manual junction frame uploaded. Last Frame reset and T2V disabled.")
         
         spia_html = calcola_stato_spia_video(s_sessione, stato_gen, False)
-        msg_ok = dl.get("ext_manual_loaded", "📥 Manual connection loaded. Ready for extension!")
+        msg_ok = dl.get("ext_manual_loaded", "📥 Junction frame set. Previous text kept: describe what happens next in the idea, then update the timeline and prompt before generating. The new segment starts at 0 seconds.")
         
         frames_sub = calcola_frames_tab_video(stato_gen=stato_gen, s_sessione=s_sessione)
         html_video_strip = compila_striscia_video_html(frames_sub, is_storyboard=False)
@@ -353,7 +353,7 @@ def gestore_estensione_video(video_input, immagine_i2v, stato_gen):
         
         html_galleria = compila_galleria_html(cumulate, percorso_selezionato=dest_frame_path)
         spia_html = calcola_stato_spia_video(s_sessione, stato_gen, False)
-        msg_success = dl.get("ext_success_auto_loaded", "📥 Last frame ({nome_frame}) set. Extension chain active!").format(nome_frame=nome_frame)
+        msg_success = dl.get("ext_success_auto_loaded", "📥 Last frame set as First Frame. Previous text kept: describe what happens next in the idea, then update the timeline and prompt before generating. The new segment starts at 0 seconds.").format(nome_frame=nome_frame)
         
         frames_sub = calcola_frames_tab_video(stato_gen=stato_gen, s_sessione=s_sessione)
         html_video_strip = compila_striscia_video_html(frames_sub, is_storyboard=False)
