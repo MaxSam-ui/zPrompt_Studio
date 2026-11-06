@@ -6,7 +6,18 @@
 
 [Quick start](#try-it-on-windows) · [Interface](#inside-the-studio-one-real-example) · [Help (IT / EN)](../help/README.md) · [Model downloads](../help/model-downloads.en.html) · [Examples](EXAMPLES.md)
 
-> **Preview for installation testing.** ComfyUI and its models are installed separately. An NVIDIA GPU is the intended target for the supplied Windows dependency set.
+> **Beta — feedback welcome.** ComfyUI, its custom nodes and generation models are installed separately. The supplied Windows dependencies target NVIDIA GPUs.
+
+<details>
+<summary>What to expect from the beta</summary>
+
+Setup issues may involve missing models, folder paths, custom-node versions or available GPU memory. Use **Check installation** in Logs & Settings and the model download guide before generating.
+
+The app also has limits: LLM-generated ideas and timelines need review; **Extend video** sets the junction frame but keeps the previous text, so update the idea, timeline and prompt for the continuation. Custom workflows may require a matching profile. Dedicated multi-image identity references for MiniMax are not currently exposed in the UI.
+
+To report a problem, include reproduction steps, the selected workflow/model, GPU and relevant error messages. Remove personal paths, prompts and images before sharing logs. Testing does not cover every hardware and workflow combination.
+
+</details>
 
 ## Try it on Windows
 

@@ -6,7 +6,18 @@
 
 [Avvio rapido](#provala-su-windows) · [Interfaccia](#dentro-lo-studio-un-esempio-concreto) · [Guida IT / EN](../help/README.md) · [Download modelli](../help/model-downloads.html) · [Esempi](EXAMPLES.md)
 
-> **Preview per il collaudo dell’installazione.** ComfyUI e i suoi modelli vanno installati separatamente. Le dipendenze Windows incluse sono pensate per GPU NVIDIA.
+> **Beta — segnalazioni benvenute.** ComfyUI, i suoi nodi aggiuntivi e i modelli di generazione vanno installati separatamente. Le dipendenze Windows incluse sono pensate per GPU NVIDIA.
+
+<details>
+<summary>Cosa aspettarsi dalla beta</summary>
+
+I problemi di configurazione possono riguardare modelli mancanti, percorsi delle cartelle, versioni dei nodi o memoria GPU disponibile. Prima di generare usa **Verifica installazione** in Registri e impostazioni e la guida al download dei modelli.
+
+Ci sono anche limiti dell’app: idee e timeline dell’LLM vanno ricontrollate; **Estendi video** imposta il frame di raccordo ma conserva i testi precedenti, quindi occorre aggiornare idea, timeline e prompt per la continuazione. I workflow personalizzati possono richiedere un profilo corrispondente. L’interfaccia non espone ancora riferimenti multipli dedicati all’identità per MiniMax.
+
+Per segnalare un problema indica i passaggi per riprodurlo, workflow/modello scelto, GPU e messaggi di errore pertinenti. Rimuovi percorsi personali, prompt e immagini prima di condividere i log. I test non coprono tutte le combinazioni di hardware e workflow.
+
+</details>
 
 ## Provala su Windows
 
