@@ -52,6 +52,7 @@ def crea_tab_video(
             with gr.Row(elem_classes=["studio-field-heading"]):
                 gr.Markdown(d.get("modifica_clip_label", "Timeline"))
                 recovery_timeline = recovery_button(tabella_regia_view, d)
+            gr.Markdown(d["help_timeline_short"], elem_classes=["studio-usage-hint"])
             scena_sec = gr.State(value=3.0)
 
         # =====================================================================
@@ -159,6 +160,7 @@ def crea_tab_video(
                     with gr.Row(elem_classes=['studio-field-heading']):
                         gr.Markdown(d.get("sceneggiatura_prompt_label", "Movie Idea or Subject"))
                         subject_restore = create_recovery_control(d)
+                    gr.Markdown(d["help_subject_short"], elem_classes=["studio-usage-hint"])
                     sceneggiatura_prompt = gr.Textbox(
                         value=sceneggiatura_prompt_value,
                         placeholder=d.get("sceneggiatura_prompt_placeholder", "e.g., Create a western duel..."),
@@ -218,6 +220,7 @@ def crea_tab_video(
                         prompt_cinema_header = gr.Markdown(prompt_header(s, testo_iniziale_timeline, s.get("output_prompt_video", ""), s.get("audio_descrizione", ""), d), elem_classes=["studio-section-title"])
                         prompt_restore = create_recovery_control(d)
 
+                    gr.Markdown(d["help_video_prompt_short"], elem_classes=["studio-usage-hint"])
                     prompts_video_salvati = ["-"] + (
                         prompt_manager.elenca_prompt_salvati_vid()
                         if prompt_manager.elenca_prompt_salvati_vid()

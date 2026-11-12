@@ -1328,3 +1328,7 @@ button:focus-visible, textarea:focus-visible, input:focus-visible, select:focus-
 #accordion-player-flat .video-container button[aria-label*="Fullscreen" i] {
     display: none !important;
 }
+
+/* Compact contextual guidance, localized by language_bindings. */
+.studio-usage-hint { min-height: 0 !important; margin: 0 !important; padding: 0 !important; }
+.studio-usage-hint p { margin: 0 !important; font-size: 0.85rem !important; line-height: 1.3 !important; color: var(--body-text-color-subdued, #94a3b8) !important; }

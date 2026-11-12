@@ -453,5 +453,11 @@
         "sequence_invalid_structure": "❌ La sequenza deve contenere esattamente {count} scatti completi, numerati in ordine senza duplicati. Il prompt precedente è stato conservato."
     },
     "video_restore_short": "↶ Ripristina",
-    "video_restore_text": "↶ Ripristina testo precedente"
+    "video_restore_text": "↶ Ripristina testo precedente",
+  "quick_usage_hints": {
+    "help_analysis_short": "Da immagine o testo a prompt.",
+    "help_subject_short": "Descrivi in breve cosa deve accadere.",
+    "help_timeline_short": "Azioni e tempi: compilali tu o con l’AI.",
+    "help_video_prompt_short": "La descrizione finale per generare il video."
+  }
 }
