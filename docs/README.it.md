@@ -4,7 +4,7 @@
 
 <p align="center"><a href="README.md">English</a> · <b>Italiano</b></p>
 
-[Avvio rapido](#provala-su-windows) · [Interfaccia](#dentro-lo-studio-un-esempio-concreto) · [Guida IT / EN](../help/README.md) · [Download modelli](../help/model-downloads.html) · [Esempi](EXAMPLES.md)
+[Avvio rapido](#provala-su-windows) · [Interfaccia](#dentro-lo-studio-un-esempio-concreto) · [Guida IT / EN](../help/README.md) · [Download modelli](../help/model-downloads.html) · [Esempi](EXAMPLES.md) · [Stili condivisi](../suggestions/README.md) · [Prima prova guidata](FIRST_RUN.it.md)
 
 > **Beta — segnalazioni benvenute.** ComfyUI, i suoi nodi aggiuntivi e i modelli di generazione vanno installati separatamente. Le dipendenze Windows incluse sono pensate per GPU NVIDIA.
 

@@ -34,11 +34,11 @@ def crea_barra_superiore(d: dict) -> dict:
             spia_comfy = gr.HTML(value=d.get("comfy_offline", "<span style='color:red;'>🔴 ComfyUI offline</span>"))
             
         with gr.Column(scale=0, min_width=124, elem_id="colonna-pulsanti-risorse"):
-            with gr.Row(variant="compact"):
-                btn_clean_mem = gr.Button("🧹", size="sm", variant="secondary")
-                btn_hard_reset = gr.Button("🛑", size="sm", variant="stop")
+            with gr.Row(elem_id="studio-resource-actions"):
+                btn_clean_mem = gr.Button("🧹", size="sm", variant="secondary", scale=0, min_width=36)
+                btn_hard_reset = gr.Button("🛑", size="sm", variant="stop", scale=0, min_width=36)
                 btn_help = gr.Button("?", link=manual_url(sessione.carica_ultima_sessione().get("lingua_selezionata", "IT")), size="sm", variant="secondary",
-                          min_width=36, elem_id="studio-help-button")
+                          scale=0, min_width=36, elem_id="studio-help-button")
 
     avviso_comfy = gr.HTML(value="", visible=False)
     timer_avviso = gr.Timer(3)

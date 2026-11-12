@@ -4,7 +4,7 @@
 
 <p align="center"><b>English</b> · <a href="README.it.md">Italiano</a></p>
 
-[Quick start](#try-it-on-windows) · [Interface](#inside-the-studio-one-real-example) · [Help (IT / EN)](../help/README.md) · [Model downloads](../help/model-downloads.en.html) · [Examples](EXAMPLES.md)
+[Quick start](#try-it-on-windows) · [Interface](#inside-the-studio-one-real-example) · [Help (IT / EN)](../help/README.md) · [Model downloads](../help/model-downloads.en.html) · [Examples](EXAMPLES.md) · [Shared styles](../suggestions/README.md) · [Guided first run](FIRST_RUN.md)
 
 > **Beta — feedback welcome.** ComfyUI, its custom nodes and generation models are installed separately. The supplied Windows dependencies target NVIDIA GPUs.
 

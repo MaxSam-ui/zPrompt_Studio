@@ -1,0 +1,7 @@
+Follow explicit user choices first. Preserve identity, wardrobe, setting, props and action ownership. Style changes presentation, not story content. Do not introduce subjects, weather, dialogue, objects or events merely to illustrate this style. Choose one compatible treatment rather than combining alternatives. Keep the required output format and language.
+
+SHARED VISUAL STYLE:
+Retro film: restrained grain, gentle highlight roll-off and a consistent film-like palette. Keep faces and detail readable. Do not invent period costumes, props, damage, flicker or a different historical setting.
+
+STILL-IMAGE APPLICATION:
+Describe a readable still composition and the requested moment. In analysis distinguish observed facts from requested changes. In edits preserve unaffected details. For storyboard panels maintain the shared visual treatment and identity while obeying the requested panel layout and actions. Do not impose camera motion or a new pose through style alone.

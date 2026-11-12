@@ -1,0 +1,7 @@
+Follow explicit user choices first. Preserve identity, wardrobe, setting, props and action ownership. Style changes presentation, not story content. Do not introduce subjects, weather, dialogue, objects or events merely to illustrate this style. Choose one compatible treatment rather than combining alternatives. Keep the required output format and language.
+
+SHARED VISUAL STYLE:
+Science fiction: coherent material design, readable forms and internally consistent lighting. Preserve the supplied technology and environment; do not invent spacecraft, neon, armor or extra machinery.
+
+VIDEO APPLICATION:
+Carry the reference frame’s identity, wardrobe, environment, palette and lighting through the shot. Preserve every supplied timeline boundary, action, framing and camera movement; a style does not authorize new cuts or camera moves. Adapt appearance consistently over time without inventing events. Respect first/last frame constraints and the required model prompt syntax. Preserve requested dialogue and sounds, explicit silence and no-music instructions; style does not add an audio track.

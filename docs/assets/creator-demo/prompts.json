@@ -1,0 +1,23 @@
+{
+  "image_prompt": "A single photographic image captures a woman in a bright yellow raincoat standing on a wet, stone-paved cliff path overlooking turbulent ocean waves crashing against rocks. Behind her, a white lighthouse with a red lantern room and railing stands defiantly atop a rugged coastline under a heavy, stormy sky. Her dark hair is tousled by wind, and she gazes forward with a solemn expression, positioned slightly right-of-center in the frame. The lighting is dim yet directional, casting subtle highlights on the slick surface of the path and the spray of breaking waves, while atmospheric haze softens distant elements. No text or collaged overlays exist within the image.",
+  "analysis_seconds": 95.3,
+  "image_seconds": 168.52,
+  "idea_input": "The woman slowly turns her gaze toward the sea. Wind gently moves her hair and yellow coat. Keep the camera fixed, with waves and wind only; no music, no speech, no cuts.",
+  "idea": "She turns her head slowly toward the churning sea, wind tousling her yellow coat and dark hair. Camera fixed. Waves crash. No music. No speech.",
+  "timeline": "[0.0s - 3.3s] 🧍 [Shot] Medium Shot | 🏹 [Static] Static (No Zoom) | Woman’s head turns slowly toward churning sea | Wind howling, waves crashing\n[3.3s - 6.6s] 🧍 [Shot] Medium Shot | 🏹 [Static] Static (No Zoom) | Yellow coat and dark hair caught in wind, eyes fixed on sea | Wind howling, waves crashing\n[6.6s - 10.0s] 🧍 [Shot] Medium Shot | 🏹 [Static] Static (No Zoom) | Woman’s gaze unblinking, wind tugging her coat as waves surge | Wind howling, waves crashing",
+  "audio": "Wind howling, ocean waves crashing against rocks",
+  "video_prompt": "Subject and scene: A woman in a bright yellow raincoat stands on a wet, stone-paved cliff path overlooking turbulent ocean waves crashing against rocks. Behind her, a white lighthouse with a red lantern room and railing stands defiantly atop a rugged coastline under a heavy, stormy sky. Her dark hair is tousled by wind, and she gazes forward with a solemn expression, positioned slightly right-of-center in the frame. The lighting is dim yet directional, casting subtle highlights on the slick surface of the path and the spray of breaking waves, while atmospheric haze softens distant elements. No text or collaged overlays exist within the image.\n\n[0.0s - 3.3s] [Medium Shot; Static (No Zoom)] Shot Type: 'Medium Shot', Movement: 'Static (No Zoom)', Details: 'Woman’s head turns slowly toward churning sea', Sound: 'Wind howling, waves crashing'\n[3.3s - 6.6s] [Medium Shot; Static (No Zoom)] Shot Type: 'Medium Shot', Movement: 'Static (No Zoom)', Details: 'Yellow coat and dark hair caught in wind, eyes fixed on sea', Sound: 'Wind howling, waves crashing'\n[6.6s - 10.0s] [Medium Shot; Static (No Zoom)] Shot Type: 'Medium Shot', Movement: 'Static (No Zoom)', Details: 'Woman’s gaze unblinking, wind tugging her coat as waves surge', Sound: 'Wind howling, waves crashing'\n\nAudio: Wind howling, ocean waves crashing against rocks\nContinuous shot, no cuts. No music. No speech.",
+  "manual_review": "Added explicit continuous shot/no cuts/no music/no speech to final prompt; these input constraints were not repeated by the compiler.",
+  "style": "02_Atmospheric_Cinema",
+  "image_seed": 6112026,
+  "video_seed": 6112026,
+  "video_requested_seconds": 10,
+  "model": "huihui_ai/qwen3-vl-abliterated:4b",
+  "execution": "Application functions and ComfyUI API; not a full UI click-through or fresh installation test.",
+  "video_seconds": 1027.54,
+  "video_width": 896,
+  "video_height": 512,
+  "video_frames": 241,
+  "video_fps": 24,
+  "review": "Video and audio streams decode successfully. Sampled frames show reframing despite the requested static camera. Audio content has not been independently assessed."
+}

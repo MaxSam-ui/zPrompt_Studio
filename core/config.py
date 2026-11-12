@@ -276,7 +276,8 @@ def elenca_suggerimenti(cartella):
         except Exception:
             return []
     file_txt = [os.path.splitext(f)[0] for f in os.listdir(cartella) if f.endswith(".txt")]
-    return sorted(file_txt) if file_txt else []
+    from core.suggestion_catalog import visible_presets
+    return visible_presets(cartella, sorted(file_txt), SESSION_FILE)
 
 def leggi_contenuto_suggerimento(cartella, nome_file):
     if not nome_file or str(nome_file).strip() in {"-", "Vuoto", "None", "Nessuno", "- Nessuno -"}:

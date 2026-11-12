@@ -1,0 +1,25 @@
+# Shared styles / Stili condivisi
+
+## Italiano
+
+Analisi/creazione dei prompt immagine (anche batch) e regia video offrono gli stessi otto stili: Natural Photography, Atmospheric Cinema, Noir, Science Fiction, Fantasy, Illustration Animation, Nature Documentary e Retro Film. Scegli lo stesso nome nei due selettori: la selezione non viene sincronizzata automaticamente, così resta possibile cambiare intenzionalmente stile.
+
+Ogni coppia di file in `vision/` e `direction/` contiene la stessa base visiva, seguita da istruzioni specifiche per immagini o video. Per la demo del faro usa **02_Atmospheric_Cinema** in entrambe le fasi. Lo stile non deve cambiare identità, abiti, ambiente, azioni o tempi. La coerenza delle risposte dell’LLM resta da controllare.
+
+I preset di `screenplay/` sono spunti di trama; quelli di `storyboard/` e `sequence/` definiscono strutture e modalità, non alternative allo stile. Personaggi e ambienti restano contenuti separati. Questi cataloghi e i prompt tecnici di `system/` non vengono sostituiti dal catalogo visivo.
+
+I vecchi stili sono conservati nei file originali come archivio compatibile. `style_catalog.json` li nasconde dal menu solo se il contenuto è ancora quello distribuito e non sono selezionati nella sessione salvata. Un vecchio preset modificato resta visibile. Per recuperare un preset nascosto, copiane il `.txt` nella stessa cartella con un nome nuovo e riavvia l’app. Nessun testo utente viene cancellato o migrato verso uno stile diverso.
+
+Per creare uno stile personale, copia la coppia di file con lo stesso nuovo nome nelle due cartelle. Modifica la base visiva in entrambe e conserva le istruzioni appropriate alla fase. I file vengono letti al momento dell’uso; riseleziona lo stile per aggiornare un prompt di sistema già visualizzato. Non serve modificare codice Python.
+
+## English
+
+Image prompt analysis/creation (including batch) and video direction share eight named styles: Natural Photography, Atmospheric Cinema, Noir, Science Fiction, Fantasy, Illustration Animation, Nature Documentary and Retro Film. Select the same name in both menus. Selection is deliberately independent, not automatically synchronized.
+
+Each pair in `vision/` and `direction/` has an identical visual foundation and a separate application for still images or video. Use **02_Atmospheric_Cinema** in both stages for the lighthouse demo. Style must preserve identity, wardrobe, setting, actions and timing. Review the LLM’s actual output for consistency.
+
+`screenplay/` contains story ideas; `storyboard/` and `sequence/` describe structures and modes. Characters and environments are separate scene content. These catalogs and the technical `system/` prompts are not replaced by visual styles.
+
+Legacy styles remain in their original files. `style_catalog.json` hides only unchanged stock legacy presets that are not selected in the saved session. Edited legacy presets remain visible. To restore a hidden preset, copy its text file under a new name in the same folder and restart the app. No user text is deleted or migrated to a different style.
+
+To customize, copy a matching pair under a new name in both folders. Edit the shared visual foundation in both files and keep the stage-specific instructions. Files are read when used; reselect a style to refresh an already displayed system prompt. No Python changes are required.
