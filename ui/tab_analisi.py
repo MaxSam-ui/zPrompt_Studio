@@ -25,8 +25,9 @@ def crea_tab_analisi(
             # COLONNA DI SINISTRA: SELETTORI, PROMPT SISTEMA, ISTRUZIONI EXTRA E TASTO ANALIZZA
             # =========================================================================
             with gr.Column(scale=1, min_width=340, elem_id="analysis-input", elem_classes=["analisi-col-box"]):
-                llama_vision_md = gr.Markdown(d.get("llama_vision_titolo", "Vision"), elem_classes=["studio-section-title"])
-                gr.Markdown(d["help_analysis_short"], elem_classes=["studio-usage-hint"])
+                with gr.Column(min_width=0, elem_classes=["studio-heading-block"]):
+                    llama_vision_md = gr.Markdown(d.get("llama_vision_titolo", "Vision"), elem_classes=["studio-section-title"])
+                    gr.Markdown(d["help_analysis_short"], elem_classes=["studio-usage-hint"])
                 
                 default_model = s.get("modello_vlm")
                 if not default_model or (lista_modelli_vlm and default_model not in lista_modelli_vlm):

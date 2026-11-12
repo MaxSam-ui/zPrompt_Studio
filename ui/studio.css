@@ -555,3 +555,17 @@ body { background: #101216; }
     bottom: -24px !important;
     line-height: 16px !important;
 }
+
+/* Keep each section title and its short hint together without the field gap. */
+.gradio-container .studio-heading-block {
+    gap: 2px !important;
+    margin: 0 !important;
+    padding: 0 !important;
+}
+.gradio-container .studio-heading-block .studio-section-title,
+.gradio-container .studio-heading-block .studio-field-heading {
+    margin-bottom: 0 !important;
+}
+.gradio-container .studio-heading-block .studio-section-title p {
+    margin: 0 !important;
+}

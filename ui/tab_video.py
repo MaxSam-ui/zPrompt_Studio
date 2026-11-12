@@ -49,10 +49,11 @@ def crea_tab_video(
                 elem_id="tabella-regia-view-textbox"
             )
             
-            with gr.Row(elem_classes=["studio-field-heading"]):
-                gr.Markdown(d.get("modifica_clip_label", "Timeline"))
-                recovery_timeline = recovery_button(tabella_regia_view, d)
-            gr.Markdown(d["help_timeline_short"], elem_classes=["studio-usage-hint"])
+            with gr.Column(min_width=0, elem_classes=["studio-heading-block"]):
+                with gr.Row(elem_classes=["studio-field-heading"]):
+                    gr.Markdown(d.get("modifica_clip_label", "Timeline"))
+                    recovery_timeline = recovery_button(tabella_regia_view, d)
+                gr.Markdown(d["help_timeline_short"], elem_classes=["studio-usage-hint"])
             scena_sec = gr.State(value=3.0)
 
         # =====================================================================
@@ -157,10 +158,11 @@ def crea_tab_video(
                     if not sceneggiatura_prompt_value.strip():
                         sceneggiatura_prompt_value = prompt_screen_avvio if prompt_screen_avvio else ""
 
-                    with gr.Row(elem_classes=['studio-field-heading']):
-                        gr.Markdown(d.get("sceneggiatura_prompt_label", "Movie Idea or Subject"))
-                        subject_restore = create_recovery_control(d)
-                    gr.Markdown(d["help_subject_short"], elem_classes=["studio-usage-hint"])
+                    with gr.Column(min_width=0, elem_classes=["studio-heading-block"]):
+                        with gr.Row(elem_classes=['studio-field-heading']):
+                            gr.Markdown(d.get("sceneggiatura_prompt_label", "Movie Idea or Subject"))
+                            subject_restore = create_recovery_control(d)
+                        gr.Markdown(d["help_subject_short"], elem_classes=["studio-usage-hint"])
                     sceneggiatura_prompt = gr.Textbox(
                         value=sceneggiatura_prompt_value,
                         placeholder=d.get("sceneggiatura_prompt_placeholder", "e.g., Create a western duel..."),
@@ -216,11 +218,12 @@ def crea_tab_video(
 
                 # ---- 3. CINEMATIC PROMPT ---- 
                 with gr.Column(elem_id="video-prompt-panel", elem_classes=["analisi-col-box"]) as colonna_prompt_video_box:
-                    with gr.Row(elem_classes=["studio-field-heading"]):
-                        prompt_cinema_header = gr.Markdown(prompt_header(s, testo_iniziale_timeline, s.get("output_prompt_video", ""), s.get("audio_descrizione", ""), d), elem_classes=["studio-section-title"])
-                        prompt_restore = create_recovery_control(d)
+                    with gr.Column(min_width=0, elem_classes=["studio-heading-block"]):
+                        with gr.Row(elem_classes=["studio-field-heading"]):
+                            prompt_cinema_header = gr.Markdown(prompt_header(s, testo_iniziale_timeline, s.get("output_prompt_video", ""), s.get("audio_descrizione", ""), d), elem_classes=["studio-section-title"])
+                            prompt_restore = create_recovery_control(d)
 
-                    gr.Markdown(d["help_video_prompt_short"], elem_classes=["studio-usage-hint"])
+                        gr.Markdown(d["help_video_prompt_short"], elem_classes=["studio-usage-hint"])
                     prompts_video_salvati = ["-"] + (
                         prompt_manager.elenca_prompt_salvati_vid()
                         if prompt_manager.elenca_prompt_salvati_vid()
