@@ -1,0 +1,30 @@
+{
+  "idea": "A dog on a street.",
+  "seed": 12112026,
+  "size": [
+    1024,
+    576
+  ],
+  "model": "Qwen3-VL 4B abliterated",
+  "workflow": "Krea-2 Turbo, both passes",
+  "styles": [
+    {
+      "style": "01_Natural_Photography",
+      "prompt": "A single dog stands mid-stride on a city sidewalk, fur slightly ruffled by wind, eyes alert and focused forward; urban pavement stretches beneath paws, littered with discarded wrappers and faded graffiti under soft daylight, shadows elongated by late afternoon sun, naturalistic lighting preserves texture of wet asphalt and coarse fabric of worn collar, low-angle perspective captures posture and movement as if caught mid-patrol or startled pause \u2014 real-world photographic realism, no added effects or stylization beyond observable environmental context.",
+      "prompt_seconds": 32.68,
+      "render_seconds": 69.29
+    },
+    {
+      "style": "09_Ridley_Scott_Industrial_SciFi",
+      "prompt": "A dog standing mid-stride on a cracked asphalt street under dim, diffused daylight, surrounded by rusted metal signage and broken pavement textures; industrial decay looms in background with flickering fluorescent tube lights casting long, cold shadows across uneven ground; the dog\u2019s fur appears matted and unkempt, ears slightly flared forward, eyes alert yet weary\u2014its body angled toward left edge of frame, tail low and stiffened, paws planted firmly despite apparent fatigue; shallow depth-of-field blurs distant debris and graffiti-covered walls, foreground focus sharp on canine form and textured urban ruin beneath it; cinematic realism tone with muted earth tones, gritty surface detail emphasized by directional overhead illumination creating high contrast between illuminated fur patches and deep shadow folds along limbs and muzzle.",
+      "prompt_seconds": 24.94,
+      "render_seconds": 15.06
+    },
+    {
+      "style": "11_Wes_Anderson_Graphic_Cinema",
+      "prompt": "A single dog stands mid-stride on a quiet urban sidewalk, fur slightly tousled by wind, eyes alert and focused forward; soft morning light filters through distant trees casting long, muted shadows across cracked pavement and faded graffiti walls, rendered in graphic cinematic style with precise geometric balance, pastel-toned palette, sharp material textures like worn asphalt and fabric, and a shallow depth-of-field isolating the dog against blurred background traffic and storefronts \u2014 framed in 16:9 widescreen, frozen at a moment of cautious movement, no human presence, no overt camera motion, only the dog\u2019s posture and gaze convey narrative tension.",
+      "prompt_seconds": 21.14,
+      "render_seconds": 15.11
+    }
+  ]
+}

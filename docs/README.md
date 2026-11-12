@@ -19,6 +19,14 @@ To report a problem, include reproduction steps, the selected workflow/model, GP
 
 </details>
 
+## One idea, three styles
+
+Watch a **27-second comparison of actual text-only outputs**, then follow the steps to reproduce it. The slideshow omits generation waits.
+
+[![One idea, three styles](assets/style-demo/comparison.jpg)](STYLE_DEMO.md)
+
+[Watch the mini demo](assets/style-demo/styles.mp4) · [Try it yourself](STYLE_DEMO.md)
+
 ## Try it on Windows
 
 1. Install **Python 3.11 (64-bit)** with the Python Launcher. Install **Git for Windows** if you want automatic updates.

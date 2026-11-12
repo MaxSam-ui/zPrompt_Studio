@@ -19,6 +19,14 @@ Per segnalare un problema indica i passaggi per riprodurlo, workflow/modello sce
 
 </details>
 
+## Una sola idea, tre stili
+
+Guarda **27 secondi di confronto tra risultati reali da solo testo**, poi segui i passaggi per riprovarli. Il montaggio omette le attese di generazione.
+
+[![Una sola idea, tre stili](assets/style-demo/comparison.jpg)](STYLE_DEMO.it.md)
+
+[Guarda la mini demo](assets/style-demo/styles.mp4) · [Provala anche tu](STYLE_DEMO.it.md)
+
 ## Provala su Windows
 
 1. Installa **Python 3.11 a 64 bit**, con Python Launcher. Per aggiornare automaticamente serve anche **Git per Windows**.
