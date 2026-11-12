@@ -4,7 +4,7 @@ A guided beta trial using the lighthouse scene, a fictional character and **02_A
 
 ## Before starting
 
-Follow [installation](README.md#try-it-on-windows), configure ComfyUI and run **Check installation**. Install the models and custom nodes for **Krea-2 Turbo** and **LTX 2.5**, following the [download guide](../help/model-downloads.en.html). No optional LoRAs are needed. Choose Qwen3-VL 4B abliterated for analysis and prompt creation; its first use may require a separate download.
+Follow [installation](README.md#get-started), configure ComfyUI and run **Check installation**. Install the models and custom nodes for **Krea-2 Turbo** and **LTX 2.5**, following the [download guide](../help/model-downloads.en.html). No optional LoRAs are needed. Choose Qwen3-VL 4B abliterated for analysis and prompt creation; its first use may require a separate download.
 
 The local reference machine has an RTX 3090 Ti with 24 GB VRAM and 32 GB RAM; this is not a certified minimum requirement. Model choice, resolution and free memory affect feasibility. Downloads, weight loading and generation are separate waits. Watch progress and logs; do not download every model in the catalog.
 

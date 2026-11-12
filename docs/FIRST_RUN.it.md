@@ -4,7 +4,7 @@ Percorso consigliato per provare la beta. La prova usa una scena del faro con un
 
 ## Prima di iniziare
 
-Segui l’[installazione](README.it.md#provala-su-windows), configura ComfyUI e usa **Verifica installazione**. Prepara i modelli e i nodi di **Krea-2 Turbo** e **LTX 2.5**, seguendo la [guida download](../help/model-downloads.html). Per questo percorso non servono LoRA opzionali. Il VLM consigliato è Qwen3-VL 4B abliterated; al primo uso può richiedere un download separato.
+Segui l’[installazione](README.it.md#primi-passi), configura ComfyUI e usa **Verifica installazione**. Prepara i modelli e i nodi di **Krea-2 Turbo** e **LTX 2.5**, seguendo la [guida download](../help/model-downloads.html). Per questo percorso non servono LoRA opzionali. Il VLM consigliato è Qwen3-VL 4B abliterated; al primo uso può richiedere un download separato.
 
 La macchina locale di riferimento ha una RTX 3090 Ti da 24 GB e 32 GB di RAM: non è un requisito minimo certificato. Risoluzione, modelli e memoria disponibile determinano la fattibilità. Primo download, caricamento dei pesi e generazione sono attese diverse; guarda stato e registri. Non scaricare tutti i modelli del catalogo.
 
