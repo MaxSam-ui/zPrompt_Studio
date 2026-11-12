@@ -112,7 +112,7 @@ def crea_tab_video(
                         )
 
                 # ---- 2. AI AUTO-SCREENWRITER ----
-                with gr.Column(elem_id="video-screenplay", elem_classes=["analisi-col-box"]):
+                with gr.Column(elem_id="video-screenplay", elem_classes=["analisi-col-box"]) as colonna_soggetto_video:
                     gr.Markdown(d.get("sceneggiatore_ai_label", "✍️ Subject"), elem_classes=["studio-section-title"])
 
                     with gr.Row():
@@ -623,6 +623,7 @@ def crea_tab_video(
             "spia_modalita_video": spia_modalita_video,
             "colonna_top_timeline": colonna_top_timeline,
             "colonna_prompt_video_box": colonna_prompt_video_box,
+            "colonna_soggetto_video": colonna_soggetto_video,
             "colonna_destra_video_player": colonna_destra_video_player,
             "durata_drag_trigger": durata_drag_trigger
         }

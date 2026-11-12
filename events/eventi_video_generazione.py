@@ -138,6 +138,19 @@ def stato_finale_video(status):
     return gr.update(elem_classes=classes)
 
 
+def avvia_cornici_video(pannello):
+    """Only the current output panel glows; remove previous operation feedback."""
+    updates = []
+    for name in ("subject", "timeline", "prompt", "video"):
+        classes = ["analisi-col-box"]
+        if name == "video":
+            classes.append("analisi-destra-box")
+        if name == pannello:
+            classes.append("elaborazione-attiva")
+        updates.append(gr.update(elem_classes=classes))
+    return tuple(updates)
+
+
 def collega_generazione(t1, t2, t3, t5, num_lora_vid, stato_generazione, stato_sessione):
     """Binds operational logic, VLM calls, and connection to ComfyUI."""
     
@@ -196,7 +209,8 @@ def collega_generazione(t1, t2, t3, t5, num_lora_vid, stato_generazione, stato_s
             t3["btn_save_video_prompt"],
             t3["colonna_destra_video_player"],
             t3["colonna_prompt_video_box"],
-            t3["colonna_top_timeline"]
+            t3["colonna_top_timeline"],
+            t3["colonna_soggetto_video"]
         ]
     )
 
@@ -290,9 +304,10 @@ def collega_generazione(t1, t2, t3, t5, num_lora_vid, stato_generazione, stato_s
         ],
         show_progress="hidden"
     ).then(
-        fn=lambda: gr.update(elem_classes=["analisi-col-box", "elaborazione-attiva"]),
+        fn=lambda: avvia_cornici_video("timeline"),
         inputs=None,
-        outputs=[t3["colonna_top_timeline"]],
+        outputs=[t3["colonna_soggetto_video"], t3["colonna_top_timeline"],
+                 t3["colonna_prompt_video_box"], t3["colonna_destra_video_player"]],
         show_progress="hidden"
     ).then(
         fn=director_ai.scrivi_sceneggiatura_automatica,
@@ -345,9 +360,10 @@ def collega_generazione(t1, t2, t3, t5, num_lora_vid, stato_generazione, stato_s
         ],
         show_progress="hidden"
     ).then(
-        fn=lambda: gr.update(elem_classes=["analisi-col-box", "elaborazione-attiva"]),
+        fn=lambda: avvia_cornici_video("subject"),
         inputs=None,
-        outputs=[t3["colonna_top_timeline"]],
+        outputs=[t3["colonna_soggetto_video"], t3["colonna_top_timeline"],
+                 t3["colonna_prompt_video_box"], t3["colonna_destra_video_player"]],
         show_progress="hidden"
     ).then(
         fn=director_ai.migliora_soggetto_con_vlm,
@@ -368,7 +384,7 @@ def collega_generazione(t1, t2, t3, t5, num_lora_vid, stato_generazione, stato_s
     ).then(
         fn=imposta_classe_post_sceneggiatura,
         inputs=[t3["output_comfy_vid_status"]],
-        outputs=[t3["colonna_top_timeline"]],
+        outputs=[t3["colonna_soggetto_video"]],
         show_progress="hidden"
     ).then(
         fn=ripristina_miglioramento_soggetto,
@@ -394,9 +410,10 @@ def collega_generazione(t1, t2, t3, t5, num_lora_vid, stato_generazione, stato_s
         ],
         show_progress="hidden"
     ).then(
-        fn=lambda: gr.update(elem_classes=["analisi-col-box", "elaborazione-attiva"]),
+        fn=lambda: avvia_cornici_video("timeline"),
         inputs=None,
-        outputs=[t3["colonna_top_timeline"]],
+        outputs=[t3["colonna_soggetto_video"], t3["colonna_top_timeline"],
+                 t3["colonna_prompt_video_box"], t3["colonna_destra_video_player"]],
         show_progress="hidden"
     ).then(
         fn=director_ai.genera_dialoghi_timeline,
@@ -442,12 +459,10 @@ def collega_generazione(t1, t2, t3, t5, num_lora_vid, stato_generazione, stato_s
         ],
         show_progress="hidden"
     ).then(
-        fn=lambda: (
-            gr.update(elem_classes=["analisi-col-box", "elaborazione-attiva"]), 
-            gr.update(elem_classes=["analisi-col-box"])  
-        ),
+        fn=lambda: avvia_cornici_video("prompt"),
         inputs=None,
-        outputs=[t3["colonna_prompt_video_box"], t3["colonna_top_timeline"]],
+        outputs=[t3["colonna_soggetto_video"], t3["colonna_top_timeline"],
+                 t3["colonna_prompt_video_box"], t3["colonna_destra_video_player"]],
         show_progress="hidden"
     ).then(
         fn=compila_regia_sanitizzata,
@@ -504,13 +519,11 @@ def collega_generazione(t1, t2, t3, t5, num_lora_vid, stato_generazione, stato_s
             t3["btn_save_video_prompt"], t3["output_comfy_vid_status"]
         ]
     ).then(
-        fn=lambda: (
-            gr.update(elem_classes=["analisi-col-box", "analisi-destra-box", "elaborazione-attiva"]), 
-            gr.update(elem_classes=["analisi-col-box"]),                      
-            gr.update(elem_classes=["analisi-col-box"])                       
-        ),
+        fn=lambda: avvia_cornici_video("video"),
         inputs=None,
-        outputs=[t3["colonna_destra_video_player"], t3["colonna_prompt_video_box"], t3["colonna_top_timeline"]]
+        outputs=[t3["colonna_soggetto_video"], t3["colonna_top_timeline"],
+                 t3["colonna_prompt_video_box"], t3["colonna_destra_video_player"]],
+        show_progress="hidden"
     ).then(
         fn=gestisci_generazione_video_con_monitor,
         inputs=[

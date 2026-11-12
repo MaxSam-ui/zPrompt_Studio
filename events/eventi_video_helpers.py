@@ -204,6 +204,7 @@ def sblocca_tutti_i_pulsanti_video():
         gr.update(interactive=True, value=lbl_save),
         gr.update(elem_classes=["analisi-col-box", "analisi-destra-box"]),
         gr.update(elem_classes=["analisi-col-box"]),
+        gr.update(elem_classes=["analisi-col-box"]),
         gr.update(elem_classes=["analisi-col-box"])
     )
 
