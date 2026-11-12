@@ -4,19 +4,9 @@
 
 **English** · [Italiano](README.it.md)
 
-[Demo](#see-it-in-action) · [Interface](#inside-the-app) · [Get started](#get-started) · [Help](#guides-and-customization)
+[Interface](#inside-the-app) · [Demo](#see-it-in-action) · [Get started](#get-started) · [Help](#guides-and-customization)
 
 > **Beta · Windows · NVIDIA GPU.** ComfyUI, its custom nodes and generation models are required separately. Hardware needs depend on the selected models.
-
-## See it in action
-
-[![Above the Clouds — cinematic images created with zPrompt Studio](assets/sky-demo/preview.jpg)](assets/sky-demo/above-the-clouds.mp4)
-
-**Above the Clouds** — one idea, three visual treatments. Real Krea-2 Turbo outputs, generated from text using shared style presets.
-
-**[Watch the 26-second demo](assets/sky-demo/above-the-clouds.mp4)** · [Reproduce it: prompt, styles and settings](STYLE_DEMO.md)
-
-*An edited slideshow of still images; generation waits are omitted. It does not demonstrate AI-generated motion.*
 
 ## Inside the app
 
@@ -35,6 +25,16 @@ Also included:
 - **Shared styles:** carry the selected image style into Video, then adjust it if needed.
 - **Batch images:** process multiple images; automatic batch video is not included.
 - **Logs and diagnostics:** inspect progress, workflow requirements and configuration.
+
+## See it in action
+
+[![Above the Clouds — cinematic images created with zPrompt Studio](assets/sky-demo/preview.jpg)](assets/sky-demo/above-the-clouds.mp4)
+
+**Above the Clouds** — one idea, three visual treatments. Real Krea-2 Turbo outputs, generated from text using shared style presets.
+
+**[Watch the 26-second demo](assets/sky-demo/above-the-clouds.mp4)** · [Reproduce it: prompt, styles and settings](STYLE_DEMO.md)
+
+*An edited slideshow of still images; generation waits are omitted. It does not demonstrate AI-generated motion.*
 
 <details>
 <summary>See the timeline, video, editing and storyboard examples</summary>

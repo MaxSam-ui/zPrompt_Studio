@@ -4,19 +4,9 @@
 
 [English](README.md) · **Italiano**
 
-[Demo](#guarda-la-demo) · [Interfaccia](#dentro-lapp) · [Primi passi](#primi-passi) · [Guida](#guide-e-personalizzazione)
+[Interfaccia](#dentro-lapp) · [Demo](#guarda-la-demo) · [Primi passi](#primi-passi) · [Guida](#guide-e-personalizzazione)
 
 > **Beta · Windows · GPU NVIDIA.** ComfyUI, i suoi nodi aggiuntivi e i modelli di generazione vanno preparati separatamente. I requisiti hardware dipendono dai modelli scelti.
-
-## Guarda la demo
-
-[![Above the Clouds — immagini cinematografiche create con zPrompt Studio](assets/sky-demo/preview.jpg)](assets/sky-demo/above-the-clouds.mp4)
-
-**Above the Clouds** — una sola idea, tre interpretazioni visive. Risultati reali di Krea-2 Turbo, generati da testo usando gli stili condivisi.
-
-**[Guarda la demo di 26 secondi](assets/sky-demo/above-the-clouds.mp4)** · [Riproducila: descrizione, stili e impostazioni](STYLE_DEMO.it.md)
-
-*Il filmato è un montaggio di immagini statiche, con le attese omesse. Non mostra movimento generato dall’AI.*
 
 ## Dentro l’app
 
@@ -35,6 +25,16 @@ Sono inclusi anche:
 - **Stili condivisi:** riporta nel Video lo stile scelto per l’immagine, poi modificalo se necessario.
 - **Immagini in batch:** elabora più immagini; la generazione automatica di video in batch non è inclusa.
 - **Registri e diagnostica:** controlla progresso, requisiti dei workflow e configurazione.
+
+## Guarda la demo
+
+[![Above the Clouds — immagini cinematografiche create con zPrompt Studio](assets/sky-demo/preview.jpg)](assets/sky-demo/above-the-clouds.mp4)
+
+**Above the Clouds** — una sola idea, tre interpretazioni visive. Risultati reali di Krea-2 Turbo, generati da testo usando gli stili condivisi.
+
+**[Guarda la demo di 26 secondi](assets/sky-demo/above-the-clouds.mp4)** · [Riproducila: descrizione, stili e impostazioni](STYLE_DEMO.it.md)
+
+*Il filmato è un montaggio di immagini statiche, con le attese omesse. Non mostra movimento generato dall’AI.*
 
 <details>
 <summary>Mostra gli esempi di timeline, video, editing e storyboard</summary>
