@@ -27,6 +27,8 @@ Guarda **27 secondi di confronto tra risultati reali da solo testo**, poi segui 
 
 [Guarda la mini demo](assets/style-demo/styles.mp4) · [Provala anche tu](STYLE_DEMO.it.md)
 
+**[Guida visiva dell’interfaccia: 24 secondi](assets/ui-tour/quick-tour.mp4)** — dove scrivere l’idea, scegliere lo stile e generare. Montaggio di schermate reali con risultati già caricati; non è una registrazione continua della generazione.
+
 ## Provala su Windows
 
 1. Installa **Python 3.11 a 64 bit**, con Python Launcher. Per aggiornare automaticamente serve anche **Git per Windows**.

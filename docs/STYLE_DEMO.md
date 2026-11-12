@@ -23,6 +23,12 @@ Compare lighting, palette, texture and composition. A style supplies visual inst
 
 The matching Video direction style is selected automatically when you choose the image style in Analysis. You can override it in Video; existing ideas, timelines and prompts are not rewritten. This comparison itself contains still images, not AI-generated video motion.
 
-### Observed result
+### Verified correction
 
-Natural Photography produced a photographic street scene; Industrial SciFi emphasized darker lighting and distressed surfaces. Graphic Cinema produced an illustration-like result rather than a live-action film look. This reveals an ambiguity in how the generation model interpreted the visual wording; it is not proof of faithful director-style reproduction. All three prompts added unspecified details. For tighter control, describe the dog and setting explicitly and request live-action photography when desired.
+The original Graphic Cinema preset produced an illustration-like result. We made live-action photography explicit in the shared image and video instructions and repeated one generation with the same idea, seed and settings. The new result is photographic; the main comparison shows this version. This is one successful check, not a guarantee for every scene. Prompts were not manually rewritten.
+
+![Before](assets/style-demo/graphic-before.jpg)
+
+![After](assets/style-demo/graphic-after.jpg)
+
+[Initial prompts](assets/style-demo/initial-prompts.json) · [Retest prompt and timings](assets/style-demo/retest.json)

@@ -23,6 +23,12 @@ Confronta luce, palette, materiali e composizione. Lo stile fornisce indicazioni
 
 Scegliendo lo stile in Analisi viene selezionato anche quello corrispondente nel Video. Puoi cambiarlo nel Video; idea, timeline e prompt già creati restano invariati. Questo confronto mostra immagini statiche, non movimento video generato dall’AI.
 
-### Risultato osservato
+### Correzione verificata
 
-Natural Photography ha prodotto una scena fotografica; Industrial SciFi ha accentuato luci scure e superfici deteriorate. Graphic Cinema ha prodotto una resa illustrata invece di un look cinematografico dal vivo. È un’ambiguità nell’interpretazione delle indicazioni visive da parte del modello, non una prova di riproduzione fedele dello stile di un regista. Tutti i prompt hanno aggiunto dettagli non specificati. Per maggiore controllo, descrivi cane e ambiente e richiedi una fotografia dal vivo quando desiderata.
+Il primo preset Graphic Cinema ha prodotto una resa illustrata. Abbiamo reso esplicita la fotografia dal vivo nelle istruzioni condivise di immagini e video e ripetuto una generazione con la stessa idea, seed e impostazioni. Il nuovo risultato è fotografico; il confronto principale mostra questa versione. È una verifica singola, non una garanzia su ogni scena. I prompt non sono stati ritoccati manualmente.
+
+![Before](assets/style-demo/graphic-before.jpg)
+
+![After](assets/style-demo/graphic-after.jpg)
+
+[Initial prompts](assets/style-demo/initial-prompts.json) · [Retest prompt and timings](assets/style-demo/retest.json)

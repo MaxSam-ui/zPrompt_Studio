@@ -27,6 +27,8 @@ Watch a **27-second comparison of actual text-only outputs**, then follow the st
 
 [Watch the mini demo](assets/style-demo/styles.mp4) · [Try it yourself](STYLE_DEMO.md)
 
+**[24-second interface tour](assets/ui-tour/quick-tour.mp4)** — where to enter an idea, select a style and generate. Edited real UI screenshots with completed results, not a continuous generation recording.
+
 ## Try it on Windows
 
 1. Install **Python 3.11 (64-bit)** with the Python Launcher. Install **Git for Windows** if you want automatic updates.

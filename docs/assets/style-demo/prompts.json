@@ -22,9 +22,9 @@
     },
     {
       "style": "11_Wes_Anderson_Graphic_Cinema",
-      "prompt": "A single dog stands mid-stride on a quiet urban sidewalk, fur slightly tousled by wind, eyes alert and focused forward; soft morning light filters through distant trees casting long, muted shadows across cracked pavement and faded graffiti walls, rendered in graphic cinematic style with precise geometric balance, pastel-toned palette, sharp material textures like worn asphalt and fabric, and a shallow depth-of-field isolating the dog against blurred background traffic and storefronts \u2014 framed in 16:9 widescreen, frozen at a moment of cautious movement, no human presence, no overt camera motion, only the dog\u2019s posture and gaze convey narrative tension.",
-      "prompt_seconds": 21.14,
-      "render_seconds": 15.11
+      "prompt": "Live-action photographic cinema: A single dog, mid-stride, captured in a freeze-frame moment on a quiet urban sidewalk lined with muted pastel storefronts and cobblestones under soft golden-hour light; sharp focus reveals detailed fur texture, worn leather collar, and realistic paw pads against gritty pavement; symmetrical composition centers the dog\u2019s forward-facing gaze toward the viewer; shallow depth-of-field blurs background pedestrians and signage; natural daylight casting long shadows behind the animal; cinematic resolution preserves physical textures and environmental details \u2014 no stylization beyond real-world optics.",
+      "prompt_seconds": 43.92,
+      "render_seconds": 66.22
     }
   ]
 }
