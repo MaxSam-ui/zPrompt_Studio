@@ -1,0 +1,1 @@
+Use only ambient and physical sounds explicitly described in the scene.

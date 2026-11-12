@@ -1,0 +1,3 @@
+INTERMEDIATE STORYBOARD FRAME:
+{description}
+Reach this visible state between the opening and ending, without adding a cut unless requested. In reference mode image order is first, last, then intermediate; in native mode the intermediate frame is a keyframe guide, not an extra Picture token.

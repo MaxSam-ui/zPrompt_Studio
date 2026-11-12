@@ -72,25 +72,39 @@ class AllProfilesTest(unittest.TestCase):
         return getattr(module,fn)(str(self.folder/FILES[adapter]),**args)
 
     def test_default_graphs_match_previous_release(self):
-        expected=json.loads((ROOT/'tests/workflow_graph_hashes.json').read_text())
+        expected=json.loads((ROOT/'tests/workflow_graph_hashes.json').read_text(encoding='utf-8'))
         for case in cases():
             with self.subTest(case=case[0]):
                 graph=self.build(case)
                 digest=hashlib.sha256(json.dumps(graph,sort_keys=True).encode()).hexdigest()
                 self.assertEqual(digest,expected[case[0]])
 
+    def test_ltx_builder_uses_cleaned_prompt(self):
+        from test_video_prompt_dialects import REF
+        prompts=load('real_ltx_prompt_adapter',ROOT/'utils/video_model_prompt.py')
+        case=next(c for c in cases() if c[0]=='ltx_text_False')
+        args=dict(case[3],prompt_video=REF)
+        with patch.dict(sys.modules,{'utils.video_model_prompt':prompts}):
+            graph=self.video.prepara_workflow_ltx_video(str(self.folder/FILES['ltx25']),**args)
+        payload=graph['5']['inputs']['text']
+        self.assertNotIn('<Subject',payload)
+        self.assertNotIn('<Picture',payload)
+        self.assertIn('MIA_PERSONA',payload)
+        self.assertIn('Aspettami!',payload)
+        self.assertIn('Wind and footsteps.',payload)
+
     def test_all_graphs_can_be_renumbered(self):
         expected={case[0]:self.build(case) for case in cases()}
         reverse={}
         for adapter,filename in FILES.items():
             path=self.folder/filename
-            graph=json.loads(path.read_text())
+            graph=json.loads(path.read_text(encoding='utf-8'))
             mapping={key:'external_'+key for key in graph}
             graph=self.profiles._remap_graph(graph,mapping)
-            path.write_text(json.dumps(graph))
-            path=path.with_suffix('.profile.json'); profile=json.loads(path.read_text())
+            path.write_text(json.dumps(graph), encoding='utf-8')
+            path=path.with_suffix('.profile.json'); profile=json.loads(path.read_text(encoding='utf-8'))
             for spec in profile['nodes'].values(): spec['id']=mapping[spec['id']]
-            path.write_text(json.dumps(profile))
+            path.write_text(json.dumps(profile), encoding='utf-8')
             reverse[adapter]={v:k for k,v in mapping.items()}
         for case in cases():
             with self.subTest(case=case[0]):
@@ -99,8 +113,8 @@ class AllProfilesTest(unittest.TestCase):
 
     def test_capability_rejection(self):
         path=(self.folder/FILES['qwen21_edit']).with_suffix('.profile.json')
-        profile=json.loads(path.read_text()); profile['capabilities']['custom_lora']=False
-        path.write_text(json.dumps(profile))
+        profile=json.loads(path.read_text(encoding='utf-8')); profile['capabilities']['custom_lora']=False
+        path.write_text(json.dumps(profile), encoding='utf-8')
         case=next(c for c in cases() if c[0]=='qwen_edit_True')
         with self.assertRaisesRegex(ValueError,'custom_lora'): self.build(case)
 
@@ -112,19 +126,19 @@ class AllProfilesTest(unittest.TestCase):
 
     def test_missing_slots_and_disconnected_prompt_are_rejected(self):
         path=self.folder/FILES['flux2']; sidecar=path.with_suffix('.profile.json')
-        profile=json.loads(sidecar.read_text()); del profile['nodes']['sampling']
-        sidecar.write_text(json.dumps(profile))
+        profile=json.loads(sidecar.read_text(encoding='utf-8')); del profile['nodes']['sampling']
+        sidecar.write_text(json.dumps(profile), encoding='utf-8')
         case=next(c for c in cases() if c[0]=='flux2_text_False')
         with self.assertRaisesRegex(ValueError,'slots'): self.build(case)
         sidecar.write_bytes((ROOT/'workflows'/sidecar.name).read_bytes())
-        graph=json.loads(path.read_text()); graph['13']['inputs']['positive']='disconnected'; graph['13']['inputs']['negative']='disconnected'
-        path.write_text(json.dumps(graph))
+        graph=json.loads(path.read_text(encoding='utf-8')); graph['13']['inputs']['positive']='disconnected'; graph['13']['inputs']['negative']='disconnected'
+        path.write_text(json.dumps(graph), encoding='utf-8')
         with self.assertRaisesRegex(ValueError,'disconnected'): self.build(case)
 
     def test_extra_nodes_survive_reserved_id_collisions(self):
-        path=self.folder/FILES['flux2']; graph=json.loads(path.read_text())
+        path=self.folder/FILES['flux2']; graph=json.loads(path.read_text(encoding='utf-8'))
         graph['90']={'class_type':'Text','inputs':{'text':'User node'}}
-        path.write_text(json.dumps(graph))
+        path.write_text(json.dumps(graph), encoding='utf-8')
         case=next(c for c in cases() if c[0]=='flux2_refine_False')
         result=self.build(case)
         self.assertEqual(result['90']['inputs']['text'],'User node')

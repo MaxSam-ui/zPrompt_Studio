@@ -52,6 +52,8 @@ def load_minimax_profile(workflow_path, workflow):
     mode = profile.get('image_mode')
     if mode not in ('native_keyframes', 'references'):
         raise ValueError('Profile image_mode must be native_keyframes or references.')
+    if profile.get('prompt_format', 'auto') not in ('auto', 'base', 'reference'):
+        raise ValueError('Profile prompt_format must be auto, base or reference.')
     caps = profile.get('capabilities', {})
     required_caps = ('text_to_video', 'first_last_frames', 'reference_images', 'middle_image', 'custom_lora')
     if not isinstance(caps, dict) or any(type(caps.get(k)) is not bool for k in required_caps):

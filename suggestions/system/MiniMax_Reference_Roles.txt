@@ -1,0 +1,1 @@
+Connected image roles: {roles}. Keep these roles consistent throughout the scene. A reference requests visual guidance; it is not a guaranteed native keyframe constraint.

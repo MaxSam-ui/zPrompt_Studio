@@ -52,5 +52,6 @@
       "id": "51",
       "class_type": "LoadImage"
     }
-  }
+  },
+  "prompt_format": "auto"
 }

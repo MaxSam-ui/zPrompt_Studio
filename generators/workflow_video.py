@@ -537,10 +537,7 @@ def prepara_workflow_minimax_h3(
     log.registra(f"MiniMax workflow profile: {profile['loaded_from']} ({profile['image_mode']})")
 
     # 1. Impostazione Prompt di Regia (nodo 263 di tipo Text)
-    from utils.video_model_prompt import minimax_prompt
-    prompt_video_pulito = minimax_prompt(prompt_video.strip())
-    if nodes['prompt'] in wf:
-        wf[nodes['prompt']]["inputs"]["text"] = prompt_video_pulito
+    from utils.video_model_prompt import minimax_payload, minimax_format
 
     # 2. Impostazione Durata (nodo 259 - PrimitiveFloat)
     durata_float = float(v_durata)
@@ -661,12 +658,12 @@ def prepara_workflow_minimax_h3(
             wf[nodes['guider']]["inputs"]["conditioning"] = [nodes['middle_guide'], 0]
         log.registra("MiniMax: native first/last keyframe conditioning enabled.")
 
-    if nodes['conditioning'] in wf:
-        reference_keys = [key for key in wf[nodes['conditioning']]["inputs"] if key.startswith("ref_images.")]
-        if nodes['prompt'] in wf and reference_keys:
-            reference_text = " ".join(f"<Picture {i}> is visual reference {i}." for i in range(1, len(reference_keys) + 1))
-            wf[nodes['prompt']]["inputs"]["text"] = wf[nodes['prompt']]["inputs"]["text"].replace(
-                "summary:\n", "summary:\n" + reference_text + "\n", 1)
+    wf[nodes['prompt']]['inputs']['text'] = minimax_payload(
+        prompt_video.strip(), format=minimax_format(profile), duration=durata_float,
+        first=bool(has_ref_img and not solo_testo_video),
+        last=bool(has_last_img and not solo_testo_video and
+                  (use_keyframes or not has_ref_img or nodes['last_image'] in wf)),
+        middle=bool(nodes['middle_image'] in wf and not solo_testo_video))
 
     # 7. Formato Video Output VHS (nodo 264)
     if nodes['output'] in wf:

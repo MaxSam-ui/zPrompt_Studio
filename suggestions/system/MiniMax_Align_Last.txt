@@ -1,0 +1,1 @@
+How the reference pictures align with the target video — <Picture 1> (from [Shot {shot}]) aligns with the {duration}-second mark of the target video.

@@ -545,7 +545,14 @@ def passa_timeline_a_gemma(prompt_img, model_vid, testo, audio_descrizione="", v
     try:
         is_t2v = bool(s_attiva.get("solo_testo_video_attivo", False) if solo_testo_video is None else solo_testo_video)
 
-        filepath_start = None if is_t2v else ((stato_gen.get("percorso_immagine_selezionata") if stato_gen else None) or s_attiva.get("percorso_immagine_selezionata"))
+        from utils.video_model_prompt import selected_video_frames
+        filepath_start, filepath_dest, filepath_middle = selected_video_frames(stato_gen, s_attiva, is_t2v)
+        storyboard_frames = (stato_gen or {}).get('lista_frame_storyboard_attivi', [])
+        if (not is_t2v and not (stato_gen or {}).get('is_extension', False)
+                and 'storyboard' in str(s_attiva.get('generation_mode', '')).lower()
+                and len(storyboard_frames) >= 2):
+            # The active storyboard drives the workflow, not an older gallery selection.
+            prompt_img = ""
         if is_t2v:
             prompt_img = ""
         elif not prompt_img or not prompt_img.strip():
@@ -555,7 +562,6 @@ def passa_timeline_a_gemma(prompt_img, model_vid, testo, audio_descrizione="", v
             if not prompt_img or not prompt_img.strip():
                 prompt_img = "A high quality cinematic opening scene."
 
-        filepath_dest = None if is_t2v else ((stato_gen.get("percorso_immagine_destinazione") if stato_gen else None) or s_attiva.get("percorso_immagine_destinazione"))
         desc_last_frame = ""
         has_last_frame = bool(
             not is_t2v and filepath_dest and os.path.exists(filepath_dest) and
@@ -606,14 +612,30 @@ def passa_timeline_a_gemma(prompt_img, model_vid, testo, audio_descrizione="", v
         else:
             frame_block = ""
 
+        if filepath_middle:
+            if not os.path.exists(filepath_middle):
+                raise ValueError("Intermediate storyboard frame not found.")
+            yield gr.update(), gr.update(), dl["director_analyzing_start"]
+            middle_description = _estrai_descrizione_frame_sicura(filepath_middle, stato_gen, sys_prompt_vision, model_vision)
+            frame_block += "\n" + compose_system('Video_Middle_Context.txt', description=middle_description)
+
         if s_attiva.get("modello_video_attivo") == "MiniMax H3":
-            from utils.video_model_prompt import minimax_compiler_instruction, minimax_sections, MINIMAX_SECTIONS
+            from utils.video_model_prompt import minimax_compiler_instruction, minimax_sections, minimax_format, MINIMAX_SECTIONS, MINIMAX_BASE_SECTIONS
             from utils.director_prompt import align_director_prompt, preserve_identity_tokens
             from utils.video_preflight import validate_video_request
-            references = 0 if is_t2v else int(bool(filepath_start)) + int(has_last_frame)
+            from core import workflow_registry
+            from core.workflow_profiles import load_minimax_profile
+            import json
+            workflow_path = workflow_registry.risolvi_percorso_json_video("MiniMax H3")
+            with open(workflow_path, encoding='utf-8-sig') as handle:
+                profile = load_minimax_profile(workflow_path, json.load(handle))
+            prompt_format = minimax_format(profile)
+            section_names = MINIMAX_BASE_SECTIONS if prompt_format == 'base' else MINIMAX_SECTIONS
+            body_key = 'integrated_multimodal_description' if prompt_format == 'base' else 'detailed_description'
+            references = 0 if is_t2v else int(bool(filepath_start)) + int(has_last_frame) + int(bool(filepath_middle))
             source = (f"AUTHORITATIVE SUBJECT:\n{soggetto}\n{frame_block}\n"
                       f"AUTHORITATIVE TIMELINE:\n{cronologia}{audio_section}")
-            instruction = minimax_compiler_instruction(source, references, direct=True)
+            instruction = minimax_compiler_instruction(source, references, direct=True, format=prompt_format)
             instruction += ('\n\n' + compose_system('Video_Director_Style.txt', stile_regole_testo=stile_regole_testo))
             original_instruction = instruction
             # A valid model-specific result needs one call. Only invalid output
@@ -634,12 +656,12 @@ def passa_timeline_a_gemma(prompt_img, model_vid, testo, audio_descrizione="", v
                     yield gr.update(), gr.update(), phase
                 _verifica_stop_regia()
                 yield gr.update(), gr.update(), dl["director_validating_status"]
-                parts = minimax_sections(structured.strip())
-                aligned = align_director_prompt(parts['detailed_description'], lista_scene) if parts else None
+                parts = minimax_sections(structured.strip(), format=prompt_format)
+                aligned = align_director_prompt(parts[body_key], lista_scene) if parts else None
                 if parts and aligned is not None:
                     from utils.video_constraints import preserve_video_constraints
-                    parts['detailed_description'] = preserve_video_constraints(aligned, soggetto, audio_descrizione)
-                    candidate = '\n\n'.join(f'{key}:\n{parts[key]}' for key in MINIMAX_SECTIONS)
+                    parts[body_key] = preserve_video_constraints(aligned, soggetto, audio_descrizione)
+                    candidate = '\n\n'.join(f'{key}:\n{parts[key]}' for key in section_names)
                     if (not validate_video_request(candidate, sum(float(scene[0]) for scene in lista_scene))
                             and preserve_identity_tokens(candidate, source) == candidate):
                         yield candidate, gr.update() if is_t2v else prompt_img, dl["director_compile_success"]

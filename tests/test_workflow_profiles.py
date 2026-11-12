@@ -25,18 +25,22 @@ class WorkflowProfilesTest(unittest.TestCase):
         self.addCleanup(self.tmp.cleanup)
         self.folder = Path(self.tmp.name)
         self.path = self.folder/'example.json'
-        self.graph = json.loads((ROOT/'workflows/minimax_h3_api.json').read_text())
-        self.profile = json.loads((ROOT/'workflows/minimax_h3_api.profile.json').read_text())
+        self.graph = json.loads((ROOT/'workflows/minimax_h3_api.json').read_text(encoding='utf-8'))
+        self.profile = json.loads((ROOT/'workflows/minimax_h3_api.profile.json').read_text(encoding='utf-8'))
         self.profiles = module_at('tested_profiles', ROOT/'core/workflow_profiles.py')
         core = types.ModuleType('core')
-        core.config = types.SimpleNamespace(COMFYUI_DIR=str(self.folder))
+        core.config = types.SimpleNamespace(COMFYUI_DIR=str(self.folder), SUGGESTION_SYSTEM_DIR=str(ROOT/'suggestions/system'))
         core.log = types.SimpleNamespace(registra=lambda *args: None)
         core.sessione = types.SimpleNamespace()
+        with patch.dict(sys.modules, {'core': core}):
+            templates = module_at('tested_prompt_templates', ROOT/'utils/prompt_templates.py')
+        prompts = module_at('tested_video_prompts', ROOT/'utils/video_model_prompt.py')
         self.patch = patch.dict(sys.modules, {
             'core': core,
             'core.workflow_profiles': self.profiles,
             'core.workflow_registry': types.SimpleNamespace(ottieni_parametri_avanzati_workflow=lambda: {}),
-            'utils.video_model_prompt': types.SimpleNamespace(minimax_prompt=lambda text: text),
+            'utils.video_model_prompt': prompts,
+            'utils.prompt_templates': templates,
         })
         self.patch.start()
         self.addCleanup(self.patch.stop)
@@ -53,7 +57,7 @@ class WorkflowProfilesTest(unittest.TestCase):
         self.profiles.profile_path(self.path).write_text(json.dumps(self.profile), encoding='utf-8')
 
     def build(self, **kwargs):
-        return self.adapter.prepara_workflow_minimax_h3(str(self.path), 'summary:\nScene\n', seed_immagine_base=42, **kwargs)
+        return self.adapter.prepara_workflow_minimax_h3(str(self.path), 'A woman walks. Audio: wind.', seed_immagine_base=42, **kwargs)
 
     def test_modes_and_references(self):
         for mode in ('references', 'native_keyframes'):
@@ -75,6 +79,25 @@ class WorkflowProfilesTest(unittest.TestCase):
                         self.assertEqual(len(refs), int(first)+int(last)+int(middle))
         graph = self.build(solo_testo_video=True, percorso_immagine_origine=self.images[0], percorso_immagine_destinazione=self.images[1])
         self.assertFalse(any(k.startswith('ref_images.') for k in graph['265']['inputs']))
+
+    def test_real_prompt_payload_matches_profile_and_keyframes(self):
+        graph=self.build(percorso_immagine_origine=self.images[0],percorso_immagine_destinazione=self.images[1],v_durata=10)
+        text=graph['263']['inputs']['text']
+        self.assertIn('10.00-second',text)
+        self.assertIn('integrated_multimodal_description:',text)
+        self.assertNotIn('subject_definitions:',text)
+        self.profile['image_mode']='references';self.save()
+        graph=self.build(percorso_immagine_origine=self.images[0],percorso_immagine_destinazione=self.images[1],percorso_immagine_intermedia=self.images[2])
+        text=graph['263']['inputs']['text']
+        self.assertIn('subject_definitions:',text)
+        self.assertIn('<Picture 3>: intermediate scene state',text)
+        self.assertEqual(len([k for k in graph['265']['inputs'] if k.startswith('ref_images.')]),3)
+
+    def test_duplicate_reference_does_not_create_a_phantom_picture(self):
+        self.profile['image_mode']='references';self.save()
+        graph=self.build(percorso_immagine_origine=self.images[0],percorso_immagine_destinazione=self.images[0])
+        self.assertNotIn('<Picture 2>',graph['263']['inputs']['text'])
+        self.assertEqual(len([k for k in graph['265']['inputs'] if k.startswith('ref_images.')]),1)
 
     def test_renumbered_graph_produces_equivalent_result_with_lora(self):
         args = dict(percorso_immagine_origine=self.images[0], percorso_immagine_destinazione=self.images[1], percorso_immagine_intermedia=self.images[2], lv1_n='example.safetensors', lv1_s=0.7)

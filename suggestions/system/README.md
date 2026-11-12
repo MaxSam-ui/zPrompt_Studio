@@ -10,7 +10,7 @@ La catena è: template del compito + contenuti dell'utente e riferimenti + prese
 
 Puoi cambiare tono, dettaglio, scelte stilistiche e regole. Conserva i segnaposto necessari ai dati del compito: `{idea}`, ad esempio, viene sostituito con l'idea. I nomi sono esatti e sensibili alle maiuscole. I segnaposto sconosciuti producono un errore; le parentesi presenti nei testi dell'utente restano letterali. Rimuovere un segnaposto elimina quel dato dal messaggio, quindi evita di togliere idea, timeline, richieste di modifica o riferimenti. Gli esempi non devono introdurre personaggi, azioni o stile non richiesti.
 
-Vincoli tecnici da conservare: numerazione Photo/panel, intervalli della timeline, campi separati da `|`, etichette di inquadratura/movimento, `[GLOBAL_AUDIO]`, etichette CHARACTER/OUTFIT_LOCATION/ACTION e le sei sezioni MiniMax. I parser e i controlli di durata restano nel codice. Modificare le istruzioni non disattiva tali controlli e non garantisce che un LLM segua sempre il template.
+Vincoli tecnici da conservare: numerazione Photo/panel, intervalli della timeline, campi separati da `|`, etichette di inquadratura/movimento, `[GLOBAL_AUDIO]`, etichette CHARACTER/OUTFIT_LOCATION/ACTION e le sezioni MiniMax richieste dal profilo (tre base o sei reference). I parser e i controlli di durata restano nel codice. Modificare le istruzioni non disattiva tali controlli e non garantisce che un LLM segua sempre il template.
 
 I file vuoti normalmente generano un errore esplicito, così l'app non sostituisce le personalizzazioni con altre istruzioni nascoste. Solo `Scene_Consistency.txt`, `Output_Language.txt` e `Negative Prompt.txt` possono essere vuoti per disattivare il relativo contributo. Il prompt negativo viene inviato al workflow LTX, non al LLM. I limiti di token, i dati di input e il protocollo chat del modello restano gestiti dal codice.
 
@@ -22,7 +22,7 @@ Copy a system `.txt` file into `suggestions/system/custom/`, keep its filename, 
 
 Templates are read for each new request. Existing system text in the UI remains the user's current state; reselect the preset/mode to rebuild it. Running requests keep their original instructions. Task templates, user/reference data, selected presets and applicable shared rules form the prompt; not every template applies to every task.
 
-Customize tone and guidance while retaining required input placeholders and output formats. Placeholder names are case-sensitive. Unknown placeholders fail clearly; braces in user-provided text are not recursively expanded. Removing a placeholder removes that input from the request. Preserve Photo/panel numbering, timeline intervals, pipe-separated fields, allowed shot/camera labels, `[GLOBAL_AUDIO]`, catalog extraction labels and the six MiniMax sections. Parsers, duration validation, token limits and chat protocol stay in code.
+Customize tone and guidance while retaining required input placeholders and output formats. Placeholder names are case-sensitive. Unknown placeholders fail clearly; braces in user-provided text are not recursively expanded. Removing a placeholder removes that input from the request. Preserve Photo/panel numbering, timeline intervals, pipe-separated fields, allowed shot/camera labels, `[GLOBAL_AUDIO]`, catalog extraction labels and the MiniMax sections required by the profile (three base or six reference). Parsers, duration validation, token limits and chat protocol stay in code.
 
 Empty task templates fail explicitly. Empty overrides are supported only for `Scene_Consistency.txt`, `Output_Language.txt` and `Negative Prompt.txt`. The negative prompt is a workflow input, not an LLM instruction. `text_only.txt` is a compatibility preset; current text-only generation uses `Text_Only_Template.txt`. Other style presets and JSON catalogs are separate; this override mechanism covers system templates only.
 
@@ -38,6 +38,15 @@ Empty task templates fail explicitly. Empty overrides are supported only for `Sc
 | [Master_Director_Template.txt](Master_Director_Template.txt) | `{audio_section}`, `{cronologia}`, `{frame_context}`, `{regole_estetiche_regista}` |
 | [Master_Storyboard_Template.txt](Master_Storyboard_Template.txt) | `{num_pannelli_int}`, `{regole_estetiche_storyboard}`, `{shape_desc}` |
 | [Master_Vision_Template.txt](Master_Vision_Template.txt) | `{regole_estetiche_vision}` |
+| [MiniMax_Base_Compiler.txt](MiniMax_Base_Compiler.txt) | `{canonical}` |
+| [MiniMax_Align_First.txt](MiniMax_Align_First.txt) | — |
+| [MiniMax_Align_First_Last.txt](MiniMax_Align_First_Last.txt) | `{duration}`, `{shot}` |
+| [MiniMax_Align_Last.txt](MiniMax_Align_Last.txt) | `{duration}`, `{shot}` |
+| [MiniMax_Middle_Guide.txt](MiniMax_Middle_Guide.txt) | — |
+| [MiniMax_Reference_Roles.txt](MiniMax_Reference_Roles.txt) | `{roles}` |
+| [MiniMax_Legacy_Audio.txt](MiniMax_Legacy_Audio.txt) | — |
+| [MiniMax_Legacy_Music.txt](MiniMax_Legacy_Music.txt) | — |
+| [Video_Middle_Context.txt](Video_Middle_Context.txt) | `{description}` |
 | [MiniMax_Compiler.txt](MiniMax_Compiler.txt) | `{canonical}`, `{reference_context}` |
 | [MiniMax_Legacy_Format.txt](MiniMax_Legacy_Format.txt) | `{refs}`, `{sound}`, `{subject}`, `{text}` |
 | [MiniMax_No_References.txt](MiniMax_No_References.txt) | — |

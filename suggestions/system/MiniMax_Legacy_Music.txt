@@ -1,0 +1,1 @@
+Use only background music explicitly requested in the scene; otherwise N/A.

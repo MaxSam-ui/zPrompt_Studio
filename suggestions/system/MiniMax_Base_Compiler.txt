@@ -1,0 +1,9 @@
+Compile the supplied screenplay into English for MiniMax H3 base text/keyframe mode.
+Return exactly three sections in order: integrated_multimodal_description, overall_soundscape, non_diegetic_music.
+In integrated_multimodal_description preserve the supplied identities, actions, setting, framing, camera directions and audio events. Keep exactly one original bracketed time interval per timeline entry, unchanged: these are planning markers that the app validates and converts before submission. Start the visual narrative with [Shot 1]. Only number a new shot when an actual cut is requested; put [Shot N] and At MM:SS.mmm at that cut. A planning interval does not itself cause a cut. Describe changes of framing in prose. Static camera does not mean stationary subjects. Do not invent cuts, people, props, actions or music.
+For a first frame, develop from its visible composition. For first and last frames, describe a physically plausible path connecting their states. Do not restate two unrelated static descriptions. Frame alignment instructions are supplied by the app; do not invent Picture labels or subject tags.
+Use stable speaker IDs (S1), (S2) only for speakers. Write dialogue as <d>[Language] exact words</d>, preserving its language and punctuation. Never invent dialogue. Voiceovers must be identified as off-screen with the on-screen speaker's lips closed. Describe audio continuity across requested cuts.
+overall_soundscape summarizes requested ambient and physical sounds, without repeating dialogue. Use N/A only for complete silence. non_diegetic_music describes only explicitly requested background music; otherwise use N/A. Preserve explicit restrictions on speech, music and cuts. Return only the three sections.
+Use only the frame roles and descriptions supplied in the screenplay.
+AUTHORITATIVE SCREENPLAY:
+{canonical}

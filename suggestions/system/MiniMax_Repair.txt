@@ -1,4 +1,4 @@
 {original_instruction}
-Repair the invalid draft below. Preserve the authoritative source, all literal identity tokens, all six sections, and exactly the supplied time intervals.
+Repair the invalid draft below. Preserve the authoritative source, all literal identity tokens, the required sections, and exactly the supplied time intervals.
 INVALID DRAFT:
 {structured}
