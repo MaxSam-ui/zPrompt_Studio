@@ -1,34 +1,28 @@
-# One idea, three visual treatments
+# Above the Clouds — one idea, three worlds
 
 [Italiano](STYLE_DEMO.it.md)
 
-[![Compare the three actual outputs](assets/style-demo/comparison.jpg)](assets/style-demo/styles.mp4)
+[![Above the Clouds](assets/sky-demo/preview.jpg)](assets/sky-demo/above-the-clouds.mp4)
 
-**[Watch the 27-second comparison](assets/style-demo/styles.mp4)** · [Exact prompts and measured times](assets/style-demo/prompts.json)
+**[Watch the 26-second demo](assets/sky-demo/above-the-clouds.mp4)** · [Actual prompts and timings](assets/sky-demo/prompts.json)
 
-This is an edited slideshow of real outputs generated through Studio's prompt and rendering functions, not a screen recording. Generation waits are omitted. No reference image or optional LoRA was used. The prompts were not manually rewritten for the demo.
+An explorer in an amber jacket reaches an abandoned observatory above an ocean of clouds. Three real Studio interpretations of the same idea. This is an edited slideshow of still images, not AI-generated motion; generation waits are omitted.
 
-## Try it yourself
+## Reproduce the trial
 
-1. In **Analysis**, enable **Text only** and enter `A dog on a street.` in the description field.
-2. Choose **01_Natural_Photography** and create the prompt. Read the resulting lighting, color and composition instructions.
-3. In **Rendering**, use Krea-2 Turbo, classic single-image mode, one copy, 1024 × 576 and fixed seed **12112026**. Keep both workflow passes and no optional LoRAs. Generate.
-4. Repeat with **09_Ridley_Scott_Industrial_SciFi**, then **11_Wes_Anderson_Graphic_Cinema**, keeping the input and render settings unchanged.
+1. Enable **Text only** in Analysis and paste the description below.
+2. Select **09_Ridley_Scott_Industrial_SciFi** and create the prompt with Qwen3-VL 4B abliterated, output limit 320 tokens.
+3. In Rendering use **Krea-2 Turbo**, classic mode, one copy, **1536 × 864**, fixed seed **12112026**, and no optional LoRAs. Keep both workflow passes.
+4. Repeat with **10_Denis_Villeneuve_Monumental_SciFi** and **11_Wes_Anderson_Graphic_Cinema**, keeping the description and settings unchanged.
 
-The prompt model used here is Qwen3-VL 4B abliterated, with a 320-token output limit. Actual elapsed times, including model loading where applicable, are in the accompanying JSON. Hardware, caching and model versions affect timing and results. The fixed image seed does not make LLM prompt generation deterministic.
+> A lone adult female explorer in an amber jacket reaches an abandoned observatory along a narrow elevated walkway above an ocean of clouds at sunset. Live-action cinematic photography. Show both the explorer and the observatory, with a clear sense of height and depth. No other people, no text.
 
-## What to look for
+## What to compare
 
-Compare lighting, palette, texture and composition. A style supplies visual instructions; it does not guarantee a particular result. With such a short text-only idea, the LLM must fill in unspecified details: the dog and street can differ. This is a practical end-to-end example, not a controlled identity-preservation benchmark.
+Lighting, materials, palette and composition. The LLM prompts were not manually rewritten. A shared seed does not lock character identity or architecture: generated details can vary. The JSON includes measured timings, including loading where applicable; hardware and caching affect waits.
 
-The matching Video direction style is selected automatically when you choose the image style in Analysis. You can override it in Video; existing ideas, timelines and prompts are not rewritten. This comparison itself contains still images, not AI-generated video motion.
+![Three-style comparison](assets/sky-demo/comparison.jpg)
 
-### Verified correction
+Choosing the Analysis style also selects its matching Video direction preset. You can override it; existing text is not rewritten.
 
-The original Graphic Cinema preset produced an illustration-like result. We made live-action photography explicit in the shared image and video instructions and repeated one generation with the same idea, seed and settings. The new result is photographic; the main comparison shows this version. This is one successful check, not a guarantee for every scene. Prompts were not manually rewritten.
-
-![Before](assets/style-demo/graphic-before.jpg)
-
-![After](assets/style-demo/graphic-after.jpg)
-
-[Initial prompts](assets/style-demo/initial-prompts.json) · [Retest prompt and timings](assets/style-demo/retest.json)
+[Previous technical trial and preset correction](STYLE_TECHNICAL.md)

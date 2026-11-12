@@ -19,15 +19,14 @@ To report a problem, include reproduction steps, the selected workflow/model, GP
 
 </details>
 
-## One idea, three styles
+## Above the Clouds: one idea, three worlds
 
-Watch a **27-second comparison of actual text-only outputs**, then follow the steps to reproduce it. The slideshow omits generation waits.
+Watch a **26-second comparison of actual text-only outputs**, then follow the steps to reproduce it. The slideshow omits generation waits.
 
-[![One idea, three styles](assets/style-demo/comparison.jpg)](STYLE_DEMO.md)
+[![One idea, three styles](assets/sky-demo/preview.jpg)](STYLE_DEMO.md)
 
-[Watch the mini demo](assets/style-demo/styles.mp4) · [Try it yourself](STYLE_DEMO.md)
+[Watch the mini demo](assets/sky-demo/above-the-clouds.mp4) · [Try it yourself](STYLE_DEMO.md)
 
-**[24-second interface tour](assets/ui-tour/quick-tour.mp4)** — where to enter an idea, select a style and generate. Edited real UI screenshots with completed results, not a continuous generation recording.
 
 ## Try it on Windows
 

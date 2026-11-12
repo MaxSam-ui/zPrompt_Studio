@@ -1,0 +1,31 @@
+{
+  "idea": "A lone adult female explorer in an amber jacket reaches an abandoned observatory along a narrow elevated walkway above an ocean of clouds at sunset. Live-action cinematic photography. Show both the explorer and the observatory, with a clear sense of height and depth. No other people, no text.",
+  "seed": 12112026,
+  "size": [
+    1536,
+    864
+  ],
+  "model": "Qwen3-VL 4B abliterated",
+  "workflow": "Krea-2 Turbo, both passes",
+  "prompt_limit": 320,
+  "styles": [
+    {
+      "style": "09_Ridley_Scott_Industrial_SciFi",
+      "prompt": "A lone adult female explorer in a weathered amber jacket stands atop a rusted metal walkway suspended high above a swirling sea of clouds at golden sunset, her silhouette sharply defined against the horizon; below, the ruins of an abandoned observatory loom in shadowed decay, its broken windows and corroded framework receding into atmospheric haze, emphasizing vertical scale and spatial depth; industrial textures\u2014grime-streaked railings, oxidized steel, fractured glass\u2014are rendered under harsh directional sunlight casting long, cold shadows across terrain and structure, while warm lens flare glints off the edge of her coat\u2019s collar, capturing a single breathless moment of isolation amid desolation, live-action cinematic photograph with shallow depth-of-field isolating her form while preserving architectural ruin context, no other figures, no text.",
+      "prompt_seconds": 43.42,
+      "render_seconds": 78.25
+    },
+    {
+      "style": "10_Denis_Villeneuve_Monumental_SciFi",
+      "prompt": "A lone adult female explorer, clad in a textured amber jacket, stands at the edge of a decaying, rust-flecked observatory perched atop a slender, metallic elevated walkway suspended high above a swirling sea of dense, luminous clouds \u2014 the sun dips low behind distant horizons casting long, directional golden shadows across her figure and the structure. The observatory\u2019s broken windows reflect fractured twilight hues; wind-swept metal railings curve beneath her feet, leading the eye upward toward the vast, turbulent cloud expanse below. Her posture is alert yet grounded, hand resting lightly on a corroded railing, eyes fixed ahead \u2014 silent, solitary, monumental scale emphasized by empty sky and minimal foreground debris. Cinematic live-action realism, shallow depth-of-field isolating her form against layered atmospheric gradients, muted industrial tones contrasted with fiery sunset backlighting, no other figures, no text. Aspect ratio: 21:9.",
+      "prompt_seconds": 15.07,
+      "render_seconds": 30.12
+    },
+    {
+      "style": "11_Wes_Anderson_Graphic_Cinema",
+      "prompt": "Live-action photographic cinema: A lone adult female explorer in a detailed amber jacket stands atop a narrow, weathered metal elevated walkway overlooking a vast sea of billowing clouds below, her gaze fixed ahead toward a crumbling, ivy-clad abandoned observatory perched precariously high above \u2014 the structure\u2019s rusted railings and broken windows clearly visible against the twilight sky. The sun dips low behind distant hills, casting long golden shadows across the walkway and illuminating dust motes in the air; soft, directional sunlight highlights textures of worn metal, moss, and fabric, contrasting with deepening blues and purples in the cloud layer beneath. Composition balances the figure centrally but emphasizes scale via leading lines of the walkway receding into mist, conveying immense verticality and isolation. No other humans, no text, no artificial structures beyond the observatory and walkway. Realistic textures, natural skin tones, sharp focus on foreground elements fading softly into atmospheric haze. Aspect ratio: 2:1.",
+      "prompt_seconds": 16.38,
+      "render_seconds": 30.17
+    }
+  ]
+}

@@ -1,34 +1,28 @@
-# Una sola idea, tre trattamenti visivi
+# Above the Clouds — una sola idea, tre mondi
 
 [English](STYLE_DEMO.md)
 
-[![Confronto tra i tre risultati reali](assets/style-demo/comparison.jpg)](assets/style-demo/styles.mp4)
+[![Above the Clouds](assets/sky-demo/preview.jpg)](assets/sky-demo/above-the-clouds.mp4)
 
-**[Guarda il confronto di 27 secondi](assets/style-demo/styles.mp4)** · [Prompt esatti e tempi misurati](assets/style-demo/prompts.json)
+**[Guarda la demo di 26 secondi](assets/sky-demo/above-the-clouds.mp4)** · [Prompt e tempi reali](assets/sky-demo/prompts.json)
 
-È un montaggio di risultati reali ottenuti tramite le funzioni di creazione prompt e rendering di Studio, non una registrazione dello schermo. Le attese sono omesse. Non sono state usate immagini di riferimento né LoRA opzionali. I prompt della demo non sono stati riscritti manualmente.
+Un’esploratrice in giacca ambra raggiunge un osservatorio abbandonato sopra un oceano di nuvole. Tre interpretazioni della stessa idea, generate davvero con Studio. Il filmato è un montaggio di immagini statiche: non è un video animato dall’AI e le attese sono omesse.
 
-## Provalo anche tu
+## Riproduci la prova
 
-1. In **Analisi**, attiva **Solo testo** e scrivi `A dog on a street.` nel campo della descrizione.
-2. Scegli **01_Natural_Photography** e crea il prompt. Osserva le indicazioni su luce, colori e composizione.
-3. In **Rendering**, usa Krea-2 Turbo, modalità classica, una copia, 1024 × 576 e seed fisso **12112026**. Mantieni entrambe le fasi del workflow, senza LoRA opzionali. Genera.
-4. Ripeti con **09_Ridley_Scott_Industrial_SciFi** e **11_Wes_Anderson_Graphic_Cinema**, senza cambiare descrizione e impostazioni di rendering.
+1. In Analisi attiva **Solo testo** e incolla la descrizione qui sotto.
+2. Seleziona **09_Ridley_Scott_Industrial_SciFi** e crea il prompt con Qwen3-VL 4B abliterated, limite 320 token.
+3. In Rendering usa **Krea-2 Turbo**, modalità classica, una copia, **1536 × 864**, seed fisso **12112026** e nessun LoRA opzionale. Mantieni entrambe le fasi del workflow.
+4. Ripeti con **10_Denis_Villeneuve_Monumental_SciFi** e **11_Wes_Anderson_Graphic_Cinema**, senza cambiare descrizione e impostazioni.
 
-Il modello dei prompt è Qwen3-VL 4B abliterated, con limite di 320 token. Il JSON allegato riporta i tempi reali, incluso il caricamento dove applicabile. Hardware, cache e versioni influiscono su tempi e risultati. Il seed immagine fisso non rende deterministica la generazione dei prompt dell’LLM.
+> A lone adult female explorer in an amber jacket reaches an abandoned observatory along a narrow elevated walkway above an ocean of clouds at sunset. Live-action cinematic photography. Show both the explorer and the observatory, with a clear sense of height and depth. No other people, no text.
 
-## Cosa osservare
+## Cosa confrontare
 
-Confronta luce, palette, materiali e composizione. Lo stile fornisce indicazioni visive, non garantisce un risultato preciso. Con un’idea così breve l’LLM completa i dettagli mancanti: cane e strada possono cambiare. È una prova pratica dell’intero percorso, non un confronto a identità bloccata.
+Luce, materiali, palette e composizione. I prompt sono prodotti dall’LLM senza riscrittura manuale. Lo stesso seed non blocca l’identità del personaggio né l’architettura: i dettagli possono cambiare. Il JSON riporta i tempi misurati, compreso il caricamento dove applicabile; hardware e cache influiscono sulle attese.
 
-Scegliendo lo stile in Analisi viene selezionato anche quello corrispondente nel Video. Puoi cambiarlo nel Video; idea, timeline e prompt già creati restano invariati. Questo confronto mostra immagini statiche, non movimento video generato dall’AI.
+![Confronto dei tre stili](assets/sky-demo/comparison.jpg)
 
-### Correzione verificata
+Scegliendo lo stile in Analisi viene selezionato anche quello corrispondente nel Video. Puoi modificarlo; i testi già creati non vengono riscritti.
 
-Il primo preset Graphic Cinema ha prodotto una resa illustrata. Abbiamo reso esplicita la fotografia dal vivo nelle istruzioni condivise di immagini e video e ripetuto una generazione con la stessa idea, seed e impostazioni. Il nuovo risultato è fotografico; il confronto principale mostra questa versione. È una verifica singola, non una garanzia su ogni scena. I prompt non sono stati ritoccati manualmente.
-
-![Before](assets/style-demo/graphic-before.jpg)
-
-![After](assets/style-demo/graphic-after.jpg)
-
-[Initial prompts](assets/style-demo/initial-prompts.json) · [Retest prompt and timings](assets/style-demo/retest.json)
+[Prova tecnica precedente e correzione del preset](STYLE_TECHNICAL.it.md)
