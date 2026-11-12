@@ -14,7 +14,7 @@ spec.loader.exec_module(catalog)
 class SuggestionCatalogTest(unittest.TestCase):
     def test_common_styles_have_identical_visual_contract(self):
         data = json.loads((ROOT / 'suggestions/style_catalog.json').read_text())
-        self.assertEqual(len(data['styles']), 8)
+        self.assertEqual(len(data['styles']), 13)
         for name in data['styles']:
             vision = (ROOT / 'suggestions/vision' / (name + '.txt')).read_text(encoding='utf-8')
             direction = (ROOT / 'suggestions/direction' / (name + '.txt')).read_text(encoding='utf-8')
@@ -36,11 +36,11 @@ class SuggestionCatalogTest(unittest.TestCase):
             (root / 'style_catalog.json').write_text('broken')
             self.assertEqual(catalog.visible_presets(folder, names, session), names)
 
-    def test_clean_install_has_same_eight_choices_in_both_phases(self):
+    def test_clean_install_has_same_thirteen_choices_in_both_phases(self):
         with tempfile.TemporaryDirectory() as tmp:
             menus = []
             for phase in ('vision', 'direction'):
                 folder = ROOT / 'suggestions' / phase
                 menus.append(catalog.visible_presets(folder, sorted(p.stem for p in folder.glob('*.txt')), Path(tmp) / 'missing.json'))
             self.assertEqual(menus[0], menus[1])
-            self.assertEqual(len(menus[0]), 8)
+            self.assertEqual(len(menus[0]), 13)

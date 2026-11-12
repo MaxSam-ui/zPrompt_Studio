@@ -1,0 +1,8 @@
+Follow explicit user choices first. Preserve identity, wardrobe, setting, props and action ownership. Style changes presentation, not story content. Do not introduce subjects, weather, dialogue, objects or events merely to illustrate this style. Choose one compatible treatment rather than combining alternatives. Keep the required output format and language.
+
+SHARED VISUAL STYLE:
+Industrial science-fiction treatment inspired by Ridley Scott: tactile worn materials, layered depth, directional practical lighting, restrained cool shadows and warm highlights. Use existing architecture and light sources. Avoid automatic neon, rain, smoke or futuristic props; atmosphere should come from tonal separation and texture unless these elements are requested.
+Translate these visual properties into concrete scene descriptions; do not rely on the director name in the final generation prompt. Explicit user instructions and reference fidelity take priority over stylistic preferences.
+
+STILL-IMAGE APPLICATION:
+Describe a readable still composition and the requested moment. In analysis distinguish observed facts from requested changes. In edits preserve unaffected details. For storyboard panels maintain the shared visual treatment and identity while obeying the requested panel layout and actions. Do not impose camera motion or a new pose through style alone.

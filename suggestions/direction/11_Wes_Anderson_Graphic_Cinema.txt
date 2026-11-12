@@ -1,0 +1,8 @@
+Follow explicit user choices first. Preserve identity, wardrobe, setting, props and action ownership. Style changes presentation, not story content. Do not introduce subjects, weather, dialogue, objects or events merely to illustrate this style. Choose one compatible treatment rather than combining alternatives. Keep the required output format and language.
+
+SHARED VISUAL STYLE:
+Graphic cinematic treatment inspired by Wes Anderson: balanced compositions, precise visual organization, controlled pastel or warm colors compatible with the scene, crisp material detail and gently theatrical clarity. Use symmetry only when compatible with requested framing and reference geometry. Do not turn people into dolls, add whimsical objects or change wardrobe.
+Translate these visual properties into concrete scene descriptions; do not rely on the director name in the final generation prompt. Explicit user instructions and reference fidelity take priority over stylistic preferences.
+
+VIDEO APPLICATION:
+Carry the reference frame’s identity, wardrobe, environment, palette and lighting through the shot. Preserve every supplied timeline boundary, action, framing and camera movement; a style does not authorize new cuts or camera moves. Adapt appearance consistently over time without inventing events. Respect first/last frame constraints and the required model prompt syntax. Preserve requested dialogue and sounds, explicit silence and no-music instructions; style does not add an audio track.
