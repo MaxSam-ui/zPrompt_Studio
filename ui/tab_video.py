@@ -137,8 +137,7 @@ def crea_tab_video(
                         dropdown_sugg_screenplay = gr.Dropdown(
                             choices=choices_screenplay,
                             value=default_screen_preset,
-                            label=d.get("selettore_screenplay_label", "📋 Example ideas (optional)"),
-                            info=d.get("screenplay_example_info", ""),
+                            label=d.get("selettore_screenplay_label", "📋 Example ideas"),
                             allow_custom_value=False,
                             scale=1
                         )
