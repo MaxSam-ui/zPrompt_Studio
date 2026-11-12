@@ -305,6 +305,8 @@ def migliora_soggetto_con_vlm(soggetto_corrente, modello, stato_gen, prompt_img=
             yield soggetto_corrente, dl["analysis_empty_result"]
             return
         msg_success = dl.get("msg_subject_success", "✅ Cinematic subject successfully compiled from image!")
+        from utils.video_constraints import preserve_video_constraints
+        accumulato = preserve_video_constraints(accumulato, soggetto_corrente)
         yield accumulato.strip(), msg_success
     except InterruptedError:
         yield soggetto_corrente, dl["msg_interruzione_idea"]
@@ -635,7 +637,8 @@ def passa_timeline_a_gemma(prompt_img, model_vid, testo, audio_descrizione="", v
                 parts = minimax_sections(structured.strip())
                 aligned = align_director_prompt(parts['detailed_description'], lista_scene) if parts else None
                 if parts and aligned is not None:
-                    parts['detailed_description'] = aligned
+                    from utils.video_constraints import preserve_video_constraints
+                    parts['detailed_description'] = preserve_video_constraints(aligned, soggetto, audio_descrizione)
                     candidate = '\n\n'.join(f'{key}:\n{parts[key]}' for key in MINIMAX_SECTIONS)
                     if (not validate_video_request(candidate, sum(float(scene[0]) for scene in lista_scene))
                             and preserve_identity_tokens(candidate, source) == candidate):
@@ -702,6 +705,8 @@ def passa_timeline_a_gemma(prompt_img, model_vid, testo, audio_descrizione="", v
             log.registra("Director fallback: prompt assembled from the original timeline; incompatible model timing discarded.", "WARNING")
         from utils.director_prompt import finalize_director_subject
         compiled = finalize_director_subject(compiled, soggetto, fallback)
+        from utils.video_constraints import preserve_video_constraints
+        compiled = preserve_video_constraints(compiled, soggetto, audio_descrizione)
         status = dl["director_compile_fallback"] if fallback else dl["director_compile_success"]
         yield compiled, gr.update() if is_t2v else prompt_img, status
     except InterruptedError:

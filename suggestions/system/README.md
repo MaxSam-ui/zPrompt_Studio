@@ -66,3 +66,10 @@ Empty task templates fail explicitly. Empty overrides are supported only for `Sc
 | [Video_First_Last_Context.txt](Video_First_Last_Context.txt) | `{desc_last_frame}`, `{prompt_img}` |
 | [Video_Subject_Context.txt](Video_Subject_Context.txt) | `{soggetto}` |
 | [Video_Timeline_Repair.txt](Video_Timeline_Repair.txt) | `{audio_section}`, `{cronologia}`, `{draft}`, `{frame_block}`, `{soggetto}` |
+
+
+## Video restrictions / Vincoli video
+
+`Video_Constraint_Phrases.json` conserva alcune restrizioni esplicite dopo l’affinamento del soggetto e la compilazione video LTX/MiniMax. Riconosce clausole autonome IT/EN (niente musica, parlato o tagli), senza estendere frasi condizionali come “no music until the end”. Le istruzioni più complesse restano affidate al modello e vanno controllate. Non elimina automaticamente eventuali contraddizioni nella prosa generata. Copia il JSON in `system/custom/` per personalizzarlo; `{}` disattiva questo recupero. Nessuna ulteriore chiamata LLM.
+
+`Video_Constraint_Phrases.json` preserves supported standalone IT/EN restrictions after subject refinement and LTX/MiniMax compilation. Conditional phrases such as “no music until the end” are not expanded into global rules. Complex instructions still require model interpretation and review; conflicting generated prose is not automatically removed. Override it in `system/custom/`; `{}` disables this recovery. No additional LLM call is made.

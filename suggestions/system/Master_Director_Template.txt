@@ -14,3 +14,5 @@ Write spoken dialogue in quotation marks, identify its speaker and requested lan
 
 STYLE GUIDANCE:
 {regole_estetiche_regista}
+
+EXPLICIT RESTRICTIONS: Repeat user restrictions on music, speech and cuts explicitly in the final output, even when the timeline lists only ambient sounds. Do not infer silence from no music. Do not omit a restriction to meet a brevity target. A static camera keeps the framing fixed unless the user explicitly requests a framing change.

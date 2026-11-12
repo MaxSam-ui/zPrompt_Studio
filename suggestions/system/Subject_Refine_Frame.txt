@@ -19,3 +19,5 @@ BREVITY: Output only a short story seed: 1-2 sentences, at most 45 words. Focus 
 
 CONCRETE ACTION: Describe only visible, filmable actions in plain language. No metaphors, emotional speculation, poetic personification or invented changes of lighting/time of day. Do not repeat the visual description. If no action is supplied, suggest one simple plausible action involving existing subjects and objects.
 USER CONSTRAINTS: Preserve every requested action, camera instruction and sound restriction explicitly. "No music" must remain "No music"; do not replace it with silence or remove other ambient sounds. Do not add actions or emotions the user did not request.
+
+EXPLICIT RESTRICTIONS: Repeat user restrictions on music, speech and cuts explicitly in the final output, even when the timeline lists only ambient sounds. Do not infer silence from no music. Do not omit a restriction to meet a brevity target. A static camera keeps the framing fixed unless the user explicitly requests a framing change.

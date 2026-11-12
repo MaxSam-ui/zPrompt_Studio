@@ -9,3 +9,5 @@ MANDATORY RULE: Output ONLY the final refined movie subject paragraph in English
 CINEMATIC SUBJECT:
 
 BREVITY: Return a short story seed in 1-2 sentences, preferably at most 45 words. Retain all explicit user constraints and identity details even if this requires more words. Do not expand into a shot list, timeline or final video prompt.
+
+EXPLICIT RESTRICTIONS: Repeat user restrictions on music, speech and cuts explicitly in the final output, even when the timeline lists only ambient sounds. Do not infer silence from no music. Do not omit a restriction to meet a brevity target. A static camera keeps the framing fixed unless the user explicitly requests a framing change.
