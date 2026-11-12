@@ -191,6 +191,8 @@ def prepara_workflow_z_image(file_path, prompt_testo, l1_n, l1_s, l2_n, l2_s, l3
         w_base, h_base, scala_proporzionale = _calcola_basi_hires(larghezza, altezza, base_max=base_max)
 
     _imposta_risoluzione_standard(wf, w_base, h_base, copie)
+    from utils.prompt_aspect import align_prompt_aspect
+    prompt_testo = align_prompt_aspect(prompt_testo, larghezza, altezza)
     _imposta_prompt_standard(wf, prompt_testo)
     
     nuovo_seed = int(str(custom_seed).strip()) if (seed_mode == "fixed" and custom_seed is not None) else random.randint(1000000000000, 9999999999999)
@@ -289,6 +291,8 @@ def prepara_workflow_flux2(file_path, prompt_testo, l1_n, l1_s, l2_n, l2_s, l3_n
     cfg_val = p_adv.get("default_cfg", 1.0)
     
     _imposta_risoluzione_standard(wf, larghezza, altezza, copie)
+    from utils.prompt_aspect import align_prompt_aspect
+    prompt_testo = align_prompt_aspect(prompt_testo, larghezza, altezza)
     _imposta_prompt_standard(wf, prompt_testo)
 
     if "13" in wf:
@@ -394,6 +398,8 @@ def prepara_workflow_krea2(file_path, prompt_testo, l1_n, l1_s, l2_n, l2_s, l3_n
     nuovo_seed = int(str(custom_seed).strip()) if (seed_mode == "fixed" and custom_seed is not None) else random.randint(1000000000000, 9999999999999)
 
     _imposta_risoluzione_standard(wf, larghezza, altezza, copie)
+    from utils.prompt_aspect import align_prompt_aspect
+    prompt_testo = align_prompt_aspect(prompt_testo, larghezza, altezza)
     _imposta_prompt_standard(wf, prompt_testo)
 
     if "11" in wf:

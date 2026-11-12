@@ -26,3 +26,5 @@ Lighting, materials, palette and composition. The LLM prompts were not manually 
 Choosing the Analysis style also selects its matching Video direction preset. You can override it; existing text is not rewritten.
 
 [Previous technical trial and preset correction](STYLE_TECHNICAL.md)
+
+Explicit aspect-ratio annotations sent to standard image workflows now follow the selected render dimensions. The recorded prompts above remain the original, unedited outputs of the demo.

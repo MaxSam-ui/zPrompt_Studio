@@ -596,7 +596,7 @@ def collega_generazione(t1, t2, t3, t5, num_lora_vid, stato_generazione, stato_s
         })
         return preset_testo, nuovo_stato
 
-    t3["dropdown_sugg_screenplay"].change(
+    t3["dropdown_sugg_screenplay"].input(
         fn=on_screenplay_preset_change,
         inputs=[t3["dropdown_sugg_screenplay"], t3["sceneggiatura_prompt"], stato_generazione],
         outputs=[t3["sceneggiatura_prompt"], stato_generazione]

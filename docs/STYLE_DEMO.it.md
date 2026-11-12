@@ -26,3 +26,5 @@ Luce, materiali, palette e composizione. I prompt sono prodotti dall’LLM senza
 Scegliendo lo stile in Analisi viene selezionato anche quello corrispondente nel Video. Puoi modificarlo; i testi già creati non vengono riscritti.
 
 [Prova tecnica precedente e correzione del preset](STYLE_TECHNICAL.it.md)
+
+Le annotazioni esplicite sul rapporto d’aspetto inviate ai workflow immagine standard ora seguono le dimensioni selezionate. I prompt della demo restano gli output originali, non modificati.
