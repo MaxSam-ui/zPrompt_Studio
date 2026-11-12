@@ -1,7 +1,7 @@
 # events/eventi_analisi.py
 
 import gradio as gr
-from core import sessione, log, lingua
+from core import sessione, log, lingua, config
 from services import comfyui_manager, local_vlm
 from utils.media_utils import gestore_analisi_adattivo, aggiorna_dopo_analisi
 
@@ -77,7 +77,23 @@ def sincronizza_analisi_valida(prompt, image, status):
     return aggiorna_dopo_analisi(prompt, image)
 
 
+def sincronizza_stile_video(scelta):
+    """Mirror explicit user selections only, without rewriting generated text."""
+    scelte = config.elenca_suggerimenti(config.SUGGESTION_DIRECTION_DIR)
+    if scelta != "-" and scelta not in scelte:
+        return gr.update()
+    sessione.salva_sessione({"suggerimento_regia_selezionato": scelta})
+    return gr.update(choices=["-"] + scelte, value=scelta)
+
+
 def collega_analisi(t1, t2, t3, t5, stato_generazione):
+    # .input excludes programmatic updates from session loading/language changes.
+    t1["dropdown_sugg_vision"].input(
+        fn=sincronizza_stile_video,
+        inputs=[t1["dropdown_sugg_vision"]],
+        outputs=[t3["dropdown_sugg_director"]],
+        queue=False, show_progress="hidden"
+    )
     t1["btn_analyze"].click(
         fn=lambda solo_testo, hints: (
             gr.update(interactive=False, value="⏳..."), 
