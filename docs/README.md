@@ -97,7 +97,7 @@ A new text-guided generation; character continuity is approximate. [Prompts, see
 
 1. **Download:** clone the repository, or choose **Code → Download ZIP** and extract it into a writable folder.
 2. **Launch:** run **`zPrompt_Studio.bat`**. It starts installation automatically if the environment or main dependencies are missing. Keep the terminal open.
-3. **Connect ComfyUI:** in **Logs & Settings → Local ComfyUI**, use **Choose folder** (or paste a path) to select the Windows Portable folder containing `ComfyUI` and `python_embeded`. Use **Check and save folder**, then restart Studio. If neither a reachable server nor a valid local folder is found, a setup panel also appears at the top of the app.
+3. **Connect ComfyUI:** in **Logs & Settings → Local ComfyUI**, use **Choose folder** (or paste a path) to select the Windows Portable folder containing `ComfyUI` and `python_embeded`. Use **Check and save folder**, then restart Studio. If neither a reachable server nor a valid local folder is found, the launcher first opens a small setup window. Choose the folder and click **Save and start**: the window closes and Studio starts with the saved path, without a restart.
 4. **Try an image:** in Analysis enable **Text only**, enter a description and create a prompt; then generate in Rendering. The local LLM/VLM may download on first use.
 
 The download includes the app, workflow files and example presets. It does not include ComfyUI, model weights or LoRAs.

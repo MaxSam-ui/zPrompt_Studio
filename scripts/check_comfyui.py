@@ -18,7 +18,7 @@ try:
         print("[OK] ComfyUI portable Python and main.py found.")
     except ValueError:
         print("[CONFIG] ComfyUI portable installation is missing or incomplete.")
-        print("Studio will show a ComfyUI setup panel. You can also use Logs & Settings > Folders.")
+        print("The start launcher opens a separate ComfyUI setup window. You can also use Logs & Settings > Folders.")
         print("Paste the folder containing python_embeded and ComfyUI, then click Check and save folder.")
         print("Restart Studio after saving. Image/video generation needs a working ComfyUI server.")
 

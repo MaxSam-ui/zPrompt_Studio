@@ -62,13 +62,15 @@ def resolve_portable(value, root):
     return str(folder)
 
 
-def save_portable(value, root, settings_path):
+def save_portable(value, root, settings_path, defaults=None):
     folder = resolve_portable(value, root)
     target = Path(settings_path)
-    settings = json.loads(target.read_text(encoding='utf-8-sig'))
+    settings = (dict(defaults) if not target.exists() and defaults is not None
+                else json.loads(target.read_text(encoding='utf-8-sig')))
     if not isinstance(settings, dict):
         raise ValueError('Settings must be a JSON object')
     settings['COMFYUI_DIR'] = folder
+    target.parent.mkdir(parents=True, exist_ok=True)
     temporary = None
     try:
         with tempfile.NamedTemporaryFile(mode='w', encoding='utf-8', dir=target.parent,

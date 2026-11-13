@@ -15,7 +15,8 @@ echo Installing application dependencies. Internet access is required.
 call scripts\install.bat --from-start
 if errorlevel 1 goto setup_failed
 :ready
-"venv\Scripts\python.exe" scripts\check_comfyui.py
+"venv\Scripts\python.exe" scripts\comfyui_setup_window.py
+if errorlevel 2 exit /b 0
 echo Loading AI libraries and web interface...
 echo The first startup may take some time. Keep this window open.
 echo The browser will open when the server is ready.
