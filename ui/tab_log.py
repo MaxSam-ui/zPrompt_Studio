@@ -335,6 +335,11 @@ def crea_tab_log(d: Dict[str, str], s: Dict[str, Any]) -> Dict[str, Any]:
                     comfy_help = gr.Markdown(setup_text)
                     comfy_path = gr.Textbox(value=config.COMFYUI_DIR, label=setup_label)
                     comfy_save = gr.Button(setup_button, size="sm")
+                    comfy_browse = gr.Button("Scegli cartella" if lingua_avvio == "IT" else "Choose folder", size="sm")
+                    from ui.comfyui_setup import browse
+                    comfy_picker_status = gr.Markdown()
+                    comfy_browse.click(browse, selettore_lingua, [comfy_path, comfy_picker_status], concurrency_limit=1)
+                    selettore_lingua.change(lambda lang: gr.update(value="Scegli cartella" if lang == "IT" else "Choose folder"), selettore_lingua, comfy_browse, show_progress="hidden")
 
                     def save_comfy(value, lang):
                         from core.comfyui_setup import save_portable

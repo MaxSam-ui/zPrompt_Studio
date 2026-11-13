@@ -79,6 +79,9 @@ with gr.Blocks(title="zPrompt Studio") as demo:
     btn_hard_reset = bar_dict["btn_hard_reset"]
     barra_sup_row = bar_dict["barra_superiore"]
 
+    from ui import comfyui_setup
+    setup_controls = comfyui_setup.create(s.get("lingua_selezionata", "IT"))
+
     num_lora_img = gr.State(value=s.get("lora_visibili_count", 1))
     num_lora_vid = gr.State(value=s.get("lora_video_visibili_count", 1))
     num_lora_batch = gr.State(value=s.get("lora_batch_visibili_count", 1)) 
@@ -91,6 +94,8 @@ with gr.Blocks(title="zPrompt Studio") as demo:
         t3 = tab_video.crea_tab_video(d, s, lista_modelli_vlm, [], testo_iniziale_timeline)
         t4 = tab_batch.crea_tab_batch(d, s, lista_modelli_vlm, [])
         t5 = tab_log.crea_tab_log(d, s)
+
+    comfyui_setup.connect(demo, setup_controls, t5["selettore_lingua"])
 
     # MODALE LIGHTBOX UNICO GLOBALE
     gr.HTML(value=media_utils.ottieni_lightbox_modal_html(), visible=True)

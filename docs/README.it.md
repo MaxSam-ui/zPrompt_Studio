@@ -97,7 +97,7 @@ Una nuova generazione guidata dal testo; la continuità del personaggio è appro
 
 1. **Scarica:** clona il repository oppure scegli **Code → Download ZIP** ed estrai il contenuto in una cartella scrivibile.
 2. **Avvia:** esegui **`zPrompt_Studio.bat`**. Se mancano l’ambiente o le dipendenze principali, l’installazione parte automaticamente. Lascia aperto il terminale.
-3. **Collega ComfyUI:** in **Registri e impostazioni → ComfyUI locale**, indica la cartella Windows Portable che contiene `ComfyUI` e `python_embeded`. Premi **Verifica e salva cartella**, poi riavvia Studio.
+3. **Collega ComfyUI:** in **Registri e impostazioni → ComfyUI locale**, premi **Scegli cartella** (oppure incolla il percorso) e seleziona la cartella Windows Portable che contiene `ComfyUI` e `python_embeded`. Premi **Verifica e salva cartella**, poi riavvia Studio. Se non trova né un server raggiungibile né una cartella locale valida, l’app mostra anche un riquadro di configurazione in alto.
 4. **Prova un’immagine:** in Analisi attiva **Solo testo**, scrivi una descrizione e crea il prompt; poi genera in Rendering. Il modello LLM/VLM locale può essere scaricato al primo utilizzo.
 
 Il download comprende l’app, i workflow e i preset di esempio. Non comprende ComfyUI, pesi dei modelli o LoRA.
