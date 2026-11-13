@@ -48,7 +48,7 @@ except Exception:
     pass
 
 s = sessione.carica_ultima_sessione()
-d = lingua.ottieni_dizionario_lingua(s.get("lingua_selezionata", "IT"))
+d = lingua.ottieni_dizionario_lingua(s.get("lingua_selezionata", "EN"))
 
 modello_warmup = s.get("modello_vlm") or "huihui_ai/qwen3-vl-abliterated:4b"
 
@@ -80,7 +80,7 @@ with gr.Blocks(title="zPrompt Studio") as demo:
     barra_sup_row = bar_dict["barra_superiore"]
 
     from ui import comfyui_setup
-    setup_controls = comfyui_setup.create(s.get("lingua_selezionata", "IT"))
+    setup_controls = comfyui_setup.create(s.get("lingua_selezionata", "EN"))
 
     num_lora_img = gr.State(value=s.get("lora_visibili_count", 1))
     num_lora_vid = gr.State(value=s.get("lora_video_visibili_count", 1))

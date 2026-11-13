@@ -23,7 +23,7 @@ Start from text, a reference image or an existing prompt. You do not have to fol
 | [![Analysis interface](assets/studio-analysis.png)](assets/studio-analysis.png) | [![Rendering interface](assets/studio-rendering.png)](assets/studio-rendering.png) | [![Video interface](assets/studio-video.png)](assets/studio-video.png) |
 | Turn text or a reference into an editable image prompt. | Generate or edit images, refine descriptions and compare results. | Let AI suggest an idea from your image, create a timeline and generate a video. |
 
-*Click a screenshot to enlarge it. These are real UI components with completed lighthouse examples preloaded, not a recording of generation. The interface supports English and Italian.*
+*Click a screenshot to enlarge it. These are real UI components with completed lighthouse examples preloaded, not a recording of generation. The interface starts in English on a fresh installation. You can choose Italian in Logs & Settings; your choice is saved.*
 
 Also included:
 

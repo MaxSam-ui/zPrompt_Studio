@@ -128,7 +128,7 @@ def elenca_files_in_cartelle(nomi_cartelle: list, estensioni=(".safetensors", ".
 
 def compila_dashboard_modelli_html() -> str:
     s_attiva = sessione.carica_ultima_sessione()
-    lang = s_attiva.get("lingua_selezionata", "IT")
+    lang = s_attiva.get("lingua_selezionata", "EN")
     dl = lingua.LINGUE.get(lang, lingua.LINGUE.get("IT", {}))
 
     vlm_cache_dir = get_cache_dir()
@@ -293,7 +293,7 @@ def compila_dashboard_modelli_html() -> str:
 
 def crea_tab_log(d: Dict[str, str], s: Dict[str, Any]) -> Dict[str, Any]:
     with gr.Tab(d.get("tab_log", "Logs & Settings"), elem_id="tab-log") as tab_el:
-        lingua_avvio = s.get("lingua_selezionata", "IT")
+        lingua_avvio = s.get("lingua_selezionata", "EN")
 
         with gr.Row(equal_height=False, elem_id="row-settings", elem_classes=["studio-workspace"]):
             with gr.Column(scale=8, min_width=340, elem_id="studio-logs", elem_classes=["analisi-col-box"]):

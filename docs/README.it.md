@@ -23,7 +23,7 @@ Puoi partire da testo, da un’immagine di riferimento o da un prompt già pront
 | [![Interfaccia Analisi](assets/studio-analysis.png)](assets/studio-analysis.png) | [![Interfaccia Rendering](assets/studio-rendering.png)](assets/studio-rendering.png) | [![Interfaccia Video](assets/studio-video.png)](assets/studio-video.png) |
 | Trasforma testo o riferimenti in un prompt immagine modificabile. | Genera o modifica immagini, affina le descrizioni e confronta i risultati. | Ricava un’idea dall’immagine con l’AI, crea la timeline e genera un video. |
 
-*Clicca sulle schermate per ingrandirle. Sono componenti reali della UI con gli esempi del faro già caricati, non una registrazione della generazione. L’interfaccia supporta inglese e italiano.*
+*Clicca sulle schermate per ingrandirle. Sono componenti reali della UI con gli esempi del faro già caricati, non una registrazione della generazione. Alla prima installazione l’interfaccia parte in inglese. Puoi scegliere l’italiano in Logs & Settings; la scelta viene salvata.*
 
 Sono inclusi anche:
 

@@ -69,7 +69,7 @@ def ottieni_dizionario_lingua(lang_code: str) -> dict:
     """Restituisce il dizionario della lingua con fallback automatico a cascata."""
     if not lang_code or not isinstance(lang_code, str):
         s_reale = sessione.carica_ultima_sessione()
-        lang_code = s_reale.get("lingua_selezionata", "IT")
+        lang_code = s_reale.get("lingua_selezionata", "EN")
 
     d_base = LINGUE.get("IT", LINGUE.get("EN", {}))
     d_target = LINGUE.get(lang_code, {})
@@ -98,7 +98,7 @@ def analysis_hints_options(d, text_only):
 
 def traduce_tab_analisi(is_solo_testo=None):
     s_reale = sessione.carica_ultima_sessione()
-    lang = s_reale.get("lingua_selezionata", "IT")
+    lang = s_reale.get("lingua_selezionata", "EN")
     d = ottieni_dizionario_lingua(lang)
     solo_attivo = s_reale.get("solo_testo_attivo", False) if is_solo_testo is None else bool(is_solo_testo)
     btn_label_t1 = d.get("btn_genera_prompt_testo", "Generate Prompt") if solo_attivo else d.get("btn_analizza", "Analyze")
@@ -120,7 +120,7 @@ def traduce_tab_analisi(is_solo_testo=None):
 
 def traduce_tab_rendering():
     s_reale = sessione.carica_ultima_sessione()
-    lang = s_reale.get("lingua_selezionata", "IT")
+    lang = s_reale.get("lingua_selezionata", "EN")
     d = ottieni_dizionario_lingua(lang)
 
     mode_str = str(s_reale.get("generation_mode", "")).lower()
@@ -216,7 +216,7 @@ def traduce_tab_rendering():
 
 def traduce_tab_video():
     s_reale = sessione.carica_ultima_sessione()
-    lang = s_reale.get("lingua_selezionata", "IT")
+    lang = s_reale.get("lingua_selezionata", "EN")
     d = ottieni_dizionario_lingua(lang)
 
     from utils.media_utils import calcola_stato_spia_video, compila_striscia_video_html, calcola_frames_tab_video
@@ -284,7 +284,7 @@ def traduce_tab_video():
 
 def traduce_tab_batch():
     s_reale = sessione.carica_ultima_sessione()
-    lang = s_reale.get("lingua_selezionata", "IT")
+    lang = s_reale.get("lingua_selezionata", "EN")
     d = ottieni_dizionario_lingua(lang)
     label_forza = d.get("forza_lora", "Strength")
 
@@ -324,7 +324,7 @@ def traduce_interfaccia_globale(lang):
     """Esegue la traduzione simultanea e istantanea di TUTTI i tab dell'applicazione."""
     if not lang or not isinstance(lang, str):
         s_reale = sessione.carica_ultima_sessione()
-        lang = s_reale.get("lingua_selezionata", "IT")
+        lang = s_reale.get("lingua_selezionata", "EN")
 
     carica_lingue_da_disco()
     sessione.salva_sessione({"lingua_selezionata": lang})
