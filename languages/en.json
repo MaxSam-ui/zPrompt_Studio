@@ -456,7 +456,7 @@
     "video_restore_text": "↶ Restore previous text",
   "quick_usage_hints": {
     "help_analysis_short": "Turn an image or text into a prompt.",
-    "help_subject_short": "Write an idea or let AI suggest one from the image.",
+    "help_subject_short": "Write an idea or let AI use the image.",
     "help_timeline_short": "Actions and timing: write them yourself or use AI.",
     "help_video_prompt_short": "The final description used to generate the video."
   }
