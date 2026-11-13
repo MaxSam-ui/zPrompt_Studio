@@ -15,9 +15,11 @@ Puoi partire da testo, da un’immagine di riferimento o da un prompt già pront
 | Analisi | Rendering | Video |
 | --- | --- | --- |
 | [![Interfaccia Analisi](assets/studio-analysis.png)](assets/studio-analysis.png) | [![Interfaccia Rendering](assets/studio-rendering.png)](assets/studio-rendering.png) | [![Interfaccia Video](assets/studio-video.png)](assets/studio-video.png) |
-| Trasforma testo o riferimenti in un prompt immagine modificabile. | Genera o modifica immagini, affina le descrizioni e confronta i risultati. | Sviluppa un’idea, organizza la timeline e genera un video. |
+| Trasforma testo o riferimenti in un prompt immagine modificabile. | Genera o modifica immagini, affina le descrizioni e confronta i risultati. | Ricava un’idea dall’immagine con l’AI, crea la timeline e genera un video. |
 
 *Clicca sulle schermate per ingrandirle. Sono componenti reali della UI con gli esempi del faro già caricati, non una registrazione della generazione. L’interfaccia supporta inglese e italiano.*
+
+**Puoi partire anche senza un’idea scritta:** seleziona un primo frame, disattiva Solo testo e lascia vuoto il soggetto. Premi **Crea / Migliora Soggetto**, poi **Scrivi Timeline → Crea Prompt Video → Genera Video**. L’AI prepara i contenuti; avvii ogni passaggio separatamente e puoi correggere i risultati.
 
 Sono inclusi anche:
 

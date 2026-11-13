@@ -30,6 +30,8 @@ Select **F** on the new image. In Video, verify the First Frame preview, disable
 
 Create/improve the subject. Check that the idea stays concise and preserves these constraints. Correct unwanted details before continuing.
 
+**Explore freely:** with the first frame selected and Text only disabled, leave the subject empty and click **Create / Enhance Subject**. AI suggests an action from the image. Continue with timeline, prompt and video, starting each step separately. To reproduce this demo, use the supplied text above instead.
+
 ## 4. Create the timeline and final prompt
 
 Set **10 seconds**, then create the timeline. The current procedure produces three spans: 0–3.3, 3.3–6.6 and 6.6–10 seconds. These should describe continuous action, without stylistically invented cuts or camera moves. Keep waves and wind, no speech or music.

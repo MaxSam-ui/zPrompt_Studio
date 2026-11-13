@@ -30,6 +30,8 @@ Seleziona **F** sull’immagine appena generata. Nel tab Video verifica che comp
 
 Usa Crea/migliora soggetto e verifica che resti breve e conservi questi vincoli. Correggi eventuali dettagli non desiderati prima di continuare.
 
+**Alternativa libera:** con il primo frame selezionato e Solo testo disattivato, lascia vuoto il soggetto e premi **Crea / Migliora Soggetto**: l’AI propone un’azione dall’immagine. Prosegui poi con timeline, prompt e video, avviando ciascun passaggio. Per riprodurre questa demo, usa invece il testo indicato sopra.
+
 ## 4. Timeline e prompt video
 
 Imposta **10 secondi**, poi genera la timeline. Il percorso attuale prevede tre segmenti: 0–3,3; 3,3–6,6; 6,6–10 secondi. Devono descrivere un’azione continua, senza cambi di camera o tagli richiesti soltanto dallo stile. Mantieni onde e vento, senza musica o parlato.
