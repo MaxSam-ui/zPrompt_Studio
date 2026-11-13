@@ -6,6 +6,8 @@ You do not need a finished idea or a carefully written prompt. zPrompt Studio he
 
 **Your starting point → AI-assisted idea and prompts → Images → Timeline → Video**
 
+**Make it your creative workspace:** turn your own ideas about cinema, photography and illustration into reusable suggestions. Start with the included examples, create your own styles and, when ready, customize compatible ComfyUI workflows. [Explore customization](#make-it-your-own).
+
 **English** · [Italiano](README.it.md)
 
 [Interface](#inside-the-app) · [Demo](#see-it-in-action) · [Get started](#get-started) · [Help](#guides-and-customization)
@@ -101,6 +103,17 @@ A new text-guided generation; character continuity is approximate. [Prompts, see
 The download includes the app, workflow files and example presets. It does not include ComfyUI, model weights or LoRAs.
 
 **[Guided image-to-video trial](FIRST_RUN.md)** · [Installation details (Italian)](LEGGIMI_INSTALLAZIONE.md) · [Folder setup and diagnostics](SETUP_REFERENCE.md)
+
+## Make it your own
+
+**The included suggestions are examples to build on. Your creative direction can be your own.**
+
+- **Your cinema, photography and image styles:** write reusable guidance for lighting, color, composition, camera movement and atmosphere. For example, create a restrained documentary look, a neon-lit science-fiction treatment or a personal portrait style.
+- **Your stories and scenes:** add subject ideas and suggestions for characters, settings and actions. Keep visual style separate from story content so you can reuse it across different scenes.
+- **Your image-to-video direction:** create matching image and video presets to carry the same visual intention through the process. Suggestions remain editable text files; no Python changes are needed to create creative presets.
+- **Your generation workflows:** advanced users can modify a supported workflow in ComfyUI, export it in API format and configure its matching profile for Studio. Compatible changes can be handled through profiles; a different node protocol or model architecture may require code changes. This is not a universal workflow importer.
+
+**[Create your own suggestions](CUSTOM_PRESETS.md)** · [Shared image/video styles](../suggestions/README.md) · **[Customize workflows and profiles](../workflows/PROFILES.md)**
 
 ## Guides and customization
 

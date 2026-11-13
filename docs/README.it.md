@@ -6,6 +6,8 @@ Non servono un’idea già completa o un prompt scritto alla perfezione. zPrompt
 
 **Il tuo spunto → Idea e prompt con l’AI → Immagini → Timeline → Video**
 
+**Fallo diventare il tuo spazio creativo:** trasforma le tue idee di cinema, fotografia e illustrazione in suggerimenti riutilizzabili. Parti dagli esempi inclusi, crea i tuoi stili e, quando vuoi, personalizza i workflow ComfyUI compatibili. [Scopri le personalizzazioni](#rendilo-tuo).
+
 [English](README.md) · **Italiano**
 
 [Interfaccia](#dentro-lapp) · [Demo](#guarda-la-demo) · [Primi passi](#primi-passi) · [Guida](#guide-e-personalizzazione)
@@ -101,6 +103,17 @@ Una nuova generazione guidata dal testo; la continuità del personaggio è appro
 Il download comprende l’app, i workflow e i preset di esempio. Non comprende ComfyUI, pesi dei modelli o LoRA.
 
 **[Prova guidata dall’immagine al video](FIRST_RUN.it.md)** · [Installazione dettagliata](LEGGIMI_INSTALLAZIONE.md) · [Cartelle e diagnostica](SETUP_REFERENCE.it.md)
+
+## Rendilo tuo
+
+**I suggerimenti inclusi sono esempi da cui partire. La direzione creativa può essere la tua.**
+
+- **Il tuo cinema, la tua fotografia, i tuoi stili visivi:** scrivi indicazioni riutilizzabili per luce, colori, composizione, movimenti di camera e atmosfera. Puoi creare, ad esempio, un’estetica documentaristica sobria, una fantascienza illuminata al neon o un tuo stile di ritratto.
+- **Le tue storie e le tue scene:** aggiungi idee di soggetto e suggerimenti per personaggi, ambienti e azioni. Tieni lo stile visivo distinto dal contenuto della storia, per riutilizzarlo in scene diverse.
+- **La tua direzione dall’immagine al video:** crea preset corrispondenti per immagini e video, mantenendo la stessa intenzione visiva lungo il percorso. I suggerimenti restano file di testo modificabili; per creare preset creativi non serve modificare Python.
+- **I tuoi workflow di generazione:** gli utenti esperti possono modificare un workflow supportato in ComfyUI, esportarlo in formato API e configurare il profilo corrispondente per Studio. Le modifiche compatibili si gestiscono tramite profili; un diverso protocollo dei nodi o un’altra architettura del modello possono richiedere modifiche al codice. Non è un importatore universale di workflow.
+
+**[Crea i tuoi suggerimenti](CUSTOM_PRESETS.md)** · [Stili condivisi per immagini e video](../suggestions/README.md) · **[Personalizza workflow e profili](../workflows/PROFILES.md)**
 
 ## Guide e personalizzazione
 
