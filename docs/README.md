@@ -1,6 +1,10 @@
 # zPrompt Studio
 
-**Create images, storyboards and video from ideas and references.** A local AI workspace with editable prompts, shared visual styles and ComfyUI workflows.
+**Start with an image or a few words. Let AI help you turn them into images and video — on your own computer.**
+
+You do not need a finished idea or a carefully written prompt. zPrompt Studio helps develop the scene, write editable prompts and plan video actions, using local AI models and ComfyUI.
+
+**Your starting point → AI-assisted idea and prompts → Images → Timeline → Video**
 
 **English** · [Italiano](README.it.md)
 
@@ -19,8 +23,6 @@ Start from text, a reference image or an existing prompt. You do not have to fol
 
 *Click a screenshot to enlarge it. These are real UI components with completed lighthouse examples preloaded, not a recording of generation. The interface supports English and Italian.*
 
-**No written idea needed to start:** select a first frame, disable Text only and leave the subject empty. Click **Create / Enhance Subject**, then **Write Timeline → Create Video Prompt → Generate Video**. AI prepares the content; you start each step separately and can edit the results.
-
 Also included:
 
 - **Storyboards and sequences:** plan panels with characters, settings and actions.
@@ -30,28 +32,46 @@ Also included:
 
 ## See it in action
 
+### From a still image to video
+
+[![A woman by a stormy lighthouse — AI-generated motion with LTX 2.5](assets/lighthouse-preview.gif)](assets/lighthouse-ltx.mp4)
+
+**[Watch the generated video](assets/lighthouse-ltx.mp4)** · **[Try the guided image-to-video workflow](FIRST_RUN.md)**
+
+A generated image becomes the first frame of an LTX 2.5 video. This is actual AI-generated motion: about four seconds, 896 × 512, 24 fps. The GIF is a smaller, silent preview; open the MP4 for the full example.
+
+### How you get there
+
+| Start here | Let AI help | Keep control |
+| --- | --- | --- |
+| A few words or a reference image | Develop an image prompt in **Analysis**. | Choose a style and edit the description. |
+| The image prompt | Create an image in **Rendering**. | Choose a result and mark it **F** as the first frame. |
+| The selected frame, even with an empty idea | Suggest a short video subject with **Create / Enhance Subject**. | Keep the suggestion or describe your own action. |
+| The subject | **Write Timeline**, then **Create Video Prompt**. | Review actions, timing, camera and sound. |
+| The finished prompt | **Generate Video** through the selected ComfyUI workflow. | Watch the result and refine it. |
+
+**No written idea needed to start:** select a first frame, disable Text only and leave the subject empty. Click **Create / Enhance Subject**, then **Write Timeline → Create Video Prompt → Generate Video**. AI prepares the content; you start each step separately and can edit the results.
+
+*The preview shows a completed video, not a screen recording of this whole sequence. The linked guide is a separate ten-second trial with its own settings.*
+
+### One idea, three visual styles
+
 [![Above the Clouds — cinematic images created with zPrompt Studio](assets/sky-demo/preview.jpg)](assets/sky-demo/above-the-clouds.mp4)
 
-**Above the Clouds** — one idea, three visual treatments. Real Krea-2 Turbo outputs, generated from text using shared style presets.
+**Above the Clouds** — real Krea-2 Turbo images generated from text using shared style presets.
 
-**[Watch the 26-second demo](assets/sky-demo/above-the-clouds.mp4)** · [Reproduce it: prompt, styles and settings](STYLE_DEMO.md)
+**[Watch the 26-second style demo](assets/sky-demo/above-the-clouds.mp4)** · [Reproduce it: prompt, styles and settings](STYLE_DEMO.md)
 
-*An edited slideshow of still images; generation waits are omitted. It does not demonstrate AI-generated motion.*
+*An edited slideshow of still images; generation waits are omitted. This second demo does not show AI-generated motion.*
 
 <details>
-<summary>See the timeline, video, editing and storyboard examples</summary>
+<summary>Explore timeline, editing and storyboard examples</summary>
 
 ### Plan actions over time
 
 ![Three-clip timeline](assets/studio-timeline.png)
 
-A 12-second planning example using the real timeline component. It is separate from the four-second video below.
-
-### Turn a still into motion
-
-[![Lighthouse video preview](assets/lighthouse-preview.gif)](assets/lighthouse-ltx.mp4)
-
-LTX2.5 using a generated image as its first frame: 896 × 512, 24 fps, about four seconds. The GIF is a reduced, silent preview. [Open the MP4](assets/lighthouse-ltx.mp4).
+A separate 12-second planning example using the real timeline component; it is not the timeline of the four-second preview above.
 
 ### Edit a scene
 

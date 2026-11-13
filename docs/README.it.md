@@ -1,6 +1,10 @@
 # zPrompt Studio
 
-**Crea immagini, storyboard e video da idee e riferimenti.** Uno spazio di lavoro AI locale con prompt modificabili, stili visivi condivisi e workflow ComfyUI.
+**Parti da un’immagine o da poche parole. L’AI ti aiuta a trasformarle in immagini e video, sul tuo computer.**
+
+Non servono un’idea già completa o un prompt scritto alla perfezione. zPrompt Studio ti aiuta a sviluppare la scena, scrivere prompt modificabili e pianificare le azioni del video, usando modelli AI locali e ComfyUI.
+
+**Il tuo spunto → Idea e prompt con l’AI → Immagini → Timeline → Video**
 
 [English](README.md) · **Italiano**
 
@@ -19,8 +23,6 @@ Puoi partire da testo, da un’immagine di riferimento o da un prompt già pront
 
 *Clicca sulle schermate per ingrandirle. Sono componenti reali della UI con gli esempi del faro già caricati, non una registrazione della generazione. L’interfaccia supporta inglese e italiano.*
 
-**Puoi partire anche senza un’idea scritta:** seleziona un primo frame, disattiva Solo testo e lascia vuoto il soggetto. Premi **Crea / Migliora Soggetto**, poi **Scrivi Timeline → Crea Prompt Video → Genera Video**. L’AI prepara i contenuti; avvii ogni passaggio separatamente e puoi correggere i risultati.
-
 Sono inclusi anche:
 
 - **Storyboard e sequenze:** prepara pannelli con personaggi, ambienti e azioni.
@@ -30,28 +32,46 @@ Sono inclusi anche:
 
 ## Guarda la demo
 
+### Dall’immagine al video
+
+[![Una donna vicino a un faro sul mare in tempesta — movimento generato con LTX 2.5](assets/lighthouse-preview.gif)](assets/lighthouse-ltx.mp4)
+
+**[Guarda il video generato](assets/lighthouse-ltx.mp4)** · **[Prova il percorso guidato dall’immagine al video](FIRST_RUN.it.md)**
+
+Un’immagine generata diventa il primo frame di un video LTX 2.5. È movimento realmente generato dall’AI: circa quattro secondi, 896 × 512, 24 fps. La GIF è un’anteprima ridotta e senza audio; apri il video MP4 per l’esempio completo.
+
+### Come ci arrivi
+
+| Parti da… | L’AI ti aiuta a… | Tu puoi… |
+| --- | --- | --- |
+| Poche parole o un’immagine di riferimento | Sviluppare il prompt immagine in **Analisi**. | Scegliere lo stile e modificare la descrizione. |
+| Il prompt immagine | Creare un’immagine in **Rendering**. | Scegliere il risultato e marcarlo **F** come primo frame. |
+| Il frame selezionato, anche senza un’idea scritta | Proporre un breve soggetto con **Crea / Migliora Soggetto**. | Tenere la proposta o descrivere un’azione tua. |
+| Il soggetto | **Scrivere la timeline**, poi **creare il prompt video**. | Controllare azioni, tempi, inquadrature e suoni. |
+| Il prompt completo | **Generare il video** tramite il workflow ComfyUI scelto. | Guardare il risultato e perfezionarlo. |
+
+**Puoi partire anche senza un’idea scritta:** seleziona un primo frame, disattiva Solo testo e lascia vuoto il soggetto. Premi **Crea / Migliora Soggetto**, poi **Scrivi Timeline → Crea Prompt Video → Genera Video**. L’AI prepara i contenuti; avvii ogni passaggio separatamente e puoi correggere i risultati.
+
+*L’anteprima mostra un video finito, non una registrazione dell’intera sequenza nell’app. La guida collegata propone una prova distinta di dieci secondi, con le proprie impostazioni.*
+
+### Una sola idea, tre stili visivi
+
 [![Above the Clouds — immagini cinematografiche create con zPrompt Studio](assets/sky-demo/preview.jpg)](assets/sky-demo/above-the-clouds.mp4)
 
-**Above the Clouds** — una sola idea, tre interpretazioni visive. Risultati reali di Krea-2 Turbo, generati da testo usando gli stili condivisi.
+**Above the Clouds** — immagini reali di Krea-2 Turbo, generate da testo usando gli stili condivisi.
 
-**[Guarda la demo di 26 secondi](assets/sky-demo/above-the-clouds.mp4)** · [Riproducila: descrizione, stili e impostazioni](STYLE_DEMO.it.md)
+**[Guarda la demo degli stili di 26 secondi](assets/sky-demo/above-the-clouds.mp4)** · [Riproducila: descrizione, stili e impostazioni](STYLE_DEMO.it.md)
 
-*Il filmato è un montaggio di immagini statiche, con le attese omesse. Non mostra movimento generato dall’AI.*
+*Un montaggio di immagini statiche, con le attese omesse. Questa seconda demo non mostra movimento generato dall’AI.*
 
 <details>
-<summary>Mostra gli esempi di timeline, video, editing e storyboard</summary>
+<summary>Esplora gli esempi di timeline, editing e storyboard</summary>
 
 ### Pianifica le azioni nel tempo
 
 ![Timeline con tre clip](assets/studio-timeline.png)
 
-Esempio di pianificazione di 12 secondi con il componente timeline reale. È distinto dal video di quattro secondi qui sotto.
-
-### Dall’immagine al movimento
-
-[![Anteprima video del faro](assets/lighthouse-preview.gif)](assets/lighthouse-ltx.mp4)
-
-LTX2.5 con un’immagine generata come primo frame: 896 × 512, 24 fps, circa quattro secondi. La GIF è un’anteprima ridotta e senza audio. [Apri il video MP4](assets/lighthouse-ltx.mp4).
+Esempio distinto di pianificazione di 12 secondi con il componente timeline reale; non è la timeline dell’anteprima di quattro secondi mostrata sopra.
 
 ### Modifica una scena
 
