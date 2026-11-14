@@ -25,6 +25,14 @@ Puoi partire da testo, da un’immagine di riferimento o da un prompt già pront
 
 *Clicca sulle schermate per ingrandirle. Sono componenti reali della UI con gli esempi del faro già caricati, non una registrazione della generazione. Alla prima installazione l’interfaccia parte in inglese. Puoi scegliere l’italiano in Logs & Settings; la scelta viene salvata.*
 
+### Dai ritmo alla scena
+
+[![Timeline con tre clip: inquadrature, movimenti e suoni](assets/studio-timeline.png)](assets/studio-timeline.png)
+
+**Tre clip, una storia:** avvicinamento al faro, una pausa sulla scogliera e uno sguardo verso l’orizzonte. Ogni scheda mostra durata, inquadratura, movimento e audio: puoi far preparare la timeline all’AI e modificare i singoli passaggi.
+
+*Esempio di pianificazione di 12 secondi con il componente reale dell’app; il video dimostrativo sotto è una prova distinta di quattro secondi.*
+
 Sono inclusi anche:
 
 - **Storyboard e sequenze:** prepara pannelli con personaggi, ambienti e azioni.
@@ -67,13 +75,7 @@ Un’immagine generata diventa il primo frame di un video LTX 2.5. È movimento 
 *Un montaggio di immagini statiche, con le attese omesse. Questa seconda demo non mostra movimento generato dall’AI.*
 
 <details>
-<summary>Esplora gli esempi di timeline, editing e storyboard</summary>
-
-### Pianifica le azioni nel tempo
-
-![Timeline con tre clip](assets/studio-timeline.png)
-
-Esempio distinto di pianificazione di 12 secondi con il componente timeline reale; non è la timeline dell’anteprima di quattro secondi mostrata sopra.
+<summary>Esplora gli esempi di editing e storyboard</summary>
 
 ### Modifica una scena
 

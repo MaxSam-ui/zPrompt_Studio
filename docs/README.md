@@ -25,6 +25,14 @@ Start from text, a reference image or an existing prompt. You do not have to fol
 
 *Click a screenshot to enlarge it. These are real UI components with completed lighthouse examples preloaded, not a recording of generation. The interface starts in English on a fresh installation. You can choose Italian in Logs & Settings; your choice is saved.*
 
+### Give your scene a rhythm
+
+[![Three-clip timeline with framing, movement and sound](assets/studio-timeline.png)](assets/studio-timeline.png)
+
+**Three clips, one story:** approach the lighthouse, pause by the cliffs and look toward the horizon. Each card shows timing, framing, movement and audio. Let AI draft the timeline, then edit individual steps.
+
+*A 12-second planning example using the actual app component; the video demo below is a separate four-second trial.*
+
 Also included:
 
 - **Storyboards and sequences:** plan panels with characters, settings and actions.
@@ -67,13 +75,7 @@ A generated image becomes the first frame of an LTX 2.5 video. This is actual AI
 *An edited slideshow of still images; generation waits are omitted. This second demo does not show AI-generated motion.*
 
 <details>
-<summary>Explore timeline, editing and storyboard examples</summary>
-
-### Plan actions over time
-
-![Three-clip timeline](assets/studio-timeline.png)
-
-A separate 12-second planning example using the real timeline component; it is not the timeline of the four-second preview above.
+<summary>Explore editing and storyboard examples</summary>
 
 ### Edit a scene
 
