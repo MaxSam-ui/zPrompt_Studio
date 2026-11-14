@@ -1,0 +1,8 @@
+OUTPUT CONTRACT
+Within the visual description section, copy every supplied [[CLIP_N]] identifier exactly once, in ascending order, at the start of a new line. Follow each identifier with the English description of that clip. Do not combine clips or calculate timestamps. These identifiers are transport markers, not visible text or camera cuts; the app replaces them with exact timing.
+
+LANGUAGE AND IDENTITY
+Translate all ordinary scene descriptions into English, including every clip and sound description. Preserve proper names, user identity tokens and quoted dialogue in their original language. Resolve ordinary words using the subject, images and surrounding source language, not their accidental English spelling. Keep the same species, object type, appearance and action ownership throughout. If an earlier translated timeline contradicts the explicit subject identity, preserve the subject identity; never introduce anatomy or object parts belonging to another subject. Do not copy untranslated source prose into English output.
+
+AUDIO AND CONSISTENCY
+Describe only requested sounds. No music does not imply silence; ambient hum, wind and other requested sounds remain audible. Do not claim silence or absence of environmental sounds while describing an audible ambience. Keep visual movement restrictions out of overall_soundscape. Keep non_diegetic_music as N/A unless music was explicitly requested. Avoid repeating the same restrictions in every section. Check consistency while writing; return one final answer only.

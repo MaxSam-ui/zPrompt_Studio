@@ -10,6 +10,23 @@ spec.loader.exec_module(module)
 
 
 class DirectorTimingTest(unittest.TestCase):
+    def test_translated_clips_get_exact_times_without_source_language(self):
+        scenes = [[3.3, 'Medium', 'Static', 'Un cane fluttua'],
+                  [3.3, 'Medium', 'Static', 'Il cane continua'],
+                  [3.4, 'Medium', 'Static', 'Il cane muove la coda']]
+        text = 'A dog in space.\n[[CLIP_1]] The dog drifts.\n[[CLIP_2]] The dog continues.\n[[CLIP_3]] Its tail moves.'
+        result = module.align_numbered_clips(text, scenes)
+        self.assertEqual(module.TIMECODE.findall(result), [('0.0', '3.3'), ('3.3', '6.6'), ('6.6', '10.0')])
+        self.assertNotIn('cane', result)
+        self.assertNotIn('CLIP_', result)
+        self.assertIn('Its tail moves.', result)
+
+    def test_numbered_clips_never_guess_missing_or_duplicate_actions(self):
+        scenes = [[5, 'Wide', 'Static'], [5, 'Close', 'Static']]
+        for text in ('[[CLIP_1]] Dog.', '[[CLIP_1]] Dog.\n[[CLIP_1]] Dog.',
+                     '[[CLIP_2]] Dog.\n[[CLIP_1]] Dog.', '[[CLIP_1]]\n[[CLIP_2]] Dog.'):
+            self.assertIsNone(module.align_numbered_clips(text, scenes))
+
     def test_ten_seconds_does_not_require_second_generation(self):
         scenes = [[3.3, 'Wide', 'Static', 'Walk'], [3.4, 'Close', 'Static', 'Turn'],
                   [3.3, 'Wide', 'Static', 'Stop']]

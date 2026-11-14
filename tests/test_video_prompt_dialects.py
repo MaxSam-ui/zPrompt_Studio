@@ -174,7 +174,8 @@ class VideoPromptDialectsTest(unittest.TestCase):
         functions=[n for n in source.body if isinstance(n,ast.FunctionDef) and n.name in ('passa_timeline_a_gemma','cronologia_regia_testo')]
         for mode,draft in [('native_keyframes',BASE),('references',REF),
                            ('native_keyframes','Incomplete model response'),
-                           ('native_keyframes',BASE.replace('[3.3s - 6.6s]', 'Later'))]:
+                           ('native_keyframes',BASE.replace('[3.3s - 6.6s]', 'Later')),
+                           ('native_keyframes',BASE.replace('[0.0s - 3.3s]', '[[CLIP_1]]').replace('[3.3s - 6.6s]', '[[CLIP_2]]').replace('[6.6s - 10.0s]', '[[CLIP_3]]'))]:
             with self.subTest(mode=mode):
                 calls=[]
                 def generate(instruction,*args,**kwargs):
@@ -218,14 +219,8 @@ class VideoPromptDialectsTest(unittest.TestCase):
                     continue
                 if 'Later' in draft:
                     self.assertEqual(len(calls), 1)
-                    self.assertEqual(values[-1][2], 'fallback', values[-1])
-                    result = values[-1][0]
-                    self.assertIn('[0.0s - 3.3s]', result)
-                    self.assertIn('[3.3s - 6.6s]', result)
-                    self.assertIn('[6.6s - 10.0s]', result)
-                    for action in ('Walk', 'Pause', 'Turn'):
-                        self.assertIn(action, result)
-                    self.assertNotIn('Later', result)
+                    self.assertEqual(values[-1][0], 'previous')
+                    self.assertIn('No untranslated fallback', values[-1][2])
                     self.assertFalse(manager.generazione_attiva)
                     continue
                 self.assertEqual(values[-1][2],'success',values[-1])

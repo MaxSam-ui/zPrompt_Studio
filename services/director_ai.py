@@ -621,7 +621,7 @@ def passa_timeline_a_gemma(prompt_img, model_vid, testo, audio_descrizione="", v
 
         if s_attiva.get("modello_video_attivo") == "MiniMax H3":
             from utils.video_model_prompt import minimax_compiler_instruction, minimax_sections, minimax_format, MINIMAX_SECTIONS, MINIMAX_BASE_SECTIONS
-            from utils.director_prompt import align_director_prompt, preserve_identity_tokens
+            from utils.director_prompt import align_numbered_clips, preserve_identity_tokens
             from utils.video_preflight import validate_video_request
             from core import workflow_registry
             from core.workflow_profiles import load_minimax_profile
@@ -633,10 +633,13 @@ def passa_timeline_a_gemma(prompt_img, model_vid, testo, audio_descrizione="", v
             section_names = MINIMAX_BASE_SECTIONS if prompt_format == 'base' else MINIMAX_SECTIONS
             body_key = 'integrated_multimodal_description' if prompt_format == 'base' else 'detailed_description'
             references = 0 if is_t2v else int(bool(filepath_start)) + int(has_last_frame) + int(bool(filepath_middle))
+            clip_number = iter(range(1, len(lista_scene) + 1))
+            numbered_timeline = re.sub(r'(?m)^- ', lambda _: f'[[CLIP_{next(clip_number)}]] ', cronologia)
             source = (f"AUTHORITATIVE SUBJECT:\n{soggetto}\n{frame_block}\n"
-                      f"AUTHORITATIVE TIMELINE:\n{cronologia}{audio_section}")
+                      f"AUTHORITATIVE TIMELINE:\n{numbered_timeline}{audio_section}")
             instruction = minimax_compiler_instruction(source, references, direct=True, format=prompt_format)
             instruction += ('\n\n' + compose_system('Video_Director_Style.txt', stile_regole_testo=stile_regole_testo))
+            instruction += '\n\n' + compose_system('MiniMax_Clip_Contract.txt')
             phase = dl["director_compiling_status"]
             yield gr.update(), gr.update(), phase
             structured = ""
@@ -655,24 +658,18 @@ def passa_timeline_a_gemma(prompt_img, model_vid, testo, audio_descrizione="", v
             parts = minimax_sections(structured.strip(), format=prompt_format)
             if not parts:
                 raise ValueError("MiniMax prompt: missing, empty or duplicated sections; previous prompt preserved.")
-            aligned = align_director_prompt(parts[body_key], lista_scene)
-            fallback = aligned is None
-            if fallback:
-                from utils.director_prompt import timeline_fallback_prompt
-                # Do not guess which generated sentence belongs to which clip.
-                # Recover the actual actions/camera/audio from the user's timeline.
-                aligned = timeline_fallback_prompt(lista_scene, soggetto, frame_block, audio_descrizione)
-                log.registra("MiniMax: model clip boundaries invalid; using original timeline without another LLM call.", "WARNING")
+            aligned = align_numbered_clips(parts[body_key], lista_scene)
+            if aligned is None:
+                raise ValueError("MiniMax prompt: missing or duplicated clip IDs; previous prompt preserved. No untranslated fallback was inserted.")
             from utils.video_constraints import preserve_video_constraints
             parts[body_key] = preserve_video_constraints(aligned, soggetto, audio_descrizione)
             candidate = '\n\n'.join(f'{key}:\n{parts[key]}' for key in section_names)
             error = validate_video_request(candidate, sum(float(scene[0]) for scene in lista_scene))
             if error:
                 raise ValueError(error)
-            if preserve_identity_tokens(candidate, source) != candidate:
+            if preserve_identity_tokens(candidate, re.sub(r'\[\[CLIP_\d+\]\]', '', source)) != candidate:
                 raise ValueError("MiniMax prompt: missing identity references; previous prompt preserved.")
-            status = dl["director_compile_fallback"] if fallback else dl["director_compile_success"]
-            yield candidate, gr.update() if is_t2v else prompt_img, status
+            yield candidate, gr.update() if is_t2v else prompt_img, dl["director_compile_success"]
             return
 
         from utils.prompt_templates import scene_contract, render_template, system_template

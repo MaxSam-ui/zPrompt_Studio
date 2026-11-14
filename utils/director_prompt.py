@@ -5,6 +5,36 @@ import math
 TIMECODE = re.compile(r'\[\s*(\d+(?:\.\d+)?)\s*s?\s*-\s*(\d+(?:\.\d+)?)\s*s?\s*\]')
 
 
+def align_numbered_clips(text, scenes):
+    """Attach application-owned times to translated, explicitly identified clips.
+
+    Never infer clip boundaries from prose or copy untranslated source actions.
+    Legacy timed output remains supported by the existing strict aligner.
+    """
+    markers = list(re.finditer(r'^\s*\[\[CLIP_(\d+)\]\][ \t]*', text, re.M))
+    if not markers:
+        return align_director_prompt(text, scenes)
+    if [int(m[1]) for m in markers] != list(range(1, len(scenes) + 1)):
+        return None
+    prefix = text[:markers[0].start()].strip()
+    if TIMECODE.search(prefix):
+        return None
+    output = [prefix] if prefix else []
+    elapsed = 0.0
+    for i, (marker, scene) in enumerate(zip(markers, scenes)):
+        limit = markers[i + 1].start() if i + 1 < len(markers) else len(text)
+        body = text[marker.end():limit].strip()
+        # A model may redundantly echo the source interval after the ID.
+        body = TIMECODE.sub('', body, count=1).strip() if TIMECODE.match(body) else body
+        duration = float(scene[0])
+        if not body or TIMECODE.search(body) or not math.isfinite(duration) or duration <= 0:
+            return None
+        end = elapsed + duration
+        output.append(f'[{elapsed:.1f}s - {end:.1f}s] [{scene[1]}; {scene[2]}] {body}')
+        elapsed = end
+    return '\n'.join(output)
+
+
 def align_director_prompt(text, scenes):
     if not text.strip() or not scenes:
         return None
