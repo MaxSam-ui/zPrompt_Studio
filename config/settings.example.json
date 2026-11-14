@@ -2,7 +2,7 @@
     "COMFYUI_ARGS": [
         "--disable-auto-launch"
     ],
-    "COMFYUI_DIR": "C:/ComfyUI_windows_portable",
+    "COMFYUI_DIR": "C:\\ComfyUI_windows_portable",
     "COMFYUI_HIGHVRAM": false,
     "COMFYUI_IMAGE_TIMEOUT": 600,
     "COMFYUI_STARTUP_TIMEOUT": 180,

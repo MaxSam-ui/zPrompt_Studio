@@ -656,8 +656,13 @@ def passa_timeline_a_gemma(prompt_img, model_vid, testo, audio_descrizione="", v
             if not parts:
                 raise ValueError("MiniMax prompt: missing, empty or duplicated sections; previous prompt preserved.")
             aligned = align_director_prompt(parts[body_key], lista_scene)
-            if aligned is None:
-                raise ValueError("MiniMax prompt: clip boundaries do not match the timeline; previous prompt preserved.")
+            fallback = aligned is None
+            if fallback:
+                from utils.director_prompt import timeline_fallback_prompt
+                # Do not guess which generated sentence belongs to which clip.
+                # Recover the actual actions/camera/audio from the user's timeline.
+                aligned = timeline_fallback_prompt(lista_scene, soggetto, frame_block, audio_descrizione)
+                log.registra("MiniMax: model clip boundaries invalid; using original timeline without another LLM call.", "WARNING")
             from utils.video_constraints import preserve_video_constraints
             parts[body_key] = preserve_video_constraints(aligned, soggetto, audio_descrizione)
             candidate = '\n\n'.join(f'{key}:\n{parts[key]}' for key in section_names)
@@ -666,7 +671,8 @@ def passa_timeline_a_gemma(prompt_img, model_vid, testo, audio_descrizione="", v
                 raise ValueError(error)
             if preserve_identity_tokens(candidate, source) != candidate:
                 raise ValueError("MiniMax prompt: missing identity references; previous prompt preserved.")
-            yield candidate, gr.update() if is_t2v else prompt_img, dl["director_compile_success"]
+            status = dl["director_compile_fallback"] if fallback else dl["director_compile_success"]
+            yield candidate, gr.update() if is_t2v else prompt_img, status
             return
 
         from utils.prompt_templates import scene_contract, render_template, system_template

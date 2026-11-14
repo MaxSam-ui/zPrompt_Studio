@@ -173,7 +173,8 @@ class VideoPromptDialectsTest(unittest.TestCase):
         source=ast.parse((ROOT/'services/director_ai.py').read_text(encoding='utf-8'))
         functions=[n for n in source.body if isinstance(n,ast.FunctionDef) and n.name in ('passa_timeline_a_gemma','cronologia_regia_testo')]
         for mode,draft in [('native_keyframes',BASE),('references',REF),
-                           ('native_keyframes','Incomplete model response')]:
+                           ('native_keyframes','Incomplete model response'),
+                           ('native_keyframes',BASE.replace('[3.3s - 6.6s]', 'Later'))]:
             with self.subTest(mode=mode):
                 calls=[]
                 def generate(instruction,*args,**kwargs):
@@ -188,7 +189,7 @@ class VideoPromptDialectsTest(unittest.TestCase):
                 state={'modello_video_attivo':'MiniMax H3','lingua_selezionata':'EN'}
                 manager=types.SimpleNamespace(vlm_interrotto=False,generazione_attiva=False)
                 registry=types.SimpleNamespace(risolvi_percorso_json_video=lambda _:str(ROOT/'workflows/minimax_h3_api.json'))
-                dictionary=defaultdict(lambda:'status',director_compile_success='success',director_generation_error='Error: {error}')
+                dictionary=defaultdict(lambda:'status',director_compile_success='success',director_compile_fallback='fallback',director_generation_error='Error: {error}')
                 namespace={'os':os,'re':__import__('re'),'scene_context':lambda t:t,
                            'gr':types.SimpleNamespace(update=lambda *a,**k:None),
                            'sessione':types.SimpleNamespace(carica_ultima_sessione=lambda:state),
@@ -213,6 +214,18 @@ class VideoPromptDialectsTest(unittest.TestCase):
                     self.assertEqual(len(calls), 1)
                     self.assertEqual(values[-1][0], 'previous')
                     self.assertIn('missing, empty or duplicated sections', values[-1][2])
+                    self.assertFalse(manager.generazione_attiva)
+                    continue
+                if 'Later' in draft:
+                    self.assertEqual(len(calls), 1)
+                    self.assertEqual(values[-1][2], 'fallback', values[-1])
+                    result = values[-1][0]
+                    self.assertIn('[0.0s - 3.3s]', result)
+                    self.assertIn('[3.3s - 6.6s]', result)
+                    self.assertIn('[6.6s - 10.0s]', result)
+                    for action in ('Walk', 'Pause', 'Turn'):
+                        self.assertIn(action, result)
+                    self.assertNotIn('Later', result)
                     self.assertFalse(manager.generazione_attiva)
                     continue
                 self.assertEqual(values[-1][2],'success',values[-1])

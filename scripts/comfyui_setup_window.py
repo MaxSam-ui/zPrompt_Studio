@@ -35,7 +35,7 @@ def show_setup(root, target, settings):
     ttk.Label(frame, text='Connect ComfyUI', font=('Segoe UI', 16, 'bold')).pack(anchor='w')
     ttk.Label(frame, text='Choose your ComfyUI Portable folder to generate images and videos.\n'
               'It must contain both ComfyUI and python_embeded.', wraplength=570).pack(anchor='w', pady=(10, 16))
-    path = tk.StringVar(value=settings.get('COMFYUI_DIR', ''))
+    path = tk.StringVar(value=str(settings.get('COMFYUI_DIR', '')).replace('/', '\\'))
     row = ttk.Frame(frame); row.pack(fill='x')
     entry = ttk.Entry(row, textvariable=path); entry.pack(side='left', fill='x', expand=True)
     message = tk.StringVar(value='Save and start opens Studio automatically. No restart is needed.')
@@ -43,7 +43,7 @@ def show_setup(root, target, settings):
     def browse():
         selected = filedialog.askdirectory(parent=window, title='Select ComfyUI Portable folder')
         if selected:
-            path.set(selected)
+            path.set(selected.replace('/', '\\'))
             message.set('Click Save and start to check this folder.')
 
     ttk.Button(row, text='Browse...', command=browse).pack(side='left', padx=(8, 0))
