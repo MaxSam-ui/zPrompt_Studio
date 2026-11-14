@@ -1,0 +1,6 @@
+FINAL ANSWER FORMAT
+Write ALL the following section headers, exactly once each, in this order. Put actual English content below every header. Do not output this list as an empty outline.
+{headers}
+
+The [[CLIP_N]] blocks belong INSIDE {body_key}, below its header. Do not omit the header when writing clips. Clip IDs are not shot numbers: never add [Shot 2], [Shot 3] or cuts just because a new clip starts. Keep a continuous shot when no cuts are requested.
+Write the audio sections after all clips. Describe requested audible ambience concisely in overall_soundscape. Use N/A for non_diegetic_music when music is not requested. Stop immediately after the final section; do not repeat it.

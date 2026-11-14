@@ -43,6 +43,27 @@ def minimax_compiler_instruction(canonical, references, direct=False, format="re
     return compose_system('MiniMax_Compiler.txt', canonical=canonical, reference_context=context)
 
 
+def minimax_compiled_sections(text, format):
+    """Recover unambiguous chat formatting, never invent missing scene/audio."""
+    text = text.strip()
+    # Some small models start directly with the numbered visual clips.
+    if format == 'base' and re.match(r'^\[\[CLIP_1\]\]', text):
+        text = 'integrated_multimodal_description:\n' + text
+    names = MINIMAX_BASE_SECTIONS if format == 'base' else MINIMAX_SECTIONS
+    pattern = r'^(?:' + '|'.join(names) + r'):[ \t]*'
+    matches = list(re.finditer(pattern, text, re.M))
+    blocks = []
+    for i, match in enumerate(matches):
+        end = matches[i+1].start() if i+1 < len(matches) else len(text)
+        block = (match[0].split(':')[0], text[match.end():end].strip())
+        if blocks and block == blocks[-1]:
+            continue  # Exact adjacent repetition only; conflicting values fail.
+        blocks.append(block)
+    if len(blocks) < len(matches):
+        text = text[:matches[0].start()] + '\n\n'.join(f'{k}:\n{v}' for k, v in blocks)
+    return minimax_sections(text, format=format)
+
+
 def minimax_prompt(text, references=0):
     text = str(text or '').strip()
     if all(re.search(r'^' + name + r':', text, re.M) for name in MINIMAX_SECTIONS):

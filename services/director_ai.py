@@ -620,7 +620,7 @@ def passa_timeline_a_gemma(prompt_img, model_vid, testo, audio_descrizione="", v
             frame_block += "\n" + compose_system('Video_Middle_Context.txt', description=middle_description)
 
         if s_attiva.get("modello_video_attivo") == "MiniMax H3":
-            from utils.video_model_prompt import minimax_compiler_instruction, minimax_sections, minimax_format, MINIMAX_SECTIONS, MINIMAX_BASE_SECTIONS
+            from utils.video_model_prompt import minimax_compiler_instruction, minimax_compiled_sections, minimax_format, MINIMAX_SECTIONS, MINIMAX_BASE_SECTIONS
             from utils.director_prompt import align_numbered_clips, preserve_identity_tokens
             from utils.video_preflight import validate_video_request
             from core import workflow_registry
@@ -640,6 +640,7 @@ def passa_timeline_a_gemma(prompt_img, model_vid, testo, audio_descrizione="", v
             instruction = minimax_compiler_instruction(source, references, direct=True, format=prompt_format)
             instruction += ('\n\n' + compose_system('Video_Director_Style.txt', stile_regole_testo=stile_regole_testo))
             instruction += '\n\n' + compose_system('MiniMax_Clip_Contract.txt')
+            instruction += '\n\n' + compose_system('MiniMax_Output_Structure.txt', headers='\n'.join(key + ':' for key in section_names), body_key=body_key)
             phase = dl["director_compiling_status"]
             yield gr.update(), gr.update(), phase
             structured = ""
@@ -655,7 +656,7 @@ def passa_timeline_a_gemma(prompt_img, model_vid, testo, audio_descrizione="", v
                 yield structured, prompt_img if prompt_img else gr.update(), phase
             _verifica_stop_regia()
             yield gr.update(), gr.update(), dl["director_validating_status"]
-            parts = minimax_sections(structured.strip(), format=prompt_format)
+            parts = minimax_compiled_sections(structured.strip(), format=prompt_format)
             if not parts:
                 raise ValueError("MiniMax prompt: missing, empty or duplicated sections; previous prompt preserved.")
             aligned = align_numbered_clips(parts[body_key], lista_scene)

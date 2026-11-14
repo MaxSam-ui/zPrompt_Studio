@@ -239,6 +239,18 @@ class VideoPromptDialectsTest(unittest.TestCase):
                          self.prompts.minimax_sections(BASE, format='base'))
         self.assertIsNone(self.prompts.minimax_sections(decorated + '\n**overall_soundscape:** wind', format='base'))
 
+    def test_small_model_clip_first_response_and_exact_duplicate(self):
+        raw = ('[[CLIP_1]] The dog floats.\n[[CLIP_2]] The dog turns.\n'
+               'overall_soundscape: Ambient hum.\nnon_diegetic_music: N/A\n'
+               'non_diegetic_music: N/A')
+        result = self.prompts.minimax_compiled_sections(raw, 'base')
+        self.assertIsNotNone(result)
+        self.assertIn('The dog turns.', result['integrated_multimodal_description'])
+        self.assertEqual(result['overall_soundscape'], 'Ambient hum.')
+        self.assertEqual(result['non_diegetic_music'], 'N/A')
+        self.assertIsNone(self.prompts.minimax_compiled_sections(raw.replace('non_diegetic_music: N/A', 'non_diegetic_music: piano', 1), 'base'))
+        self.assertIsNone(self.prompts.minimax_compiled_sections('[[CLIP_1]] Dog.', 'base'))
+
     def test_storyboard_roles_match_generation_and_extension(self):
         state={'lista_frame_storyboard_attivi':['first','second','middle','last'],
                'percorso_immagine_selezionata':'old-gallery','percorso_immagine_destinazione':'old-last'}
