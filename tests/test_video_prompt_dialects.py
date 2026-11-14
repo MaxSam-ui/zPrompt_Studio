@@ -177,6 +177,7 @@ class VideoPromptDialectsTest(unittest.TestCase):
                 calls=[]
                 def generate(instruction,*args,**kwargs):
                     calls.append(instruction)
+                    yield draft[:40]
                     yield draft
                 rows=([{'durata':3.3,'tipo':'Medium','zoom':'Static','mov':'Walk','audio':'wind'},
                        {'durata':3.3,'tipo':'Medium','zoom':'Static','mov':'Pause','audio':'wind'},
@@ -208,6 +209,7 @@ class VideoPromptDialectsTest(unittest.TestCase):
                     values=list(namespace['passa_timeline_a_gemma']('', 'test-model','timeline',solo_testo_video=True,
                                     soggetto='MIA_PERSONA walks to a red bicycle, says "Aspettami!" in Italian.',prompt_corrente='previous'))
                 self.assertEqual(values[-1][2],'success',values[-1])
+                self.assertTrue(any(v[0] == draft[:40] for v in values[:-1]))
                 self.assertEqual(len(calls),1)
                 self.assertIn('MIA_PERSONA',values[-1][0])
                 expected='base' if mode=='native_keyframes' else 'reference'

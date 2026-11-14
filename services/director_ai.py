@@ -653,7 +653,7 @@ def passa_timeline_a_gemma(prompt_img, model_vid, testo, audio_descrizione="", v
                         yield gr.update(), gr.update(), str(chunk)
                         continue
                     structured = chunk
-                    yield gr.update(), gr.update(), phase
+                    yield structured, prompt_img if prompt_img else gr.update(), phase
                 _verifica_stop_regia()
                 yield gr.update(), gr.update(), dl["director_validating_status"]
                 parts = minimax_sections(structured.strip(), format=prompt_format)

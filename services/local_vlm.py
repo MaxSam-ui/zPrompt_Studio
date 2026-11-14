@@ -275,7 +275,7 @@ def genera_prompt_video_timeline(prompt_compilato, modello_selezionato, timeout=
         inputs = _prepara_input_sicuro(processor, testo_formattato, None, device)
         
         tokenizer_reale = _ottieni_tokenizer(processor)
-        streamer = TextIteratorStreamer(tokenizer_reale, skip_prompt=True, skip_special_tokens=True)
+        streamer = TextIteratorStreamer(tokenizer_reale, skip_prompt=True, skip_special_tokens=True, timeout=0.2)
         
         generation_kwargs = dict(
             **inputs,
@@ -294,13 +294,13 @@ def genera_prompt_video_timeline(prompt_compilato, modello_selezionato, timeout=
             generation_kwargs.update(do_sample=False, repetition_penalty=1.0)
             generation_kwargs.pop('temperature', None)
 
-        thread = Thread(target=model.generate, kwargs=generation_kwargs)
-        thread.start()
-        
+        from utils.generation_stream import stream_generation
         accumulato = ""
-        for new_text in streamer:
-            if not comfyui_manager.generazione_attiva:
-                break
+        for new_text in stream_generation(
+            model.generate, generation_kwargs, streamer,
+            should_stop=lambda: not comfyui_manager.generazione_attiva,
+            timeout=timeout,
+        ):
             accumulato += new_text
             yield accumulato
             
