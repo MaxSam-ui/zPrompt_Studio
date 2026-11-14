@@ -16,6 +16,13 @@ def minimax_format(profile):
 
 
 def minimax_sections(text, format=None):
+    # Accept presentation-only Markdown from chat models without a second LLM
+    # call. Keep names, ordering, duplicate and nonempty checks strict.
+    text = re.sub(r'^\s*```[^\n]*\n|\n\s*```\s*$', '', text.strip())
+    all_names = '|'.join(dict.fromkeys(MINIMAX_SECTIONS + MINIMAX_BASE_SECTIONS))
+    text = re.sub(
+        r'^\s*(?:#{1,6}\s+)?(?:\*\*|__)?(' + all_names + r')(?:\*\*|__)?\s*:(?:\*\*|__)?[ \t]*',
+        lambda m: m[1].lower() + ': ', text, flags=re.M | re.I)
     names = (MINIMAX_BASE_SECTIONS if format == 'base' or (format is None and re.search(r'^integrated_multimodal_description:', text, re.M)) else MINIMAX_SECTIONS)
     pattern = r'^(?:' + '|'.join(dict.fromkeys(MINIMAX_SECTIONS + MINIMAX_BASE_SECTIONS)) + r'):\s*'
     matches = list(re.finditer(pattern, text, re.M))

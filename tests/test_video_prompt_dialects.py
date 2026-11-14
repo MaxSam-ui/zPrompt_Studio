@@ -172,7 +172,8 @@ class VideoPromptDialectsTest(unittest.TestCase):
     def test_director_compiles_selected_schema_in_one_call(self):
         source=ast.parse((ROOT/'services/director_ai.py').read_text(encoding='utf-8'))
         functions=[n for n in source.body if isinstance(n,ast.FunctionDef) and n.name in ('passa_timeline_a_gemma','cronologia_regia_testo')]
-        for mode,draft in [('native_keyframes',BASE),('references',REF)]:
+        for mode,draft in [('native_keyframes',BASE),('references',REF),
+                           ('native_keyframes','Incomplete model response')]:
             with self.subTest(mode=mode):
                 calls=[]
                 def generate(instruction,*args,**kwargs):
@@ -208,6 +209,12 @@ class VideoPromptDialectsTest(unittest.TestCase):
                     exec(compile(ast.Module(body=functions,type_ignores=[]),'director-test','exec'),namespace)
                     values=list(namespace['passa_timeline_a_gemma']('', 'test-model','timeline',solo_testo_video=True,
                                     soggetto='MIA_PERSONA walks to a red bicycle, says "Aspettami!" in Italian.',prompt_corrente='previous'))
+                if draft == 'Incomplete model response':
+                    self.assertEqual(len(calls), 1)
+                    self.assertEqual(values[-1][0], 'previous')
+                    self.assertIn('missing, empty or duplicated sections', values[-1][2])
+                    self.assertFalse(manager.generazione_attiva)
+                    continue
                 self.assertEqual(values[-1][2],'success',values[-1])
                 self.assertTrue(any(v[0] == draft[:40] for v in values[:-1]))
                 self.assertEqual(len(calls),1)
@@ -215,6 +222,14 @@ class VideoPromptDialectsTest(unittest.TestCase):
                 expected='base' if mode=='native_keyframes' else 'reference'
                 self.assertIsNotNone(self.prompts.minimax_sections(values[-1][0],format=expected))
                 self.assertFalse(manager.generazione_attiva)
+
+    def test_minimax_markdown_headers_are_normalized_without_inventing_content(self):
+        decorated = BASE
+        for name in self.prompts.MINIMAX_BASE_SECTIONS:
+            decorated = decorated.replace(name + ':', '### **' + name.upper() + ':**')
+        self.assertEqual(self.prompts.minimax_sections('```text\n' + decorated + '\n```', format='base'),
+                         self.prompts.minimax_sections(BASE, format='base'))
+        self.assertIsNone(self.prompts.minimax_sections(decorated + '\n**overall_soundscape:** wind', format='base'))
 
     def test_storyboard_roles_match_generation_and_extension(self):
         state={'lista_frame_storyboard_attivi':['first','second','middle','last'],

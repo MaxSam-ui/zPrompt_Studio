@@ -637,39 +637,37 @@ def passa_timeline_a_gemma(prompt_img, model_vid, testo, audio_descrizione="", v
                       f"AUTHORITATIVE TIMELINE:\n{cronologia}{audio_section}")
             instruction = minimax_compiler_instruction(source, references, direct=True, format=prompt_format)
             instruction += ('\n\n' + compose_system('Video_Director_Style.txt', stile_regole_testo=stile_regole_testo))
-            original_instruction = instruction
-            # A valid model-specific result needs one call. Only invalid output
-            # triggers one bounded repair, using the original scene as authority.
-            for attempt in range(2):
-                phase = dl["director_repairing_status"] if attempt else dl["director_compiling_status"]
-                yield gr.update(), gr.update(), phase
-                structured = ""
-                for chunk in local_vlm.genera_prompt_video_timeline(instruction, model_vid, timeout=120, preserve_content=True):
-                    _verifica_stop_regia()
-                    if _errore_vlm(chunk):
-                        yield *precedenti, _stato_errore_vlm(chunk)
-                        return
-                    if isinstance(chunk, VLMStatus):
-                        yield gr.update(), gr.update(), str(chunk)
-                        continue
-                    structured = chunk
-                    yield structured, prompt_img if prompt_img else gr.update(), phase
+            phase = dl["director_compiling_status"]
+            yield gr.update(), gr.update(), phase
+            structured = ""
+            for chunk in local_vlm.genera_prompt_video_timeline(instruction, model_vid, timeout=120, preserve_content=True):
                 _verifica_stop_regia()
-                yield gr.update(), gr.update(), dl["director_validating_status"]
-                parts = minimax_sections(structured.strip(), format=prompt_format)
-                aligned = align_director_prompt(parts[body_key], lista_scene) if parts else None
-                if parts and aligned is not None:
-                    from utils.video_constraints import preserve_video_constraints
-                    parts[body_key] = preserve_video_constraints(aligned, soggetto, audio_descrizione)
-                    candidate = '\n\n'.join(f'{key}:\n{parts[key]}' for key in section_names)
-                    if (not validate_video_request(candidate, sum(float(scene[0]) for scene in lista_scene))
-                            and preserve_identity_tokens(candidate, source) == candidate):
-                        yield candidate, gr.update() if is_t2v else prompt_img, dl["director_compile_success"]
-                        return
-                if attempt == 0:
-                    log.registra("MiniMax direct prompt invalid; requesting one source-preserving repair.", "WARNING")
-                    instruction = (compose_system('MiniMax_Repair.txt', original_instruction=original_instruction, structured=structured))
-            raise ValueError("MiniMax prompt: invalid structure, timeline or identity tokens; previous prompt preserved.")
+                if _errore_vlm(chunk):
+                    yield *precedenti, _stato_errore_vlm(chunk)
+                    return
+                if isinstance(chunk, VLMStatus):
+                    yield gr.update(), gr.update(), str(chunk)
+                    continue
+                structured = chunk
+                yield structured, prompt_img if prompt_img else gr.update(), phase
+            _verifica_stop_regia()
+            yield gr.update(), gr.update(), dl["director_validating_status"]
+            parts = minimax_sections(structured.strip(), format=prompt_format)
+            if not parts:
+                raise ValueError("MiniMax prompt: missing, empty or duplicated sections; previous prompt preserved.")
+            aligned = align_director_prompt(parts[body_key], lista_scene)
+            if aligned is None:
+                raise ValueError("MiniMax prompt: clip boundaries do not match the timeline; previous prompt preserved.")
+            from utils.video_constraints import preserve_video_constraints
+            parts[body_key] = preserve_video_constraints(aligned, soggetto, audio_descrizione)
+            candidate = '\n\n'.join(f'{key}:\n{parts[key]}' for key in section_names)
+            error = validate_video_request(candidate, sum(float(scene[0]) for scene in lista_scene))
+            if error:
+                raise ValueError(error)
+            if preserve_identity_tokens(candidate, source) != candidate:
+                raise ValueError("MiniMax prompt: missing identity references; previous prompt preserved.")
+            yield candidate, gr.update() if is_t2v else prompt_img, dl["director_compile_success"]
+            return
 
         from utils.prompt_templates import scene_contract, render_template, system_template
         template_master = render_template(system_template("Master_Director_Template.txt"),
