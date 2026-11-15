@@ -17,7 +17,7 @@ Each family uses one folder under `ComfyUI/models/loras`: `Z-Image`, `Flux-2`, `
 - Dependency resolution was checked for Windows / Python 3.11; transitive versions are recorded in `scripts/constraints-win-py311.txt`.
 - Workflow wiring and UI callbacks have been tested; a fresh installation and every model/workflow combination still need end-to-end testing.
 - Offline manuals in Italian and English are bundled: use **?** and select the language, or open `help/help.html` / `help/help.en.html`.
-- This is a private-review presentation. No public release or license grant is implied.
+- This is a beta. Supported workflow profiles are checked automatically; generation quality and hardware compatibility still require real-world testing.
 
 When reporting a problem, include the workflow/model, reproduction steps and relevant logs. Remove personal prompts, paths and credentials first.
 

@@ -11,9 +11,9 @@ from core.runtime_paths import prepare_runtime_files
 SETTINGS_FILE = str(prepare_runtime_files(STUDIO_ROOT_DIR))
 
 DEFAULT_SETTINGS = {
-    "COMFYUI_DIR": "D:\\ComfyUI_windows_portable",
+    "COMFYUI_DIR": "C:\\ComfyUI_windows_portable",
     "STUDIO_OUTPUT_DIR": "output",
-    "VLM_CACHE_DIR": "",
+    "VLM_CACHE_DIR": "models_cache",
     "SESSION_FILE": "data/session.json",
     "LORA_ZIMAGE_DIR": "{COMFYUI_DIR}/ComfyUI/models/loras/Z-Image",
     "LORA_FLUX2_DIR": "{COMFYUI_DIR}\\ComfyUI\\models\\loras\\Flux-2",

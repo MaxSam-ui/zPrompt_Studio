@@ -17,7 +17,7 @@ Ogni famiglia usa una cartella sotto `ComfyUI/models/loras`: `Z-Image`, `Flux-2`
 - Risoluzione delle dipendenze verificata per Windows/Python 3.11; versioni transitive fissate in `scripts/constraints-win-py311.txt`.
 - Collegamenti dei workflow e callback dell’interfaccia verificati. Restano da collaudare l’installazione da zero e tutte le combinazioni di modelli e workflow.
 - Le guide offline italiana e inglese sono incluse: usa **?** e scegli la lingua oppure apri `help/help.html` / `help/help.en.html`.
-- Presentazione destinata alla revisione privata: non costituisce una pubblicazione o una concessione di licenza.
+- Versione beta: i profili dei workflow supportati sono verificati automaticamente; qualità generativa e compatibilità hardware richiedono comunque prove reali.
 
 Per segnalare un problema indica modello/workflow, passaggi per riprodurlo e log pertinenti, rimuovendo dati personali e credenziali.
 
