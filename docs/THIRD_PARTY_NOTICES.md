@@ -12,3 +12,7 @@ I titoli visualizzati nei workflow sono descrittivi e neutri. La pulizia non cam
 - Other model and custom-node names remain intact so users can identify and install the required components.
 
 This file records the presentation cleanup; it is not an exhaustive inventory of upstream licenses or a new license grant. See the original distributions for their license texts. Model weights and custom-node implementations are not bundled here.
+
+## Application license
+
+The original application code is GPL-3.0-only; see [license scope](LICENSING.md). This does not establish or replace the redistribution terms of upstream workflow graphs. Attribution alone is not a license grant. Exact upstream terms for all adapted graphs remain to be verified.

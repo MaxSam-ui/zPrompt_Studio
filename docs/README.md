@@ -144,3 +144,7 @@ Review generated prompts and timelines. **Extend video** sets a new first frame 
 For a problem report, include reproduction steps, workflow/model, GPU and relevant error messages. Remove personal data before sharing logs. Use **Check installation** to inspect dependencies, nodes and models; it does not download models or certify a complete generation.
 
 [Preview status and diagnostics](SETUP_REFERENCE.md) · [Third-party notices](THIRD_PARTY_NOTICES.md)
+
+## License
+
+The original application code is licensed under **GNU GPLv3 (GPL-3.0-only)**. Copyright (C) 2026 MaxSam-ui and contributors. See the [full license](../LICENSE) and [scope and third-party exceptions](LICENSING.md). External models, nodes and third-party workflow material retain their own terms; this license does not relicense them.

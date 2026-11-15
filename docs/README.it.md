@@ -144,3 +144,7 @@ Ricontrolla i prompt e le timeline generati. **Estendi video** imposta un nuovo 
 Per segnalare un problema indica i passaggi, il workflow/modello, la GPU e i messaggi di errore pertinenti. Rimuovi i dati personali prima di condividere i log. **Verifica installazione** controlla dipendenze, nodi e modelli; non li scarica e non certifica una generazione completa.
 
 [Stato della preview e diagnostica](SETUP_REFERENCE.it.md) · [Attribuzioni di terze parti](THIRD_PARTY_NOTICES.md)
+
+## Licenza
+
+Il codice originale dell’app è distribuito con **GNU GPLv3 (GPL-3.0-only)**. Copyright (C) 2026 MaxSam-ui e contributori. Consulta il [testo integrale](../LICENSE) e l’[ambito di applicazione e le eccezioni per materiali di terzi](LICENSING.md). Modelli, nodi e materiali dei workflow di terzi mantengono le proprie condizioni: questa licenza non le sostituisce.
