@@ -67,7 +67,7 @@ def crea_barra_stato_unificata(placeholder, elem_id_stop, elem_id_skip=None, mos
     from ui.status_feedback import update_status_feedback, render_status_feedback
     status_box = gr.Textbox(visible=False)
     with gr.Row(variant="compact", elem_classes=["barra-stato-unificata", "studio-operation-row"]):
-        feedback = gr.HTML(value=render_status_feedback(placeholder), elem_classes=["studio-status-details"])
+        feedback = gr.HTML(value=update_status_feedback(placeholder), elem_classes=["studio-status-details"])
         
         if mostra_skip:
             btn_skip = gr.Button(

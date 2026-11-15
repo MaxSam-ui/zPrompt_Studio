@@ -50,5 +50,5 @@ def render_status_feedback(message, language="IT"):
 
 def update_status_feedback(message):
     from core import sessione
-    language = sessione.carica_ultima_sessione().get("lingua_selezionata", "IT")
+    language = sessione.carica_ultima_sessione().get("lingua_selezionata", "EN")
     return render_status_feedback(message, language)
