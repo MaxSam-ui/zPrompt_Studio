@@ -18,12 +18,25 @@ Non servono un’idea già completa o un prompt scritto alla perfezione. zPrompt
 
 Puoi partire da testo, da un’immagine di riferimento o da un prompt già pronto. Non è necessario seguire tutte le schede in ordine.
 
-| Analisi | Rendering | Video |
-| --- | --- | --- |
-| [![Interfaccia Analisi](assets/studio-analysis.png)](assets/studio-analysis.png) | [![Interfaccia Rendering](assets/studio-rendering.png)](assets/studio-rendering.png) | [![Interfaccia Video](assets/studio-video.png)](assets/studio-video.png) |
-| Trasforma testo o riferimenti in un prompt immagine modificabile. | Genera o modifica immagini, affina le descrizioni e confronta i risultati. | Ricava un’idea dall’immagine con l’AI, crea la timeline e genera un video. |
+### Analisi · trova le parole giuste
 
-*Clicca sulle schermate per ingrandirle. Sono componenti reali della UI con gli esempi del faro già caricati, non una registrazione della generazione. Alla prima installazione l’interfaccia parte in inglese. Puoi scegliere l’italiano in Logs & Settings; la scelta viene salvata.*
+[![Analisi Immagine con l’esempio del faro già compilato](assets/studio-analysis.png)](assets/studio-analysis.png)
+
+Trasforma poche parole o un’immagine di riferimento in un prompt modificabile.
+
+### Rendering · dai forma alla scena
+
+[![Rendering con l’immagine generata del faro](assets/studio-rendering.png)](assets/studio-rendering.png)
+
+Genera o modifica immagini, affina la descrizione e scegli un risultato per il video.
+
+### Video · dai una storia all’immagine
+
+[![Area Video con una scena del faro suddivisa in tre clip](assets/studio-video.png)](assets/studio-video.png)
+
+Lascia che l’AI suggerisca un soggetto dall’immagine, pianifica azioni e suoni e genera il video.
+
+*Viste selezionate della UI attuale con gli esempi pubblicati precaricati in una sessione dimostrativa isolata. Non sono registrazioni della generazione; il piano di tre clip è distinto dal video di quattro secondi sotto. Clicca per ingrandire. L’interfaccia supporta inglese e italiano.*
 
 ### Dai ritmo alla scena
 

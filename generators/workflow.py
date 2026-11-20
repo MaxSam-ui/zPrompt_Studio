@@ -435,8 +435,8 @@ def prepara_workflow_krea2(file_path, prompt_testo, l1_n, l1_s, l2_n, l2_s, l3_n
     return binding.finish(wf)
 
 
-def prepara_workflow_img2img_krea2(file_path, input_image_filename, prompt_testo, steps=8, sampler_name="euler",
-                                   scheduler="normal", denoise=0.35, seed=None,
+def prepara_workflow_img2img_krea2(file_path, input_image_filename, prompt_testo, steps=8, sampler_name="linear/euler",
+                                   scheduler="simple", denoise=0.35, seed=None,
                                    l1_n="-", l1_s=1.0, l2_n="-", l2_s=1.0, l3_n="-", l3_s=1.0,
                                    larghezza=1024, altezza=1024):
     """Workflow Refine per Krea-2 con disattivazione Enhancer per prevenire fireflies/punti luminosi."""
@@ -467,6 +467,8 @@ def prepara_workflow_img2img_krea2(file_path, input_image_filename, prompt_testo
     if NODO_SAMPLER in wf:
         wf[NODO_SAMPLER]["inputs"]["latent_image"] = ["91", 0]
         wf[NODO_SAMPLER]["inputs"]["denoise"] = float(denoise)
+        wf[NODO_SAMPLER]["inputs"]["sampler_name"] = sampler_name
+        wf[NODO_SAMPLER]["inputs"]["scheduler"] = scheduler
         wf[NODO_SAMPLER]["inputs"]["steps"] = int(steps)
         if seed is not None: wf[NODO_SAMPLER]["inputs"]["seed"] = int(seed)
         wf[NODO_SAMPLER]["inputs"]["eta"] = p_pass1.get("eta", 0.0)

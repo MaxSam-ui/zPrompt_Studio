@@ -148,7 +148,7 @@ MODELLI_IMMAGINE: Dict[str, Dict[str, Any]] = {
         "wf_filename": "krea2_turbo_api.json",
         "lora_dirs_func": lambda: [config.ottieni_lora_krea2_dir()],
         "steps": {"default": 8, "min": 1, "max": 20},
-        "samplers": ["linear/euler", "exponential/res_2s", "res_2s", "dpmpp_2m_sde", "euler_ancestral", "ddim", "euler", "heun", "dpmpp_2m", "uni_pc", "lcm", "er_sde"],
+        "samplers": ["linear/euler", "exponential/res_2s", "res_2s", "exponential/res_3s", "linear/heun_2s", "multistep/dpmpp_2m", "exponential/ddim", "euler"],
         "schedulers": ["simple", "bong_tangent", "normal", "sgm_uniform", "karras", "exponential", "beta"],
         "default_sampler": "linear/euler",
         "default_scheduler": "simple",
@@ -166,7 +166,7 @@ def ottieni_config_modifica_immagine(nome_modello="Krea-2 Turbo") -> Dict[str, A
                 "default_sampler": "euler", "default_scheduler": "simple", "has_hires_fix": False,
                 "lora_dirs_func": lambda: [config.ottieni_lora_qwen21_dir()]}
     cfg = dict(MODELLI_IMMAGINE["Krea-2 Turbo"])
-    cfg["samplers"] = [name for name in cfg["samplers"] if "/" not in name]
+    cfg["samplers"] = ["euler", "euler_ancestral", "heun", "dpmpp_2m", "dpmpp_2m_sde", "ddim", "uni_pc", "lcm", "er_sde"]
     cfg["default_sampler"] = "euler"
     return cfg
 

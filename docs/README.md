@@ -18,12 +18,25 @@ You do not need a finished idea or a carefully written prompt. zPrompt Studio he
 
 Start from text, a reference image or an existing prompt. You do not have to follow every tab in order.
 
-| Analysis | Rendering | Video |
-| --- | --- | --- |
-| [![Analysis interface](assets/studio-analysis.png)](assets/studio-analysis.png) | [![Rendering interface](assets/studio-rendering.png)](assets/studio-rendering.png) | [![Video interface](assets/studio-video.png)](assets/studio-video.png) |
-| Turn text or a reference into an editable image prompt. | Generate or edit images, refine descriptions and compare results. | Let AI suggest an idea from your image, create a timeline and generate a video. |
+### Analysis · find the right words
 
-*Click a screenshot to enlarge it. These are real UI components with completed lighthouse examples preloaded, not a recording of generation. The interface starts in English on a fresh installation. You can choose Italian in Logs & Settings; your choice is saved.*
+[![Image Analysis with a completed lighthouse example](assets/studio-analysis.png)](assets/studio-analysis.png)
+
+Turn a few words or a reference image into an editable image prompt.
+
+### Rendering · bring the scene to life
+
+[![Rendering with a generated lighthouse image](assets/studio-rendering.png)](assets/studio-rendering.png)
+
+Generate or edit images, refine the description and choose a result for your video.
+
+### Video · give the image a story
+
+[![Video workspace with a three-clip lighthouse scene](assets/studio-video.png)](assets/studio-video.png)
+
+Let AI suggest a subject from your image, plan actions and sound, then generate a video.
+
+*Selected views of the current UI with published examples preloaded in an isolated documentation session. These are not recordings of generation; the three-clip plan is separate from the four-second video below. Click to enlarge. The interface supports English and Italian.*
 
 ### Give your scene a rhythm
 

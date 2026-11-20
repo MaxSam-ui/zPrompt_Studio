@@ -79,6 +79,18 @@ class AllProfilesTest(unittest.TestCase):
                 digest=hashlib.sha256(json.dumps(graph,sort_keys=True).encode()).hexdigest()
                 self.assertEqual(digest,expected[case[0]])
 
+    def test_krea_sampler_and_scheduler_reach_both_generation_paths(self):
+        for mode in ('text', 'refine'):
+            case = next(c for c in cases() if c[0] == f'krea2_{mode}_False')
+            baseline = self.build(case)
+            for sampler in ('linear/euler', 'exponential/res_2s', 'linear/heun_2s'):
+                with self.subTest(mode=mode, sampler=sampler):
+                    args = dict(case[3], sampler_name=sampler, scheduler='karras')
+                    graph = self.build((*case[:3], args))
+                    self.assertEqual(graph['7']['inputs']['sampler_name'], sampler)
+                    self.assertEqual(graph['7']['inputs']['scheduler'], 'karras')
+                    self.assertEqual(graph['10'], baseline['10'])
+
     def test_ltx_builder_uses_cleaned_prompt(self):
         from test_video_prompt_dialects import REF
         prompts=load('real_ltx_prompt_adapter',ROOT/'utils/video_model_prompt.py')
