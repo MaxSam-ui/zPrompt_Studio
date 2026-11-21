@@ -20,7 +20,7 @@ Puoi partire da testo, da un’immagine di riferimento o da un prompt già pront
 
 ### Analisi · trova le parole giuste
 
-[![Analisi Immagine con l’esempio del faro già compilato](assets/studio-analysis.png)](assets/studio-analysis.png)
+[![Analisi Immagine con l’esempio del faro già compilato](assets/studio-analysis.jpg)](assets/studio-analysis.jpg)
 
 Trasforma poche parole o un’immagine di riferimento in un prompt modificabile.
 

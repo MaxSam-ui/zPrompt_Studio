@@ -20,7 +20,7 @@ Start from text, a reference image or an existing prompt. You do not have to fol
 
 ### Analysis · find the right words
 
-[![Image Analysis with a completed lighthouse example](assets/studio-analysis.png)](assets/studio-analysis.png)
+[![Image Analysis with a completed lighthouse example](assets/studio-analysis.jpg)](assets/studio-analysis.jpg)
 
 Turn a few words or a reference image into an editable image prompt.
 
