@@ -4,6 +4,7 @@ import os
 import shutil
 import random
 import gradio as gr
+from utils.gallery_commands import deletion_index, remove_gallery_references
 
 from core import sessione, log, lingua, config
 from services import comfyui_manager
@@ -303,8 +304,7 @@ def gestisci_trigger_galleria_html(cmd, stato_gen):
             )
 
         try:
-            parti = cmd.split("_")
-            idx = int(parti[1])
+            idx = deletion_index(cmd, immagini_generate)
             if 0 <= idx < len(immagini_generate):
                 percorso_elimina = immagini_generate[idx]
                 if percorso_elimina and os.path.exists(percorso_elimina):
@@ -317,14 +317,9 @@ def gestisci_trigger_galleria_html(cmd, stato_gen):
                     except Exception as e:
                         log.registra(f"Unable to remove file during trigger command: {e}", "WARNING")
                 
-                immagini_generate.pop(idx)
-                
-                if idx < len(seed_attuali_cumulati):
-                    seed_attuali_cumulati.pop(idx)
-                    stato_gen["seed_attuali_cumulati"] = seed_attuali_cumulati
-                if idx < len(seed_attuali_singoli):
-                    seed_attuali_singoli.pop(idx)
-                    stato_gen["seed_attuali"] = seed_attuali_singoli
+                remove_gallery_references(immagini_generate, idx, seed_attuali_cumulati, seed_attuali_singoli)
+                stato_gen["seed_attuali_cumulati"] = seed_attuali_cumulati
+                stato_gen["seed_attuali"] = seed_attuali_singoli
 
                 immagini_visibili = immagini_generate[-MAX_GALLERY_HTML_DISPLAY:] if len(immagini_generate) > MAX_GALLERY_HTML_DISPLAY else immagini_generate
 
@@ -492,8 +487,7 @@ def gestisci_trigger_galleria_batch_html(cmd, stato_gen):
             return stato_gen, gr.update(), gr.update(), gr.update(), gr.update()
 
         try:
-            parti = cmd.split("_")
-            idx = int(parti[1])
+            idx = deletion_index(cmd, immagini_generate)
             if 0 <= idx < len(immagini_generate):
                 percorso_elimina = immagini_generate[idx]
                 if percorso_elimina and os.path.exists(percorso_elimina):
@@ -506,7 +500,7 @@ def gestisci_trigger_galleria_batch_html(cmd, stato_gen):
                     except Exception as e:
                         log.registra(f"Unable to remove batch file from disk: {e}", "WARNING")
                 
-                immagini_generate.pop(idx)
+                remove_gallery_references(immagini_generate, idx)
                 
                 # Salvataggio immediato della lista aggiornata nello stato e nella sessione
                 stato_gen["immagini_generate_batch"] = immagini_generate

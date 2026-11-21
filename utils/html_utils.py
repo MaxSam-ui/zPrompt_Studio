@@ -4,6 +4,7 @@ import os
 import time
 from core import config, sessione, lingua
 from utils.media_base import norm_path_sicuro
+from utils.gallery_commands import gallery_item_key
 
 
 def ottieni_lightbox_modal_html():
@@ -190,7 +191,7 @@ def compila_galleria_html(immagini_list, percorso_selezionato=None, percorso_des
         except Exception:
             pass
             
-        btn_delete_html = f'<button class="gallery-item-btn-delete" data-idx="{idx}" title="{lbl_delete}">🗑️</button>' if is_generata_internamente else ""
+        btn_delete_html = f'<button class="gallery-item-btn-delete" data-idx="{idx}" data-key="{gallery_item_key(abs_path)}" title="{lbl_delete}">🗑️</button>' if is_generata_internamente else ""
         
         items_html += f"""
         <div class="gallery-item-wrapper{classe_selected}" data-idx="{idx}">

@@ -180,13 +180,16 @@ def genera_script_inizializzazione():
                     e.preventDefault();
                     e.stopPropagation();
                     const idx = btnDeleteImg.getAttribute('data-idx');
+                    const itemKey = btnDeleteImg.getAttribute('data-key');
                     
                     const isBatch = btnDeleteImg.closest('#gallery-batch-html') !== null;
                     const triggerId = isBatch ? '#hidden-gallery-trigger-batch' : '#hidden-gallery-trigger';
                     
                     const trigger = document.querySelector(triggerId + ' textarea, ' + triggerId + ' input');
                     if (trigger) {
-                        trigger.value = 'DELETE_' + idx + '_' + Date.now();
+                        window._galleryDeleteSequence = (window._galleryDeleteSequence || 0) + 1;
+                        const target = itemKey ? 'KEY_' + itemKey : idx;
+                        trigger.value = 'DELETE_' + target + '_' + Date.now() + '_' + window._galleryDeleteSequence;
                         trigger.dispatchEvent(new Event('input', { bubbles: true }));
                     }
                 } else if (btnExpandImg) {

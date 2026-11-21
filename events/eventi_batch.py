@@ -156,12 +156,10 @@ def collega_batch(t4, t5, num_lora_batch, stato_generazione):
             t4["batch_prompt_corrente"],
             t4["accordion_stato_batch"]
         ],
-        show_progress="hidden"
-    ).then(
-        fn=lambda: "",
-        inputs=None,
-        outputs=[t4["hidden_gallery_trigger_batch"]],
-        show_progress="hidden"
+        show_progress="hidden",
+        trigger_mode="multiple",
+        concurrency_id="gallery-selection",
+        concurrency_limit=1
     )
 
     t4["btn_refresh_gallery_batch"].click(
