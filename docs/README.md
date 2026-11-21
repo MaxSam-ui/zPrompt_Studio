@@ -16,7 +16,7 @@ You do not need a finished idea or a carefully written prompt. zPrompt Studio he
 
 ## Inside the app
 
-Start from text, a reference image or an existing prompt. You do not have to follow every tab in order.
+Already have a prompt? Go straight to Rendering. You do not have to follow every tab in order.
 
 ### Analysis · find the right words
 
@@ -36,15 +36,13 @@ Generate or edit images, refine the description and choose a result for your vid
 
 Let AI suggest a subject from your image, plan actions and sound, then generate a video.
 
-*Selected views of the current UI with published examples preloaded in an isolated documentation session. These are not recordings of generation; the three-clip plan is separate from the four-second video below. Click to enlarge. The interface supports English and Italian.*
-
 ### Give your scene a rhythm
 
 [![Three-clip timeline with framing, movement and sound](assets/studio-timeline.png)](assets/studio-timeline.png)
 
 **Three clips, one story:** approach the lighthouse, pause by the cliffs and look toward the horizon. Each card shows timing, framing, movement and audio. Let AI draft the timeline, then edit individual steps.
 
-*A 12-second planning example using the actual app component; the video demo below is a separate four-second trial.*
+*Current app screenshots with examples preloaded in an isolated demo session, not recordings of generation. The timeline illustrates a 12-second plan; the video below is a separate four-second trial. Click images to enlarge. The interface supports English and Italian.*
 
 Also included:
 
@@ -131,8 +129,6 @@ The download includes the app, workflow files and example presets. It does not i
 **[Create your own suggestions](CUSTOM_PRESETS.md)** · [Shared image/video styles](../suggestions/README.md) · **[Customize workflows and profiles](../workflows/PROFILES.md)**
 
 ## Guides and customization
-
-**The included suggestions are editable examples, not a fixed collection.** Create your own visual styles, story ideas and instructions without changing Python code.
 
 | You want to… | Open… |
 | --- | --- |

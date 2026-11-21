@@ -16,7 +16,7 @@ Non servono un’idea già completa o un prompt scritto alla perfezione. zPrompt
 
 ## Dentro l’app
 
-Puoi partire da testo, da un’immagine di riferimento o da un prompt già pronto. Non è necessario seguire tutte le schede in ordine.
+Hai già un prompt? Passa direttamente a Rendering. Non è necessario seguire tutte le schede in ordine.
 
 ### Analisi · trova le parole giuste
 
@@ -36,15 +36,13 @@ Genera o modifica immagini, affina la descrizione e scegli un risultato per il v
 
 Lascia che l’AI suggerisca un soggetto dall’immagine, pianifica azioni e suoni e genera il video.
 
-*Viste selezionate della UI attuale con gli esempi pubblicati precaricati in una sessione dimostrativa isolata. Non sono registrazioni della generazione; il piano di tre clip è distinto dal video di quattro secondi sotto. Clicca per ingrandire. L’interfaccia supporta inglese e italiano.*
-
 ### Dai ritmo alla scena
 
 [![Timeline con tre clip: inquadrature, movimenti e suoni](assets/studio-timeline.png)](assets/studio-timeline.png)
 
 **Tre clip, una storia:** avvicinamento al faro, una pausa sulla scogliera e uno sguardo verso l’orizzonte. Ogni scheda mostra durata, inquadratura, movimento e audio: puoi far preparare la timeline all’AI e modificare i singoli passaggi.
 
-*Esempio di pianificazione di 12 secondi con il componente reale dell’app; il video dimostrativo sotto è una prova distinta di quattro secondi.*
+*Schermate dell’app attuale con esempi precaricati in una sessione dimostrativa isolata, non registrazioni della generazione. La timeline illustra un piano di 12 secondi; il video sotto è una prova distinta di quattro secondi. Clicca sulle immagini per ingrandirle. L’interfaccia supporta inglese e italiano.*
 
 Sono inclusi anche:
 
@@ -131,8 +129,6 @@ Il download comprende l’app, i workflow e i preset di esempio. Non comprende C
 **[Crea i tuoi suggerimenti](CUSTOM_PRESETS.md)** · [Stili condivisi per immagini e video](../suggestions/README.md) · **[Personalizza workflow e profili](../workflows/PROFILES.md)**
 
 ## Guide e personalizzazione
-
-**I suggerimenti inclusi sono esempi modificabili, non una raccolta chiusa.** Crea stili visivi, idee di trama e istruzioni personali senza modificare il codice Python.
 
 | Vuoi… | Apri… |
 | --- | --- |
