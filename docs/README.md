@@ -20,25 +20,25 @@ Already have a prompt? Go straight to Rendering. You do not have to follow every
 
 ### Analysis · find the right words
 
-[![Image Analysis with a completed lighthouse example](assets/studio-analysis.jpg)](assets/studio-analysis.jpg)
+<a href="assets/studio-analysis.jpg"><img src="assets/studio-analysis.jpg" alt="Image Analysis with a completed lighthouse example" width="100%"></a>
 
 Turn a few words or a reference image into an editable image prompt.
 
 ### Rendering · bring the scene to life
 
-[![Rendering with a generated lighthouse image](assets/studio-rendering.png)](assets/studio-rendering.png)
+<a href="assets/studio-rendering.png"><img src="assets/studio-rendering.png" alt="Rendering with a generated lighthouse image" width="100%"></a>
 
 Generate or edit images, refine the description and choose a result for your video.
 
 ### Video · give the image a story
 
-[![Video workspace with a three-clip lighthouse scene](assets/studio-video.png)](assets/studio-video.png)
+<a href="assets/studio-video.png"><img src="assets/studio-video.png" alt="Video workspace with a three-clip lighthouse scene" width="100%"></a>
 
 Let AI suggest a subject from your image, plan actions and sound, then generate a video.
 
 ### Give your scene a rhythm
 
-[![Three-clip timeline with framing, movement and sound](assets/studio-timeline.png)](assets/studio-timeline.png)
+<a href="assets/studio-timeline.png"><img src="assets/studio-timeline.png" alt="Three-clip timeline with framing, movement and sound" width="100%"></a>
 
 **Three clips, one story:** approach the lighthouse, pause by the cliffs and look toward the horizon. Each card shows timing, framing, movement and audio. Let AI draft the timeline, then edit individual steps.
 

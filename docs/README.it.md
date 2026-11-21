@@ -20,25 +20,25 @@ Hai già un prompt? Passa direttamente a Rendering. Non è necessario seguire tu
 
 ### Analisi · trova le parole giuste
 
-[![Analisi Immagine con l’esempio del faro già compilato](assets/studio-analysis.jpg)](assets/studio-analysis.jpg)
+<a href="assets/studio-analysis.jpg"><img src="assets/studio-analysis.jpg" alt="Analisi Immagine con l’esempio del faro già compilato" width="100%"></a>
 
 Trasforma poche parole o un’immagine di riferimento in un prompt modificabile.
 
 ### Rendering · dai forma alla scena
 
-[![Rendering con l’immagine generata del faro](assets/studio-rendering.png)](assets/studio-rendering.png)
+<a href="assets/studio-rendering.png"><img src="assets/studio-rendering.png" alt="Rendering con l’immagine generata del faro" width="100%"></a>
 
 Genera o modifica immagini, affina la descrizione e scegli un risultato per il video.
 
 ### Video · dai una storia all’immagine
 
-[![Area Video con una scena del faro suddivisa in tre clip](assets/studio-video.png)](assets/studio-video.png)
+<a href="assets/studio-video.png"><img src="assets/studio-video.png" alt="Area Video con una scena del faro suddivisa in tre clip" width="100%"></a>
 
 Lascia che l’AI suggerisca un soggetto dall’immagine, pianifica azioni e suoni e genera il video.
 
 ### Dai ritmo alla scena
 
-[![Timeline con tre clip: inquadrature, movimenti e suoni](assets/studio-timeline.png)](assets/studio-timeline.png)
+<a href="assets/studio-timeline.png"><img src="assets/studio-timeline.png" alt="Timeline con tre clip: inquadrature, movimenti e suoni" width="100%"></a>
 
 **Tre clip, una storia:** avvicinamento al faro, una pausa sulla scogliera e uno sguardo verso l’orizzonte. Ogni scheda mostra durata, inquadratura, movimento e audio: puoi far preparare la timeline all’AI e modificare i singoli passaggi.
 
