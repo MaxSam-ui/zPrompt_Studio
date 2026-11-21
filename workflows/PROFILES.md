@@ -2,6 +2,14 @@
 
 ## Italiano
 
+### Cosa puoi personalizzare
+
+**I workflow inclusi sono un punto di partenza.** Puoi estendere il grafo mantenendo compatibili i nodi, gli ingressi/uscite e i collegamenti che Studio controlla, oltre alle fasi obbligatorie. Conservare soltanto ID o nomi non basta: prompt, immagini e parametri devono continuare a influire sul risultato atteso dall’app. I nodi aggiuntivi vengono conservati, ma i valori gestiti dall’interfaccia possono essere sovrascritti a ogni generazione.
+
+**Esempio:** puoi provare una correzione colore dopo la decodifica dell’immagine, mantenendo il nodo di uscita atteso da Studio e collegandogli l’immagine elaborata con un tipo compatibile. Se invece sostituisci il sampler con un nodo che riceve parametri diversi, può servire un aggiornamento dell’adattatore, non solo del profilo. Una catena aggiunta ma non collegata all’uscita usata da Studio non modifica il risultato restituito.
+
+Lavora su una copia, provala in ComfyUI, esportala in formato API e associa il profilo corretto al percorso configurato nell’app. Esegui **Verifica installazione**, poi una generazione breve da Studio per ciascuna modalità che vuoi usare: la verifica strutturale da sola non certifica qualità, velocità o compatibilità completa.
+
 I profili coprono **tutti i workflow distribuiti**: Z-Image Turbo, Flux.2 Klein, Krea-2 Turbo, Krea-2 Edit, Qwen Image 2.1 Edit, LTX 2.5 e MiniMax Dual-Clock. Non è un importatore universale: cambiare la semantica dei nodi, il tipo di sampler o il protocollo del modello può richiedere un nuovo adattatore.
 
 Il workflow API `minimax_h3_api.json` è accompagnato da `minimax_h3_api.profile.json`. Il profilo assegna a ogni ruolo (prompt, durata, seed, conditioning, sampler, uscita video, sorgente/destinazione LoRA e caricamento immagine) il relativo ID e tipo di nodo. Se rinumeri i nodi, aggiorni il profilo e i collegamenti nel workflow, senza modificare Python. I nomi degli ingressi sono quelli previsti dall'adattatore; non basta dichiarare un tipo diverso per renderlo compatibile.
@@ -39,6 +47,14 @@ I campi `capabilities` dichiarano testo, First/Last, riferimenti, immagine inter
 Prima della generazione vengono controllati struttura, tipi dichiarati, ingressi richiesti, collegamenti non risolti e raggiungibilità di prompt/seed/durata/sampler dall'uscita video. **Registri & Impostazioni → Verifica installazione** controlla anche il profilo distribuito e, con ComfyUI acceso, la disponibilità dei nodi per i keyframe. Questi controlli non misurano fedeltà visiva o qualità del risultato.
 
 ## English
+
+### What you can customize
+
+**The included workflows are a starting point.** You can extend the graph while keeping the nodes, inputs/outputs and connections controlled by Studio compatible, along with required stages. Keeping IDs or names alone is not enough: prompts, images and parameters must still affect the result expected by the app. Extra nodes are preserved, but interface-managed values may be overwritten on each generation.
+
+**Example:** you can try color correction after image decoding while retaining Studio’s expected output node and feeding it the processed image with a compatible type. Replacing the sampler with a node that accepts different parameters may instead require an adapter update, not just a profile change. An added chain that is not connected to the output used by Studio will not affect the returned result.
+
+Work on a copy, test it in ComfyUI, export it in API format and pair it with the correct profile at the path configured in the app. Run **Check installation**, then a short generation from Studio for each mode you intend to use: structural checks alone do not certify quality, speed or full compatibility.
 
 Profiles cover **all shipped workflows**: Z-Image Turbo, Flux.2 Klein, Krea-2 Turbo, Krea-2 Edit, Qwen Image 2.1 Edit, LTX 2.5 and MiniMax Dual-Clock. Pair an API workflow with a same-name `.profile.json` file. Each role maps to an actual node ID and class. Renumbering compatible nodes requires editing the workflow and profile, not Python. Input names and semantics must match the adapter; arbitrary new samplers/node behavior still require implementation.
 
