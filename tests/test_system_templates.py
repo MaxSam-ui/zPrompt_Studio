@@ -37,7 +37,7 @@ class SystemTemplatesTest(unittest.TestCase):
                         keys = {k.arg for k in node.keywords}
                         required = set(re.findall(r'\{([A-Za-z_][A-Za-z_0-9]*)\}', text))
                         self.assertFalse(required - keys, (str(path), name, required - keys))
-                        rendered = self.module.compose_system(name, **{k: 'MIA_PERSONA {literal} [0.0s - 4.0s]' for k in keys})
+                        rendered = self.module.compose_system(name, **{k: 'EXAMPLE_SUBJECT {literal} [0.0s - 4.0s]' for k in keys})
                         self.assertNotIn('{value_', rendered)
                     count += 1
         self.assertGreater(count, 20)
@@ -79,7 +79,7 @@ class SystemTemplatesTest(unittest.TestCase):
         spec = importlib.util.spec_from_file_location('tested_video_prompt', ROOT/'utils/video_model_prompt.py')
         video = importlib.util.module_from_spec(spec)
         spec.loader.exec_module(video)
-        source = 'MIA_PERSONA walks. [0.0s - 4.0s] Static camera. Water sound.'
+        source = 'EXAMPLE_SUBJECT walks. [0.0s - 4.0s] Static camera. Water sound.'
         with patch.dict(sys.modules, {'utils.prompt_templates': self.module}):
             for references in (0, 1, 2):
                 prompt = video.minimax_compiler_instruction(source, references, direct=True)

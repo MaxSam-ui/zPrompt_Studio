@@ -18,7 +18,7 @@ def load(name, path):
     return module
 
 BASE = """integrated_multimodal_description:
-[0.0s - 3.3s] [Shot 1] MIA_PERSONA walks with a static camera.
+[0.0s - 3.3s] [Shot 1] EXAMPLE_SUBJECT walks with a static camera.
 [3.3s - 6.6s] She pauses, then (S1) says <d>[Italian] Aspettami!</d>
 [6.6s - 10.0s] She turns. No cuts. No music.
 
@@ -28,7 +28,7 @@ Wind and footsteps.
 non_diegetic_music:
 None"""
 REF = """subject_definitions:
-<Subject 1> is MIA_PERSONA, a woman wearing a yellow coat in <Picture 1>.
+<Subject 1> is EXAMPLE_SUBJECT, a woman wearing a yellow coat in <Picture 1>.
 <Subject 2>: a red bicycle.
 
 summary:
@@ -65,9 +65,9 @@ class VideoPromptDialectsTest(unittest.TestCase):
 
     def test_compiler_selects_schema_before_generation(self):
         for mode, field in [('base','integrated_multimodal_description'),('reference','subject_definitions')]:
-            result = self.prompts.minimax_compiler_instruction('MIA_PERSONA [0.0s - 10.0s]',2,format=mode)
+            result = self.prompts.minimax_compiler_instruction('EXAMPLE_SUBJECT [0.0s - 10.0s]',2,format=mode)
             self.assertIn(field,result)
-            self.assertIn('MIA_PERSONA [0.0s - 10.0s]',result)
+            self.assertIn('EXAMPLE_SUBJECT [0.0s - 10.0s]',result)
         self.assertNotIn('six section',self.prompts.minimax_compiler_instruction('scene',0,format='base'))
 
     def test_parsers_reject_mixed_empty_duplicate_and_wrong_formats(self):
@@ -112,7 +112,7 @@ class VideoPromptDialectsTest(unittest.TestCase):
 
     def test_legacy_reference_to_native_preserves_identities_and_audio(self):
         result=self.prompts.minimax_payload(REF,format='base',duration=10,first=True,last=True)
-        self.assertIn('MIA_PERSONA',result)
+        self.assertIn('EXAMPLE_SUBJECT',result)
         self.assertIn('yellow coat',result)
         self.assertIn('red bicycle',result)
         self.assertNotIn('<Subject',result)
@@ -123,7 +123,7 @@ class VideoPromptDialectsTest(unittest.TestCase):
         self.assertNotIn('<Subject',result)
         self.assertNotIn('<Picture',result)
         self.assertNotIn('<d>',result)
-        self.assertIn('MIA_PERSONA',result)
+        self.assertIn('EXAMPLE_SUBJECT',result)
         self.assertIn('red bicycle',result)
         self.assertIn('In Italian: "Aspettami!"',result)
         self.assertIn('From 5 to 10 seconds',result)
@@ -210,7 +210,7 @@ class VideoPromptDialectsTest(unittest.TestCase):
                 with patch.dict(sys.modules,overrides),patch.object(utils,'timeline',fake_timeline,create=True):
                     exec(compile(ast.Module(body=functions,type_ignores=[]),'director-test','exec'),namespace)
                     values=list(namespace['passa_timeline_a_gemma']('', 'test-model','timeline',solo_testo_video=True,
-                                    soggetto='MIA_PERSONA walks to a red bicycle, says "Aspettami!" in Italian.',prompt_corrente='previous'))
+                                    soggetto='EXAMPLE_SUBJECT walks to a red bicycle, says "Aspettami!" in Italian.',prompt_corrente='previous'))
                 if draft == 'Incomplete model response':
                     self.assertEqual(len(calls), 1)
                     self.assertEqual(values[-1][0], 'previous')
@@ -226,7 +226,7 @@ class VideoPromptDialectsTest(unittest.TestCase):
                 self.assertEqual(values[-1][2],'success',values[-1])
                 self.assertTrue(any(v[0] == draft[:40] for v in values[:-1]))
                 self.assertEqual(len(calls),1)
-                self.assertIn('MIA_PERSONA',values[-1][0])
+                self.assertIn('EXAMPLE_SUBJECT',values[-1][0])
                 expected='base' if mode=='native_keyframes' else 'reference'
                 self.assertIsNotNone(self.prompts.minimax_sections(values[-1][0],format=expected))
                 self.assertFalse(manager.generazione_attiva)

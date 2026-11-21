@@ -101,7 +101,7 @@ class AllProfilesTest(unittest.TestCase):
         payload=graph['5']['inputs']['text']
         self.assertNotIn('<Subject',payload)
         self.assertNotIn('<Picture',payload)
-        self.assertIn('MIA_PERSONA',payload)
+        self.assertIn('EXAMPLE_SUBJECT',payload)
         self.assertIn('Aspettami!',payload)
         self.assertIn('Wind and footsteps.',payload)
 
