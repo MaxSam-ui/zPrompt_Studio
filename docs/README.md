@@ -26,19 +26,19 @@ Turn a few words or a reference image into an editable image prompt.
 
 ### Rendering · bring the scene to life
 
-<a href="assets/studio-rendering.png"><img src="assets/studio-rendering.png" alt="Rendering with a generated lighthouse image" width="100%"></a>
+<a href="assets/studio-rendering.jpg"><img src="assets/studio-rendering.jpg" alt="Rendering with a generated lighthouse image" width="100%"></a>
 
 Generate or edit images, refine the description and choose a result for your video.
 
 ### Video · give the image a story
 
-<a href="assets/studio-video.png"><img src="assets/studio-video.png" alt="Video workspace with a three-clip lighthouse scene" width="100%"></a>
+<a href="assets/studio-video.jpg"><img src="assets/studio-video.jpg" alt="Video workspace with a three-clip lighthouse scene" width="100%"></a>
 
 Let AI suggest a subject from your image, plan actions and sound, then generate a video.
 
 ### Give your scene a rhythm
 
-<a href="assets/studio-timeline.png"><img src="assets/studio-timeline.png" alt="Three-clip timeline with framing, movement and sound" width="100%"></a>
+<a href="assets/studio-timeline.jpg"><img src="assets/studio-timeline.jpg" alt="Three-clip timeline with framing, movement and sound" width="100%"></a>
 
 **Three clips, one story:** approach the lighthouse, pause by the cliffs and look toward the horizon. Each card shows timing, framing, movement and audio. Let AI draft the timeline, then edit individual steps.
 
